@@ -4,7 +4,9 @@ class Zoho::Error < StandardError
   def initialize(code, message)
     @error_code = code
     @error_message = message
-    raise self, "Error #{@error_code}: #{@error_message}"
+    unless code == 'Record(s) added successfully'
+      raise self, "Error #{@error_code}: #{@error_message}"
+    end
   end
 
 

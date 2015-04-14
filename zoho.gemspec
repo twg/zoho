@@ -22,7 +22,4 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rake"
 
   spec.add_dependency 'ox', "2.1.8"
-  spec.add_dependency "httmultiparty"
-  spec.add_dependency "roxml"
-  spec.add_dependency "multipart-post"
 end

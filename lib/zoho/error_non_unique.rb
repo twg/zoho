@@ -1,0 +1,2 @@
+class ZohoErrorNonUnique < StandardError
+end

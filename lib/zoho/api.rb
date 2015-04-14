@@ -8,10 +8,19 @@ class Zoho::Api
       xml = build_xml(module_name, attrs)
       result = post(module_name, 'insertRecords', xml)
 
+      
+      # TODO: Move into own method
       parsed_result = Ox.parse(result)
       error_code = parsed_result.root.nodes[0].nodes[0].text
       error_message = parsed_result.root.nodes[0].nodes[1].text
-      Zoho::Error.new(error_code, error_message)
+      
+      unless error_code == 'Record(s) added successfully'
+        if error_code == 'Error Record(s) already exists'
+          raise Zoho::ErrorNonUnique
+        elsif 
+          Zoho::Error.new(error_code, error_message)
+        end
+      end
       
       return result
     end

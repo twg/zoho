@@ -6,14 +6,34 @@ class Zoho::Api
 
     def insert_records(module_name, attrs)
       xml = build_xml(module_name, attrs)
-      result = post(module_name, 'insertRecords', xml)
+      
+      params = {
+        'newFormat' => '1',
+        'xmlData'   => xml,
+        'duplicateCheck' => 1
+      }
+
+      result = post(module_name, 'insertRecords', params)
       parse_result(result)
       return result
     end
 
     def update_records(module_name, attrs)
       xml = build_xml(module_name, attrs)
-      result = post(module_name, 'updateRecords', xml, attrs['zoho_id'].to_s)
+
+      params = {
+        'newFormat' => '1',
+        'xmlData'   => xml,
+        'id'        => attrs['zoho_id'].to_s
+      }
+
+      result = post(module_name, 'updateRecords', params)
+      parse_result(result)
+      return result
+    end
+
+    def delete_records(module_name, id)
+      result = post(module_name, 'deleteRecords', {'id' => id.to_s})
       parse_result(result)
       return result
     end
@@ -40,18 +60,13 @@ class Zoho::Api
       "https://crm.zoho.com/crm/private/xml/#{module_name}/#{api_call}"
     end
 
-    def post(module_name, api_call, xml_data, id = nil)
+    def post(module_name, api_call, options = {})
       url = URI(create_url(module_name, api_call))
       
       params = {
-        'authtoken' => Zoho.configuration.api_key, 
-        'scope' => 'crmapi', 
-        'newFormat' => '1',
-        'xmlData' => xml_data,
-        'duplicateCheck' => 1 
-      }
-
-      params['id'] = id if id.present?
+        'authtoken' => Zoho.configuration.api_key,
+        'scope' => 'crmapi'
+      }.merge!(options)
       
       response = Net::HTTP.post_form(url, params)
       return response.body

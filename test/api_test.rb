@@ -1,6 +1,11 @@
 require File.expand_path('../helper', __FILE__)
 
 class ApiTest < Minitest::Test
+  #TODO
+  # add test for invalid inserts
+  # add test for invalid updates
+  # add test for invalid deletes
+
 
   def base_url
     "https://crm.zoho.com/crm/private/xml"
@@ -26,7 +31,28 @@ class ApiTest < Minitest::Test
     VCR.use_cassette('insert_records') do
       response = Zoho::Api.insert_records('Leads', valid_insert_params)
       parsed_response = Zoho::Api.parse_result(response)
-      assert_equal parsed_response , true
+      assert_equal parsed_response, true
+    end
+  end
+
+  def test_update_records
+    VCR.use_cassette('update_records') do
+      response = Zoho::Api.update_records('Leads', {'zoho_id' => 1465372000000086061, 'email' => 'organicslive@twg.ca'})
+      response_message = Ox.parse(response).root.nodes[0].nodes[0].text
+      parsed_response = Zoho::Api.parse_result(response)
+      assert_equal parsed_response, true
+      assert_equal response_message, "Record(s) updated successfully"
+    end
+  end
+
+  def test_delete_records
+    VCR.use_cassette('delete_records') do
+      test_id = 12345
+      response = Zoho::Api.delete_records('Leads', test_id)
+      response_message = Ox.parse(response).root.nodes[0].nodes[1].text
+      parsed_response = Zoho::Api.parse_result(response)
+      assert_equal parsed_response, true
+      assert_equal response_message, "Record Id(s) : #{test_id},Record(s) deleted successfully"
     end
   end
 
@@ -47,7 +73,7 @@ class ApiTest < Minitest::Test
     xml_data = Zoho::Api.build_xml('Leads', valid_insert_params)
 
     VCR.use_cassette('insert_records') do
-      response = Zoho::Api.post('Leads', 'insertRecords', xml_data)
+      response = Zoho::Api.post('Leads', 'insertRecords', {'xmlData' => xml_data})
       assert_equal response.class, String
     end
   end

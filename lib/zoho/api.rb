@@ -14,6 +14,7 @@ class Zoho::Api
     def update_records(module_name, attrs)
       xml = build_xml(module_name, attrs)
       result = post(module_name, 'updateRecords', xml, attrs['zoho_id'].to_s)
+      parse_result(result)
       return result
     end
 
@@ -67,6 +68,7 @@ class Zoho::Api
       elsif code == 'Record(s) already exists'
         raise Zoho::ErrorNonUnique, "#{code}"
       else
+        #TODO: if successful return Zoho ID
         return true
       end      
     end

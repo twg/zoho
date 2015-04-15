@@ -82,8 +82,9 @@ class Zoho::Api
         raise Zoho::Error, "Error #{code}: #{message}"
       elsif code == 'Record(s) already exists'
         raise Zoho::ErrorNonUnique, "#{code}"
+      elsif parsed_result.root.nodes[0].nodes[1].value == 'recorddetail'
+        return {'zoho_id' => parsed_result.root.nodes[0].nodes[1].nodes[0].text }
       else
-        #TODO: if successful return Zoho ID
         return true
       end      
     end

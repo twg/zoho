@@ -25,8 +25,10 @@ class ApiTest < Minitest::Test
   def test_insert_records
     VCR.use_cassette('insert_records') do
       response = Zoho::Api.insert_records('Leads', valid_insert_params)
-      parsed_response = Zoho::Api.parse_result(response)
-      assert_equal parsed_response, true
+      parsed_response = Zoho::Api.parse_result(response) 
+      
+      assert_equal parsed_response.class, Hash
+      assert parsed_response.has_key?('zoho_id')
     end
   end
 
@@ -55,7 +57,9 @@ class ApiTest < Minitest::Test
       response = Zoho::Api.update_records('Leads', {'zoho_id' => 1465372000000086061, 'email' => 'organicslive@twg.ca'})
       response_message = Ox.parse(response).root.nodes[0].nodes[0].text
       parsed_response = Zoho::Api.parse_result(response)
-      assert_equal parsed_response, true
+      
+      assert_equal parsed_response.class, Hash
+      assert parsed_response.has_key?('zoho_id')
       assert_equal response_message, "Record(s) updated successfully"
     end
   end
@@ -76,6 +80,7 @@ class ApiTest < Minitest::Test
       response = Zoho::Api.delete_records('Leads', test_id)
       response_message = Ox.parse(response).root.nodes[0].nodes[1].text
       parsed_response = Zoho::Api.parse_result(response)
+      
       assert_equal parsed_response, true
       assert_equal response_message, "Record Id(s) : #{test_id},Record(s) deleted successfully"
     end
@@ -116,7 +121,9 @@ class ApiTest < Minitest::Test
   def test_parse_result_with_no_errors
     path = File.expand_path(File.dirname(__FILE__)) + "/fixtures/insert_success.xml"
     result = Zoho::Api.parse_result(File.read(path))
-    assert_equal result, true
+    
+    assert_equal result.class, Hash
+    assert result.has_key?('zoho_id')
   end
 
   def test_parse_result_with_error

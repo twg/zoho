@@ -13,8 +13,21 @@ class ApiTest < Minitest::Test
   def empty_xml
     "\n<Leads>\n  <row no=\"1\"/>\n</Leads>\n"
   end
+
+  def valid_insert_params
+    {
+      'email'       => 'organics_test@organics.com',
+      'company'     => 'Organics Live',
+      'last name'   => 'Owner'
+    }
+  end
   
   def test_insert_records
+    VCR.use_cassette('insert_records') do
+      response = Zoho::Api.insert_records('Leads', valid_insert_params)
+      parsed_response = Zoho::Api.parse_result(response)
+      assert_equal parsed_response , true
+    end
   end
 
   def test_build_xml
@@ -31,12 +44,7 @@ class ApiTest < Minitest::Test
   end
 
   def test_post
-    data = {
-      'email'       => 'organics_test@organics.com',
-      'company'     => 'Organics Live',
-      'last name'   => 'Owner'
-    }
-    xml_data = Zoho::Api.build_xml('Leads', data)
+    xml_data = Zoho::Api.build_xml('Leads', valid_insert_params)
 
     VCR.use_cassette('insert_records') do
       response = Zoho::Api.post('Leads', 'insertRecords', xml_data)

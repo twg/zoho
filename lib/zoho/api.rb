@@ -11,6 +11,12 @@ class Zoho::Api
       return result
     end
 
+    def update_records(module_name, attrs)
+      xml = build_xml(module_name, attrs)
+      result = post(module_name, 'updateRecords', xml, attrs['zoho_id'].to_s)
+      return result
+    end
+
     def build_xml(module_name, attrs)
       doc = Ox::Document.new()
       module_element = Ox::Element.new(module_name)
@@ -33,15 +39,20 @@ class Zoho::Api
       "https://crm.zoho.com/crm/private/xml/#{module_name}/#{api_call}"
     end
 
-    def post(module_name, api_call, xml_data)
+    def post(module_name, api_call, xml_data, id = nil)
       url = URI(create_url(module_name, api_call))
-      response = Net::HTTP.post_form(url, 
+      
+      params = {
         'authtoken' => Zoho.configuration.api_key, 
         'scope' => 'crmapi', 
-        'newFormat' => '1', 
+        'newFormat' => '1',
         'xmlData' => xml_data,
-        'duplicateCheck' => 1
-      )
+        'duplicateCheck' => 1 
+      }
+
+      params['id'] = id if id.present?
+      
+      response = Net::HTTP.post_form(url, params)
       return response.body
     end
 

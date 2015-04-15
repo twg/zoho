@@ -1,12 +1,7 @@
 require File.expand_path('../helper', __FILE__)
 
 class ApiTest < Minitest::Test
-  #TODO
-  # add test for invalid inserts
-  # add test for invalid updates
-  # add test for invalid deletes
-
-
+  
   def base_url
     "https://crm.zoho.com/crm/private/xml"
   end
@@ -35,6 +30,26 @@ class ApiTest < Minitest::Test
     end
   end
 
+  def test_insert_records_invalid
+    error = assert_raises Zoho::Error do
+      VCR.use_cassette('insert_record_invalid') do
+        Zoho::Api.insert_records('Leads', {})  
+      end
+    end
+    
+    assert_equal error.message, "Error 4401: Unable to populate data, please check if mandatory value is entered correctly."
+  end
+
+  def test_insert_records_duplicate
+    error = assert_raises Zoho::ErrorNonUnique do
+      VCR.use_cassette('insert_record_duplicate') do
+        Zoho::Api.insert_records('Leads', valid_insert_params)
+      end
+    end
+
+    assert_equal error.message, "Record(s) already exists"
+  end
+
   def test_update_records
     VCR.use_cassette('update_records') do
       response = Zoho::Api.update_records('Leads', {'zoho_id' => 1465372000000086061, 'email' => 'organicslive@twg.ca'})
@@ -43,6 +58,16 @@ class ApiTest < Minitest::Test
       assert_equal parsed_response, true
       assert_equal response_message, "Record(s) updated successfully"
     end
+  end
+
+  def test_update_records_invalid
+    error = assert_raises Zoho::Error do
+      VCR.use_cassette('update_records_invalid') do
+        Zoho::Api.update_records('Leads', {'zoho_id' => 'bogus', 'email' => 'test@email.com'}) 
+      end
+    end
+
+    assert_equal error.message, "Error 4600: Unable to process your request. Please verify if the name and value is appropriate for the \"id\" parameter."
   end
 
   def test_delete_records
@@ -54,6 +79,16 @@ class ApiTest < Minitest::Test
       assert_equal parsed_response, true
       assert_equal response_message, "Record Id(s) : #{test_id},Record(s) deleted successfully"
     end
+  end
+
+  def test_delete_records_invalid
+    error = assert_raises Zoho::Error do
+      VCR.use_cassette('delete_records_invalid') do
+        Zoho::Api.delete_records('Leads', 'bogus123')
+      end
+    end
+
+    assert_equal error.message, "Error 4600: Unable to process your request. Please verify if the name and value is appropriate for the \"id\" parameter."
   end
 
   def test_build_xml
@@ -86,16 +121,20 @@ class ApiTest < Minitest::Test
 
   def test_parse_result_with_error
     path = File.expand_path(File.dirname(__FILE__)) + "/fixtures/insert_error.xml"
-    assert_raises Zoho::Error do
+    error = assert_raises Zoho::Error do
       Zoho::Api.parse_result(File.read(path))
     end
+
+    assert_equal error.message, "Error 4401: Unable to populate data, please check if mandatory value is entered correctly."
   end
 
   def test_parse_result_with_non_unique_error
     path = File.expand_path(File.dirname(__FILE__)) + "/fixtures/insert_duplicate.xml"
-    assert_raises Zoho::ErrorNonUnique do
+    error = assert_raises Zoho::ErrorNonUnique do
       Zoho::Api.parse_result(File.read(path))
     end
+
+    assert_equal error.message, "Record(s) already exists"
   end
 
 end

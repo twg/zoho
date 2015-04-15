@@ -1,2 +1,2 @@
-class ZohoErrorNonUnique < StandardError
+class Zoho::ErrorNonUnique < StandardError
 end

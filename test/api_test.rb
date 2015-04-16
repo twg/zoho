@@ -25,10 +25,9 @@ describe "insert_records" do
   it "inserts records with valid data" do
     VCR.use_cassette('insert_records') do
       response = Zoho::Api.insert_records('Leads', valid_insert_params)
-      parsed_response = Zoho::Api.parse_result(response) 
-      
-      assert_equal parsed_response.class, Hash
-      assert parsed_response.has_key?('zoho_id')
+
+      assert_equal response.class, Hash
+      assert response.has_key?('zoho_id')
     end
   end
 

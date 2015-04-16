@@ -17,7 +17,7 @@ class Zoho::Api
       }
 
       result = post(module_name, 'insertRecords', params)
-      parse_result(result)
+      result = parse_result(result)
       return result
     end
 

@@ -1,5 +1,6 @@
 # Zoho
 [![Coverage Status](https://coveralls.io/repos/twg/zoho/badge.svg?branch=dexter)](https://coveralls.io/r/twg/zoho?branch=master)
+[![Build Status](https://travis-ci.org/twg/zoho.svg?branch=master)](https://travis-ci.org/twg/zoho)
 
 TODO: Write a gem description
 

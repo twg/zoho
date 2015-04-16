@@ -1,4 +1,5 @@
 # Zoho
+[![Coverage Status](https://coveralls.io/repos/twg/zoho/badge.svg?branch=dexter)](https://coveralls.io/r/twg/zoho?branch=dexter)
 
 TODO: Write a gem description
 

@@ -1,5 +1,8 @@
 require 'ox'
 
+class Zoho::Error < StandardError; end
+class Zoho::ErrorNonUnique < StandardError; end
+
 class Zoho::Api
 
   class << self

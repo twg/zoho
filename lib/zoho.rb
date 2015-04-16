@@ -4,8 +4,6 @@ require 'net/https'
 require "zoho/version"
 require "zoho/engine" if defined?(Rails)
 require "zoho/api"
-require "zoho/error"
-require "zoho/error_non_unique"
 require "zoho/configuration"
 
 module Zoho

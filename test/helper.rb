@@ -4,7 +4,7 @@ require 'fileutils'
 require 'vcr'
 require 'coveralls'
 
-Coveralls.wear! 'rails'
+Coveralls.wear!
 
 $LOAD_PATH.unshift(File.dirname(__FILE__))
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))

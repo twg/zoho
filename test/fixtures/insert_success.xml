@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<response uri="/crm/private/xml/Leads/insertRecords">
+  <result>
+    <message>Record(s) added successfully</message>
+    <recorddetail>
+      <FL val="Id">1465372000000086057</FL>
+      <FL val="Created Time">2015-04-15 07:39:49</FL>
+      <FL val="Modified Time">2015-04-15 07:39:49</FL>
+      <FL val="Created By"><![CDATA[Dexter Heng]]></FL>
+      <FL val="Modified By"><![CDATA[Dexter Heng]]></FL>
+    </recorddetail>
+  </result>
+</response>

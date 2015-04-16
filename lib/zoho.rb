@@ -1,5 +1,9 @@
+require 'net/http'
+require 'net/https'
+
 require "zoho/version"
 require "zoho/engine" if defined?(Rails)
+require "zoho/api"
 require "zoho/configuration"
 
 module Zoho

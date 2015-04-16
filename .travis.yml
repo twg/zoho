@@ -3,6 +3,7 @@ cache: bundler
 
 rvm:
   - 2.0.0
+  - 2.1.2
 
 script: 'bundle exec rake'
 
@@ -10,5 +11,6 @@ notifications:
   email:
     recipients:
       - jack@twg.ca
+      - dexter@twg.ca
     on_failure: change
     on_success: never

@@ -10,10 +10,3 @@ Rake::TestTask.new(:test) do |test|
 end
 
 task :default => :test
-
-task :coverage do
-  require 'simplecov'
-  SimpleCov.start
-  Rake::Task['test'].execute
-end
-

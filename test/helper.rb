@@ -1,10 +1,12 @@
 require 'rubygems'
-require 'minitest/autorun'
-require 'fileutils'
-require 'vcr'
 require 'coveralls'
 
 Coveralls.wear!
+
+require 'minitest/autorun'
+require 'fileutils'
+require 'vcr'
+
 
 $LOAD_PATH.unshift(File.dirname(__FILE__))
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))

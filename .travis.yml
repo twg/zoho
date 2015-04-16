@@ -11,5 +11,6 @@ notifications:
   email:
     recipients:
       - jack@twg.ca
+      - dexter@twg.ca
     on_failure: change
     on_success: never

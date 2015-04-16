@@ -7,5 +7,5 @@ group :test do
   gem 'rails'
   gem 'vcr'
   gem 'webmock'
-  gem 'coveralls'
+  gem 'coveralls', :require => false
 end

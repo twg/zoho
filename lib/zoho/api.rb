@@ -6,6 +6,22 @@ class Zoho::ErrorNonUnique < StandardError; end
 class Zoho::Api
 
   class << self
+
+    def find_zoho_user(lastname)
+      url = URI(zoho_user_url)
+
+      params = {
+        'authtoken' => Zoho.configuration.api_key,
+        'scope' => 'crmapi',
+        'type' => 'AllUsers',
+        'searchColumn' => 'name',
+        'searchValue' => lastname
+      }
+
+      url.query = URI.encode_www_form(params)
+      response = Net::HTTP.get_response(url)
+      return JSON.parse(response.body)
+    end
     
     def get_search_records(module_name, search_column, search_value)
       url = URI(search_url(module_name))
@@ -66,7 +82,7 @@ class Zoho::Api
       
       attrs.each_pair do |key, value|
         element = Ox::Element.new('FL')
-        element[:val] = key.split.map(&:capitalize).join(' ')
+        element[:val] = key
         element << value.to_s
         row << element
       end
@@ -81,7 +97,11 @@ class Zoho::Api
     end
 
     def search_url(module_name)
-      "https://crm.zoho.com/crm/private/json/#{module_name}/getSearchRecordsByPDC"
+      return "https://crm.zoho.com/crm/private/json/#{module_name}/getSearchRecordsByPDC"
+    end
+
+    def zoho_user_url
+      return "https://crm.zoho.com/crm/private/json/Users/getUsers"
     end
 
 

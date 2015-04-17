@@ -6,6 +6,23 @@ class Zoho::ErrorNonUnique < StandardError; end
 class Zoho::Api
 
   class << self
+    
+    def get_search_records(module_name, search_column, search_value)
+      url = URI(search_url(module_name))
+
+      params = {
+        'authtoken' => Zoho.configuration.api_key,
+        'scope' => 'crmapi',
+        'newFormat' => '1',
+        'searchColumn' => search_column,
+        'searchValue' => search_value
+      }
+
+      url.query = URI.encode_www_form(params)
+
+      response = Net::HTTP.get_response(url)
+      return JSON.parse(response.body)
+    end
 
     def insert_records(module_name, attrs)
       xml = build_xml(module_name, attrs)
@@ -62,6 +79,11 @@ class Zoho::Api
     def create_url(module_name, api_call)
       "https://crm.zoho.com/crm/private/xml/#{module_name}/#{api_call}"
     end
+
+    def search_url(module_name)
+      "https://crm.zoho.com/crm/private/json/#{module_name}/getSearchRecordsByPDC"
+    end
+
 
     def post(module_name, api_call, options = {})
       url = URI(create_url(module_name, api_call))

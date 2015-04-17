@@ -6,36 +6,15 @@ class Zoho::ErrorNonUnique < StandardError; end
 class Zoho::Api
 
   class << self
-
-    def find_zoho_user(lastname)
-      url = URI(zoho_user_url)
-
-      params = {
-        'authtoken' => Zoho.configuration.api_key,
-        'scope' => 'crmapi',
-        'type' => 'AllUsers',
-        'searchColumn' => 'name',
-        'searchValue' => lastname
-      }
-
-      url.query = URI.encode_www_form(params)
-      response = Net::HTTP.get_response(url)
-      return JSON.parse(response.body)
-    end
-    
-    def get_search_records(module_name, search_column, search_value)
-      url = URI(search_url(module_name))
+    def get_record(module_name, api_call, options = {})
+      url = URI(zoho_find_by_url(module_name, api_call))
 
       params = {
         'authtoken' => Zoho.configuration.api_key,
         'scope' => 'crmapi',
-        'newFormat' => '1',
-        'searchColumn' => search_column,
-        'searchValue' => search_value
-      }
+      }.merge!(options)
 
       url.query = URI.encode_www_form(params)
-
       response = Net::HTTP.get_response(url)
       return JSON.parse(response.body)
     end
@@ -96,12 +75,8 @@ class Zoho::Api
       "https://crm.zoho.com/crm/private/xml/#{module_name}/#{api_call}"
     end
 
-    def search_url(module_name)
-      return "https://crm.zoho.com/crm/private/json/#{module_name}/getSearchRecordsByPDC"
-    end
-
-    def zoho_user_url
-      return "https://crm.zoho.com/crm/private/json/Users/getUsers"
+    def zoho_find_by_url(module_name, api_call)
+      "https://crm.zoho.com/crm/private/json/#{module_name}/#{api_call}"
     end
 
 

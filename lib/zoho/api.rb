@@ -46,6 +46,11 @@ class Zoho::Api
 
       response = json_get_with_validation(module_name, 'searchRecords', params);
 
+      # the Zoho API returns a object if the result set has one item, but an
+      # array if it has more than one. So based on the number of records returned
+      # or the columns that have been requested to be returned, the structure
+      # of the results is different. The code below will normalize the structure
+      # to arrays either way 
       if response.key? "result"
         rows = response["result"][module_name]["row"]
         if rows.kind_of? Hash
@@ -54,9 +59,16 @@ class Zoho::Api
 
         rows.map do |row|
           deserialized = {}
-          row["FL"].each do |attr|
+
+          flSet = row["FL"]
+          if flSet.kind_of? Hash
+            flSet = [flSet]
+          end
+
+          flSet.each do |attr|
             deserialized[attr["val"]] = attr["content"]
           end 
+
           deserialized
         end
       elsif response.key?("nodata") && response["nodata"]["code"].to_i == Zoho::Error::ERROR_CODE_NO_MATCHING_RECORD

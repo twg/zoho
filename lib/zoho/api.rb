@@ -14,10 +14,6 @@ class Zoho::Error < StandardError
     @message = 'Unspecified Error'
     @message = args[:message] if args.key? :message
   end
-
-  #def to_str
-  #  "Zoho Error #{@code}: #{@message}"
-  #end
 end
 
 class Zoho::ErrorNonUnique < StandardError; end
@@ -26,8 +22,19 @@ class Zoho::Api
 
   class << self
 
-    def get_record(module_name, api_call, options = {})
-      return json_get(module_name, api_call, options)["result"]
+    def search_users(field = nil, value = nil, subset = 'AllUsers')
+      params = { 'type' => subset }
+      params['searchColumn'] = field unless field.nil?
+      params['searchValue'] = value unless value.nil?
+
+      response = json_get('Users', 'getUsers', params)
+
+      users = response["users"]["user"]
+      if users.kind_of? Hash
+        users = [users]
+      end
+
+      users
     end
 
     def search_records(module_name, criteria, options = {})
@@ -37,7 +44,7 @@ class Zoho::Api
 
       params = { 'criteria' => serialized_criteria }.merge!(options)
 
-      response = json_get(module_name, 'searchRecords', params);
+      response = json_get_with_validation(module_name, 'searchRecords', params);
 
       if response.key? "result"
         rows = response["result"][module_name]["row"]
@@ -94,7 +101,7 @@ class Zoho::Api
     end
 
     def delete_records(module_name, id)
-      response = json_get(module_name, 'deleteRecords', { 'id' => id.to_s })
+      response = json_get_with_validation(module_name, 'deleteRecords', { 'id' => id.to_s })
 
       true
     end
@@ -135,6 +142,14 @@ class Zoho::Api
         })
       end
 
+      def json_get_with_validation(module_name, api_call, options = {})
+        response = json_get(module_name, api_call, options)
+
+        check_for_json_error(response)
+
+        return response["response"]
+      end
+
       def json_get(module_name, api_call, options = {})
         url = URI(create_zoho_url('json', module_name, api_call))
 
@@ -142,11 +157,7 @@ class Zoho::Api
 
         url.query = URI.encode_www_form(params)
         http_response = Net::HTTP.get_response(url)
-        response = JSON.parse(http_response.body)
-
-        check_for_json_error(response)
-
-        return response["response"]
+        JSON.parse(http_response.body)
       end
 
       def xml_post(module_name, api_call, xml_document, options = {})

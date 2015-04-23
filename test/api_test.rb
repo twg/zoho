@@ -112,6 +112,21 @@ describe "search_records" do
   end  
 end
 
-describe "get_record" do
-end
+describe "search_users" do
+  it "retrieves a user by name" do
+    VCR.use_cassette('search_users_valid') do
+      users = Zoho::Api.search_users('name', 'blah blah')
 
+      assert_equal 1, users.count
+      assert_equal 'blah blah', users[0]["content"]
+    end
+  end
+
+  it "retrieves all users" do
+    VCR.use_cassette('get_users') do
+      users = Zoho::Api.search_users()
+
+      assert_equal 2, users.count
+    end
+  end
+end

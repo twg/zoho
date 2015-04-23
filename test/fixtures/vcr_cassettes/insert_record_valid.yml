@@ -5,7 +5,7 @@ http_interactions:
     uri: https://crm.zoho.com/crm/private/xml/Leads/insertRecords
     body:
       encoding: US-ASCII
-      string: authtoken=ccabd7ff5cb3f1ad9b0bb27a17a20626&scope=crmapi&newFormat=1&xmlData=%0A%3CLeads%3E%0A++%3Crow+no%3D%221%22%2F%3E%0A%3C%2FLeads%3E%0A&duplicateCheck=1
+      string: authtoken=ccabd7ff5cb3f1ad9b0bb27a17a20626&scope=crmapi&newFormat=1&xmlData=%0A%3CLeads%3E%0A++%3Crow+no%3D%221%22%3E%0A++++%3CFL+val%3D%22Email%22%3Eabel.n.willin%40twg.ca%3C%2FFL%3E%0A++++%3CFL+val%3D%22Company%22%3EAbel+N+Willin+Enterprises%3C%2FFL%3E%0A++++%3CFL+val%3D%22Last+Name%22%3EWillin%3C%2FFL%3E%0A++%3C%2Frow%3E%0A%3C%2FLeads%3E%0A&duplicateCheck=1
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -25,16 +25,16 @@ http_interactions:
       Server:
       - ZGS
       Date:
-      - Thu, 23 Apr 2015 14:08:32 GMT
+      - Wed, 22 Apr 2015 20:54:07 GMT
       Content-Type:
       - text/xml;charset=utf-8
       Content-Length:
-      - '234'
+      - '429'
       Connection:
       - keep-alive
       Set-Cookie:
-      - JSESSIONID=0C532E219691945A58CF765B9399A6E4; Path=/crm/
-      - crmcsr=f14b0ae1-331f-49a4-a251-e1b2bdbe9902; Path=/; Secure
+      - JSESSIONID=A9B9F11FFDD8C86C42D9F3A110BB3D78; Path=/crm/
+      - crmcsr=81c305a5-e431-4f84-8e29-1a66a5d7fcd8; Path=/; Secure
       X-Xss-Protection:
       - '1'
       Pragma:
@@ -51,7 +51,7 @@ http_interactions:
       encoding: UTF-8
       string: |
         <?xml version="1.0" encoding="UTF-8" ?>
-        <response uri="/crm/private/xml/Leads/insertRecords"><error><code>4401</code><message>Unable to populate data, please check if mandatory value is entered correctly.</message></error></response>
+        <response uri="/crm/private/xml/Leads/insertRecords"><result><message>Record(s) added successfully</message><recorddetail><FL val="Id">1465372000000094013</FL><FL val="Created Time">2015-04-22 13:54:07</FL><FL val="Modified Time">2015-04-22 13:54:07</FL><FL val="Created By"><![CDATA[Dexter Heng]]></FL><FL val="Modified By"><![CDATA[Dexter Heng]]></FL></recorddetail></result></response>
     http_version: 
-  recorded_at: Thu, 23 Apr 2015 14:08:33 GMT
+  recorded_at: Wed, 22 Apr 2015 20:54:07 GMT
 recorded_with: VCR 2.9.3

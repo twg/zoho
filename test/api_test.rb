@@ -1,93 +1,68 @@
 require File.expand_path('../helper', __FILE__)
 
-def base_url
-  "https://crm.zoho.com/crm/private/xml"
-end
-
-def sample_xml
-  "\n<Leads>\n  <row no=\"1\">\n    <FL val=\"Name\">Tester</FL>\n  </row>\n</Leads>\n"
-end
-
-def empty_xml
-  "\n<Leads>\n  <row no=\"1\"/>\n</Leads>\n"
-end
-
-def valid_insert_params
-  {
-    'email'       => 'organics_test@organics.com',
-    'company'     => 'Organics Live',
-    'last name'   => 'Owner'
-  }
-end
-
-
 describe "insert_records" do
   it "inserts records with valid data" do
-    VCR.use_cassette('insert_records') do
-      response = Zoho::Api.insert_records('Leads', valid_insert_params)
+    VCR.use_cassette('insert_record_valid', :match_requests_on => [:uri, :body]) do
+      response = Zoho::Api.insert_records('Leads', {
+        'Email'       => 'abel.n.willin@twg.ca',
+        'Company'     => 'Abel N Willin Enterprises',
+        'Last Name'   => 'Willin'
+      })
 
-      assert_equal response.class, Hash
+      assert_equal Hash, response.class
       assert response.has_key?('zoho_id')
     end
   end
 
   it "raises non unique error on duplicate insert" do
-    error = assert_raises Zoho::Error do
-      VCR.use_cassette('insert_record_invalid') do
-        Zoho::Api.insert_records('Leads', {})  
+    error = assert_raises Zoho::ErrorNonUnique do
+      VCR.use_cassette('insert_record_duplicate', :match_requests_on => [:uri, :body]) do
+        Zoho::Api.insert_records('Leads', {
+          'Email'       => 'abel.n.willin@twg.ca',
+          'Company'     => 'Abel N Willin Enterprises',
+          'Last Name'   => 'Willin'
+        });
       end
     end
-    
-    assert_equal error.message, "Error 4401: Unable to populate data, please check if mandatory value is entered correctly."
   end
 
   it "raises an error with invalid insert data" do
     error = assert_raises Zoho::Error do
-      VCR.use_cassette('insert_record_invalid') do
-        Zoho::Api.insert_records('Leads', {})  
+      VCR.use_cassette('insert_record_invalid', :match_requests_on => [:uri, :body]) do
+        Zoho::Api.insert_records('Leads', {})
       end
     end
-    
-    assert_equal error.message, "Error 4401: Unable to populate data, please check if mandatory value is entered correctly." 
+
+    assert_equal 4401, error.code
   end
 end
-
 
 describe "update_records" do
   it "updates records with valid data" do
-    VCR.use_cassette('update_records') do
-      response = Zoho::Api.update_records('Leads', {'zoho_id' => 1465372000000086061, 'email' => 'organicslive@twg.ca'})
-      response_message = Ox.parse(response).root.nodes[0].nodes[0].text
-      parsed_response = Zoho::Api.parse_result(response)
+    VCR.use_cassette('update_records_valid', :match_requests_on => [:uri, :body]) do
+      result = Zoho::Api.update_records('Leads', 1465372000000094013, { 'Email' => 'organicslive@twg.ca' })
       
-      assert_equal parsed_response.class, Hash
-      assert parsed_response.has_key?('zoho_id')
-      assert_equal response_message, "Record(s) updated successfully"
+      assert_equal true, result
     end
   end
 
-  it "raises on error with invalid update data" do
+  it "raises an error with invalid update data" do
     error = assert_raises Zoho::Error do
-      VCR.use_cassette('update_records_invalid') do
-        Zoho::Api.update_records('Leads', {'zoho_id' => 'bogus', 'email' => 'test@email.com'}) 
+      VCR.use_cassette('update_records_invalid', :match_requests_on => [:uri, :body]) do
+        Zoho::Api.update_records('Leads', 'bogus', { 'Email' => 'test@email.com'}) 
       end
     end
 
-    assert_equal error.message, "Error 4600: Unable to process your request. Please verify if the name and value is appropriate for the \"id\" parameter."
+    assert_equal 4600, error.code
   end
 end
 
-
 describe "delete_records" do
   it "deletes record with valid data" do
-    VCR.use_cassette('delete_records') do
-      test_id = 12345
-      response = Zoho::Api.delete_records('Leads', test_id)
-      response_message = Ox.parse(response).root.nodes[0].nodes[1].text
-      parsed_response = Zoho::Api.parse_result(response)
+    VCR.use_cassette('delete_records_valid') do
+      response = Zoho::Api.delete_records('Leads', 12345)
       
-      assert_equal parsed_response, true
-      assert_equal response_message, "Record Id(s) : #{test_id},Record(s) deleted successfully"
+      assert_equal true, response
     end
   end
 
@@ -98,66 +73,45 @@ describe "delete_records" do
       end
     end
 
-    assert_equal error.message, "Error 4600: Unable to process your request. Please verify if the name and value is appropriate for the \"id\" parameter."
-  end
+    assert_equal 4600, error.code
+  end  
 end
 
-
-describe "build_xml" do
-  it "builds xml data" do
-    xml_blank = Zoho::Api.build_xml('Leads', {})
-    xml = Zoho::Api.build_xml('Leads', {'name' => 'Tester'})
-
-    assert_equal xml_blank, empty_xml 
-    assert_equal xml, sample_xml
-  end
-end
-
-
-describe "create_url" do
-  it "returns Zoho post url specified by parameters" do
-    url = Zoho::Api.create_url('Leads', 'insertRecords')
-    assert_equal url, "#{base_url}/Leads/insertRecords"
-  end
-end
-
-
-describe "post" do
-  it "sends post request to Zoho" do
-    xml_data = Zoho::Api.build_xml('Leads', valid_insert_params)
-
-    VCR.use_cassette('insert_records') do
-      response = Zoho::Api.post('Leads', 'insertRecords', {'xmlData' => xml_data})
-      assert_equal response.class, String
+describe "search_records" do
+  it "finds the right record with valid search terms" do
+    VCR.use_cassette('search_records_valid') do
+      response = Zoho::Api.search_records('Leads', { 'Email' => 'abel.n.willin@twg.ca' })
+      assert_nil nil, response
     end
   end
-end
 
-
-describe "parse_result" do
-  it "parses xml data with no error" do
-    path = File.expand_path(File.dirname(__FILE__)) + "/fixtures/insert_success.xml"
-    result = Zoho::Api.parse_result(File.read(path))
+  it "returns only the parts specified" do
+    VCR.use_cassette('search_records_valid_limited') do
+      response = Zoho::Api.search_records('Leads', { 'Email' => 'abel.n.willin@twg.ca' }, { 'selectColumns' => 'Leads(Last Name)' })
     
-    assert_equal result.class, Hash
-    assert result.has_key?('zoho_id')
+      assert_equal 2, response[0].count 
+      assert_equal 'Willin', response[0]['Last Name'] 
+    end
   end
 
-  it "raises error for xml with invalid data" do
-    path = File.expand_path(File.dirname(__FILE__)) + "/fixtures/insert_error.xml"
+  it "finds nothing with bad query" do
+    VCR.use_cassette('search_records_no_records') do
+      response = Zoho::Api.search_records('Leads', { 'Email' => 'tony.stark@twg.ca' })
+      assert_equal nil, response
+    end
+  end
+
+  it "throws error with malformed query" do
     error = assert_raises Zoho::Error do
-      Zoho::Api.parse_result(File.read(path))
+      VCR.use_cassette('search_records_malformed') do
+        Zoho::Api.search_records('Leads', { 'Em|ail' => 'tony.stark@twg.ca' })
+      end
     end
 
-    assert_equal error.message, "Error 4401: Unable to populate data, please check if mandatory value is entered correctly."
-  end
-
-  it "raises non unique error for xml data of existing records" do
-    path = File.expand_path(File.dirname(__FILE__)) + "/fixtures/insert_duplicate.xml"
-    error = assert_raises Zoho::ErrorNonUnique do
-      Zoho::Api.parse_result(File.read(path))
-    end
-
-    assert_equal error.message, "Record(s) already exists"
-  end
+    assert_equal 4832, error.code
+  end  
 end
+
+describe "get_record" do
+end
+

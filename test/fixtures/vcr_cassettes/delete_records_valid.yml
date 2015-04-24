@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://crm.zoho.com/crm/private/json/Leads/deleteRecords?authtoken=ccabd7ff5cb3f1ad9b0bb27a17a20626&id=12345&scope=crmapi
+    uri: https://crm.zoho.com/crm/private/json/Leads/deleteRecords?authtoken=ccabd7ff5cb3f1ad9b0bb27a17a20626&id=1465372000000100041&scope=crmapi
     body:
       encoding: US-ASCII
       string: ''
@@ -23,16 +23,16 @@ http_interactions:
       Server:
       - ZGS
       Date:
-      - Thu, 23 Apr 2015 14:49:24 GMT
+      - Fri, 24 Apr 2015 16:38:35 GMT
       Content-Type:
       - application/jsonp;charset=utf-8
       Content-Length:
-      - '150'
+      - '164'
       Connection:
       - keep-alive
       Set-Cookie:
-      - JSESSIONID=CC5BE45074BFB73D62C2077FFA795A02; Path=/crm/
-      - crmcsr=1f766a3a-9c5a-4c8f-9eca-7e02991e7eb2; Path=/; Secure
+      - JSESSIONID=FF9629CE0BDDD5C68C3E5B9DEC2C96AF; Path=/crm/
+      - crmcsr=b23aa2cf-4299-410a-a6d5-f2fde71e9867; Path=/; Secure
       X-Xss-Protection:
       - '1'
       Pragma:
@@ -52,7 +52,7 @@ http_interactions:
     body:
       encoding: UTF-8
       string: |
-        {"response":{"result":{"message":"Record Id(s) : 12345,Record(s) deleted successfully","code":"5000"},"uri":"/crm/private/json/Leads/deleteRecords"}}
+        {"response":{"result":{"message":"Record Id(s) : 1465372000000100041,Record(s) deleted successfully","code":"5000"},"uri":"/crm/private/json/Leads/deleteRecords"}}
     http_version: 
-  recorded_at: Thu, 23 Apr 2015 14:49:26 GMT
+  recorded_at: Fri, 24 Apr 2015 16:38:35 GMT
 recorded_with: VCR 2.9.3

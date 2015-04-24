@@ -23,7 +23,7 @@ http_interactions:
       Server:
       - ZGS
       Date:
-      - Thu, 23 Apr 2015 16:58:43 GMT
+      - Fri, 24 Apr 2015 16:41:36 GMT
       Content-Type:
       - application/jsonp;charset=utf-8
       Content-Length:
@@ -31,8 +31,8 @@ http_interactions:
       Connection:
       - keep-alive
       Set-Cookie:
-      - JSESSIONID=FEF7F04F778D8BF20A5AB53972A754B4; Path=/crm/
-      - crmcsr=41898e26-e869-440e-9e4d-b35cad893d7c; Path=/; Secure
+      - JSESSIONID=25A5D3F979F16C622501141BEEEB0055; Path=/crm/
+      - crmcsr=74460408-bb15-4c5e-823a-1b775e7f0ab9; Path=/; Secure
       X-Xss-Protection:
       - '1'
       Pragma:
@@ -54,5 +54,5 @@ http_interactions:
       string: |
         {"users":{"user":[{"zip":"null","phone":"null","fax":"null","status":"active","website":"null","street":"null","state":"null","city":"null","country":"null","content":"Dexter Heng","id":"1465372000000083003","timezone":"PST8PDT","zuid":"50755502","email":"dexter@theworkinggroup.ca","role":"CEO","language":"en_US","confirm":"true","profile":"Administrator","mobile":"null"},{"zip":"null","phone":"null","fax":"null","status":"active","website":"null","street":"null","state":"null","city":"null","country":"null","content":"blah blah","id":"1465372000000084079","timezone":"PST8PDT","zuid":"null","email":"jack@twg.ca","role":"CEO","language":"en_US","confirm":"false","profile":"Administrator","mobile":"null"}]}}
     http_version: 
-  recorded_at: Thu, 23 Apr 2015 16:58:44 GMT
+  recorded_at: Fri, 24 Apr 2015 16:41:36 GMT
 recorded_with: VCR 2.9.3

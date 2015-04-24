@@ -25,7 +25,7 @@ http_interactions:
       Server:
       - ZGS
       Date:
-      - Thu, 23 Apr 2015 14:45:45 GMT
+      - Fri, 24 Apr 2015 16:38:33 GMT
       Content-Type:
       - text/xml;charset=utf-8
       Content-Length:
@@ -33,8 +33,8 @@ http_interactions:
       Connection:
       - keep-alive
       Set-Cookie:
-      - JSESSIONID=74514F356B4C82CFD0721BFC47B4600D; Path=/crm/
-      - crmcsr=a1ecb5f9-f7bb-467c-beba-e9be9c187b46; Path=/; Secure
+      - JSESSIONID=19C9BC22308CF7D13C6780B196C5F393; Path=/crm/
+      - crmcsr=1c1c3c83-eddd-423a-9e46-95db7981f217; Path=/; Secure
       X-Xss-Protection:
       - '1'
       Strict-Transport-Security:
@@ -45,5 +45,5 @@ http_interactions:
         <?xml version="1.0" encoding="UTF-8" ?>
         <response uri="/crm/private/xml/Leads/updateRecords"><error><code>4600</code><message>Unable to process your request. Please verify if the name and value is appropriate for the "id" parameter.</message></error></response>
     http_version: 
-  recorded_at: Thu, 23 Apr 2015 14:45:47 GMT
+  recorded_at: Fri, 24 Apr 2015 16:38:33 GMT
 recorded_with: VCR 2.9.3

@@ -25,7 +25,7 @@ http_interactions:
       Server:
       - ZGS
       Date:
-      - Thu, 23 Apr 2015 14:08:32 GMT
+      - Fri, 24 Apr 2015 16:38:31 GMT
       Content-Type:
       - text/xml;charset=utf-8
       Content-Length:
@@ -33,8 +33,8 @@ http_interactions:
       Connection:
       - keep-alive
       Set-Cookie:
-      - JSESSIONID=0C532E219691945A58CF765B9399A6E4; Path=/crm/
-      - crmcsr=f14b0ae1-331f-49a4-a251-e1b2bdbe9902; Path=/; Secure
+      - JSESSIONID=797B1257E16868A1037C23DE237C4BAE; Path=/crm/
+      - crmcsr=a5ca8af4-7776-40ca-9b33-be13bf2fad8f; Path=/; Secure
       X-Xss-Protection:
       - '1'
       Pragma:
@@ -53,5 +53,5 @@ http_interactions:
         <?xml version="1.0" encoding="UTF-8" ?>
         <response uri="/crm/private/xml/Leads/insertRecords"><error><code>4401</code><message>Unable to populate data, please check if mandatory value is entered correctly.</message></error></response>
     http_version: 
-  recorded_at: Thu, 23 Apr 2015 14:08:33 GMT
+  recorded_at: Fri, 24 Apr 2015 16:38:31 GMT
 recorded_with: VCR 2.9.3

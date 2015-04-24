@@ -1,29 +1,21 @@
 require 'ox'
 require 'logger'
 
-class Zoho::Error < StandardError
-  ERROR_CODE_NO_MATCHING_RECORD = 4422
-
-  attr_accessor :code
-  attr_accessor :message
-
-  def initialize(args = {})
-    @code = '<Unknown>'
-    @code = args[:code] if args.key? :code
-
-    @message = 'Unspecified Error'
-    @message = args[:message] if args.key? :message
-  end
-end
-
-class Zoho::ErrorNonUnique < StandardError; end
-
 class Zoho::Api
+
+  USER_TYPES = {
+    :all_users => 'AllUsers',
+    :active_users => 'ActiveUsers',
+    :deactive_users => 'DeactiveUsers',
+    :admin_users => 'AdminUsers',
+    :active_confirmed_admins => 'ActiveConfirmedAdmins'
+  }
 
   class << self
 
-    def search_users(field = nil, value = nil, subset = 'AllUsers')
-      params = { 'type' => subset }
+    # get_users('email', 'jack@twg.ca', :active_users)
+    def get_users(field = nil, value = nil, subset = :all_users)
+      params = { 'type' => USER_TYPES[subset] }
       params['searchColumn'] = field unless field.nil?
       params['searchValue'] = value unless value.nil?
 
@@ -58,18 +50,18 @@ class Zoho::Api
         end
 
         rows.map do |row|
-          deserialized = {}
+          deserialized_structure = {}
 
-          flSet = row["FL"]
-          if flSet.kind_of? Hash
-            flSet = [flSet]
+          fl_set = row["FL"]
+          if fl_set.kind_of? Hash
+            fl_set = [fl_set]
           end
 
-          flSet.each do |attr|
-            deserialized[attr["val"]] = attr["content"]
+          fl_set.each do |attr|
+            deserialized_structure[attr["val"]] = attr["content"]
           end 
 
-          deserialized
+          deserialized_structure
         end
       elsif response.key?("nodata") && response["nodata"]["code"].to_i == Zoho::Error::ERROR_CODE_NO_MATCHING_RECORD
         nil
@@ -118,12 +110,48 @@ class Zoho::Api
       true
     end
 
+    def convert_lead(lead_id)
+      doc = Ox::Document.new()
+      
+      module_element = Ox::Element.new('Potentials')
+      doc << module_element
+
+      row = Ox::Element.new('row')
+      row[:no] = 1
+      module_element << row
+      
+      element = Ox::Element.new('option')
+      element[:val] = 'createPotential'
+      element << 'false'
+      row << element
+
+      params = {
+        'leadId' => lead_id,
+        'xmlData' => Ox::dump(doc)
+      }
+
+      response = json_get('Leads', 'convertLead', params)
+
+      if response.key? "success"
+        # our current needs are only interested in the contact side of the 
+        # lead conversion, but zoho converts to both contact and accounts:
+        # see https://www.zoho.com/crm/help/leads/convert-leads.html
+        # for some good documentation on the subject matter
+        { 'zoho_id' => response["success"]["Contact"]["content"] }
+      else
+        check_for_json_error response
+
+        # not sure what the problem is if it gets this far
+        raise Zoho::Error
+      end
+    end
+
     private
-      def required_api_parameters
+      def required_api_parameters 
         {
           'authtoken' => Zoho.configuration.api_key,
           'scope' => 'crmapi'
-        }        
+        }
       end
 
       def create_zoho_url(format, module_name, api_call)
@@ -162,20 +190,33 @@ class Zoho::Api
         return response["response"]
       end
 
+      # in the Zoho API, all methods that query Zoho go through
+      # a HTTP GET request that returns JSON data.
+      # the JSON fragment that is returned is in a different structure 
+      # for each API call
       def json_get(module_name, api_call, options = {})
         url = URI(create_zoho_url('json', module_name, api_call))
 
-        params = required_api_parameters.merge!(options)
+        params = required_api_parameters.merge(options)
 
         url.query = URI.encode_www_form(params)
         http_response = Net::HTTP.get_response(url)
         JSON.parse(http_response.body)
       end
 
+      # in the Zoho API, all methods that insert/update the data
+      # go through a HTTP POST request that accepts an XML Fragment
+      # and returns an XML fragment.
+      # So far, the XML Fragment that is returned is a standard format
+      # so we can process all of the responses through this method
+      # Additionally, note that any changes to the system are 
+      # asynchronous and can take up to 2 minutes to be available
+      # to queries (empirically, the actual amount seems to fluctuate quite
+      # a bit)
       def xml_post(module_name, api_call, xml_document, options = {})
         url = URI(create_zoho_url('xml', module_name, api_call))
         
-        params = required_api_parameters.clone.merge!({
+        params = required_api_parameters.merge({
           'newFormat' => '1',
           'xmlData'   => xml_document
         }).merge!(options)

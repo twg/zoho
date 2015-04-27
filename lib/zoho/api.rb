@@ -71,9 +71,9 @@ class Zoho::Api
       end
     end
 
-    def insert_records(module_name, attrs)
+    def insert_records(module_name, attrs, options = {})
       xml = build_xml(module_name, attrs)
-      params = { 'duplicateCheck' => 1 }
+      params = { 'duplicateCheck' => 1 }.merge!(options)
 
       result = xml_post(module_name, 'insertRecords', xml, params)
 
@@ -95,22 +95,24 @@ class Zoho::Api
       { 'zoho_id' => zoho_id[0].text }
     end
 
-    def update_records(module_name, id, attrs)
+    def update_records(module_name, id, attrs, options = {})
       xml = build_xml(module_name, attrs)
-      params = { 'id' => id.to_s }
+      params = { 'id' => id.to_s }.merge!(options)
 
       xml_post(module_name, 'updateRecords', xml, params)
     
       true
     end
 
-    def delete_records(module_name, id)
-      response = json_get_with_validation(module_name, 'deleteRecords', { 'id' => id.to_s })
+    def delete_records(module_name, id, options = {})
+      params = { 'id' => id.to_s }.merge!(options)
+
+      response = json_get_with_validation(module_name, 'deleteRecords', params)
 
       true
     end
 
-    def convert_lead(lead_id)
+    def convert_lead(lead_id, options = {})
       doc = Ox::Document.new()
       
       module_element = Ox::Element.new('Potentials')
@@ -129,6 +131,7 @@ class Zoho::Api
         'leadId' => lead_id,
         'xmlData' => Ox::dump(doc)
       }
+      params.merge!(options)
 
       response = json_get('Leads', 'convertLead', params)
 

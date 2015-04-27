@@ -142,12 +142,22 @@ describe "basic api tests" do
       end
     end
 
-    it "returns only the parts specified" do
+    it "returns only the single field specified" do
       VCR.use_cassette('search_records_valid_limited') do
         response = Zoho::Api.search_records('Leads', { 'Email' => 'charles.xavier@twg.ca' }, { 'selectColumns' => 'Leads(Last Name)' })
       
         assert_equal 2, response[0].count 
         assert_equal 'Xavier', response[0]['Last Name'] 
+      end
+    end
+
+    it "returns only the fields specified" do
+      VCR.use_cassette('search_records_valid_limited_2') do
+        response = Zoho::Api.search_records('Leads', { 'Email' => 'charles.xavier@twg.ca' }, { 'selectColumns' => 'Leads(Last Name,Email)' })
+      
+        assert_equal 3, response[0].count 
+        assert_equal 'Xavier', response[0]['Last Name'] 
+        assert_equal 'charles.xavier@twg.ca', response[0]['Email'] 
       end
     end
 

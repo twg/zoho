@@ -1,0 +1,58 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://crm.zoho.com/crm/private/json/Leads/searchRecords?authtoken=ccabd7ff5cb3f1ad9b0bb27a17a20626&criteria=((Email:charles.xavier@twg.ca))&scope=crmapi&selectColumns=Leads(Last%20Name,Email)
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - crm.zoho.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - ZGS
+      Date:
+      - Mon, 27 Apr 2015 14:45:34 GMT
+      Content-Type:
+      - application/jsonp;charset=utf-8
+      Content-Length:
+      - '244'
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - JSESSIONID=0AFD6804B8121184D25FE2EDF0C16852; Path=/crm/
+      - crmcsr=b08c130c-18bf-4504-9d7b-58157bd18552; Path=/; Secure
+      X-Xss-Protection:
+      - '1'
+      Pragma:
+      - no-cache
+      Cache-Control:
+      - no-store, no-cache, must-revalidate
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      X-Frame-Options:
+      - DENY
+      X-Download-Options:
+      - noopen
+      X-Content-Type-Options:
+      - nosniff
+      Strict-Transport-Security:
+      - max-age=15768000
+    body:
+      encoding: UTF-8
+      string: |
+        {"response":{"result":{"Leads":{"row":{"no":"1","FL":[{"content":"1465372000000100061","val":"LEADID"},{"content":"Xavier","val":"Last Name"},{"content":"charles.xavier@twg.ca","val":"Email"}]}}},"uri":"/crm/private/json/Leads/searchRecords"}}
+    http_version: 
+  recorded_at: Mon, 27 Apr 2015 14:45:29 GMT
+recorded_with: VCR 2.9.3

@@ -52,12 +52,12 @@ class Zoho::Api
         rows.map do |row|
           deserialized_structure = {}
 
-          fl_set = row["FL"]
-          if fl_set.kind_of? Hash
-            fl_set = [fl_set]
+          fields = row["FL"]
+          if fields.kind_of? Hash
+            fields = [fields]
           end
 
-          fl_set.each do |attr|
+          fields.each do |attr|
             deserialized_structure[attr["val"]] = attr["content"]
           end 
 

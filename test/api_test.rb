@@ -1,57 +1,76 @@
 require File.expand_path('../helper', __FILE__)
 
 describe "basic api tests" do
-  @@update_lead_seed_id = nil
-  @@delete_lead_seed_id = nil
-  @@convert_lead_seed_id = nil
-
   # this is annoying because MiniTest doesn't support a mechanism to 
   # construct seed data. the method that is recommended runs before the 
   # test system has been setup, so we have to manually setup the API Key 
-  # here
-  Zoho.configure do |config|
-    config.api_key = 'ccabd7ff5cb3f1ad9b0bb27a17a20626'
+  # here (https://github.com/seattlerb/minitest/issues/61)
+  def self.seed_data
+    Zoho.configure do |config|
+      config.api_key = 'ccabd7ff5cb3f1ad9b0bb27a17a20626'
+    end
+
+    VCR.use_cassette('seed_data', :match_requests_on => [:uri, :body]) do
+      Zoho::Api.insert_records('Leads', {
+        'Email'       => 'jubilation.lee@twg.ca',
+        'Company'     => '<undefined>',
+        'Last Name'   => 'Lee'
+      });
+
+      Zoho::Api.insert_records('Leads', {
+        'Email'       => 'charles.xavier@twg.ca',
+        'Company'     => '<undefined>',
+        'Last Name'   => 'Xavier'
+      })
+
+      r1 = Zoho::Api.insert_records('Leads', {
+        'Email'       => 'jean.grey@twg.ca',
+        'Company'     => '<undefined>',
+        'Last Name'   => 'Grey'
+      })
+      @update_lead_seed_id = r1['zoho_id']
+
+      r2 = Zoho::Api.insert_records('Leads', {
+        'Email'       => 'kevin.sydney@twg.ca',
+        'Company'     => '<undefined>',
+        'Last Name'   => 'Sydney'
+      })
+      @delete_lead_seed_id = r2['zoho_id']    
+
+      r3 = Zoho::Api.insert_records('Leads', {
+        'Email'       => 'henry.phillip.mccoy@twg.ca',
+        'Company'     => '<undefined>',
+        'Last Name'   => 'McCoy'
+      })
+      @convert_lead_seed_id = r3['zoho_id']
+
+      # when running against the live Zoho system (as opposed to VCR),
+      # you have to uncomment this line out so that the tests pass
+      # this is because the Zoho API is async and does not reflect its
+      # state immediately
+      # sleep 120
+    end
   end
 
-  VCR.use_cassette('seed_data', :match_requests_on => [:uri, :body]) do
-    Zoho::Api.insert_records('Leads', {
-      'Email'       => 'jubilation.lee@twg.ca',
-      'Company'     => '<undefined>',
-      'Last Name'   => 'Lee'
-    });
+  def self.update_lead_seed_id
+    @update_lead_seed_id ||= begin
+      seed_data
+      @update_lead_seed_id
+    end
+  end
 
-    Zoho::Api.insert_records('Leads', {
-      'Email'       => 'charles.xavier@twg.ca',
-      'Company'     => '<undefined>',
-      'Last Name'   => 'Xavier'
-    })
+  def self.delete_lead_seed_id
+    @update_lead_seed_id ||= begin
+      seed_data
+      @delete_lead_seed_id
+    end
+  end
 
-    r1 = Zoho::Api.insert_records('Leads', {
-      'Email'       => 'jean.grey@twg.ca',
-      'Company'     => '<undefined>',
-      'Last Name'   => 'Grey'
-    })
-    @@update_lead_seed_id = r1['zoho_id']
-
-    r2 = Zoho::Api.insert_records('Leads', {
-      'Email'       => 'kevin.sydney@twg.ca',
-      'Company'     => '<undefined>',
-      'Last Name'   => 'Sydney'
-    })
-    @@delete_lead_seed_id = r2['zoho_id']    
-
-    r3 = Zoho::Api.insert_records('Leads', {
-      'Email'       => 'henry.phillip.mccoy@twg.ca',
-      'Company'     => '<undefined>',
-      'Last Name'   => 'McCoy'
-    })
-    @@convert_lead_seed_id = r3['zoho_id']
-
-    # when running against the live Zoho system (as opposed to VCR),
-    # you have to uncomment this line out so that the tests pass
-    # this is because the Zoho API is async and does not reflect its
-    # state immediately
-    # sleep 120
+  def self.convert_lead_seed_id
+    @update_lead_seed_id ||= begin
+      seed_data
+      @convert_lead_seed_id
+    end
   end
 
   describe "insert_records" do
@@ -93,11 +112,8 @@ describe "basic api tests" do
 
   describe "update_records" do
     it "updates records with valid data" do
-    l = Logger.new(STDOUT)
-    l.info @@update_lead_seed_id
-          
       VCR.use_cassette('update_records_valid', :match_requests_on => [:uri, :body]) do
-        result = Zoho::Api.update_records('Leads', @@update_lead_seed_id, { 'Email' => 'jean.grey.summers@twg.ca' })
+        result = Zoho::Api.update_records('Leads', self.class.update_lead_seed_id, { 'Email' => 'jean.grey.summers@twg.ca' })
         
         assert_equal true, result
       end
@@ -117,7 +133,7 @@ describe "basic api tests" do
   describe "delete_records" do
     it "deletes record with valid data" do
       VCR.use_cassette('delete_records_valid') do
-        response = Zoho::Api.delete_records('Leads', @@delete_lead_seed_id)
+        response = Zoho::Api.delete_records('Leads', self.class.delete_lead_seed_id)
         
         assert_equal true, response
       end
@@ -200,7 +216,7 @@ describe "basic api tests" do
   describe "convert_lead" do
     it "converts a lead to a contact" do
       VCR.use_cassette('convert_lead_valid') do
-        convert_lead_response = Zoho::Api.convert_lead(@@convert_lead_seed_id)
+        convert_lead_response = Zoho::Api.convert_lead(self.class.convert_lead_seed_id)
         
         assert_equal Hash, convert_lead_response.class
         assert convert_lead_response.has_key?('zoho_id')

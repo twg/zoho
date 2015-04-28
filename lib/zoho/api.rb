@@ -13,7 +13,11 @@ class Zoho::Api
 
   class << self
 
-    # get_users('email', 'jack@twg.ca', :active_users)
+    # field = The Zoho Field to search over.
+    # value = The value to search for.
+    # subset = The subset of users to search over
+    #   the full list and their description is available here: https://www.zoho.com/crm/help/api/getusers.html  
+    # e.g. get_users('email', 'jack@twg.ca', :active_users)
     def get_users(field = nil, value = nil, subset = :all_users)
       params = { 'type' => USER_TYPES[subset] }
       params['searchColumn'] = field unless field.nil?

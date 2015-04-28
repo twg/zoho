@@ -91,11 +91,6 @@ class Zoho::Api
         f.attributes[:val] == 'Id'
       end
 
-      if zoho_id.empty?
-        # not sure what happened here
-        raise Zoho::Error
-      end
-
       { 'zoho_id' => zoho_id[0].text }
     end
 
@@ -147,9 +142,6 @@ class Zoho::Api
         { 'zoho_id' => response["success"]["Contact"]["content"] }
       else
         check_for_json_error response
-
-        # not sure what the problem is if it gets this far
-        raise Zoho::Error
       end
     end
 

@@ -69,9 +69,6 @@ class Zoho::Api
         end
       elsif response.key?("nodata") && response["nodata"]["code"].to_i == Zoho::Error::ERROR_CODE_NO_MATCHING_RECORD
         nil
-      else
-        # have no idea what happend here
-        raise Zoho::Error
       end
     end
 
@@ -162,15 +159,13 @@ class Zoho::Api
 
         code = response.locate("response/error/code")
         code = code[0].text.to_i unless code.empty?
+        code ||= -1
 
         message = response.locate("response/error/message")
         message = message[0].text unless message.empty?
+        message ||= 'An unexpected error happend.'
 
-        if !code.nil? && !message.nil? 
-          raise Zoho::Error.new({ :code => code, :message => message })
-        else
-          raise Zoho::Error
-        end 
+        raise Zoho::Error.new({ :code => code, :message => message })
       end
 
       def check_for_json_error(response)

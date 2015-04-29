@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://crm.zoho.com/crm/private/json/Leads/deleteRecords?authtoken=ccabd7ff5cb3f1ad9b0bb27a17a20626&id=bogus123&scope=crmapi
+    uri: https://crm.zoho.com/crm/private/json/Leads/searchRecords?authtoken=ccabd7ff5cb3f1ad9b0bb27a17a20626&criteria=((Em%7Cail:charles.xavier@twg.ca))&scope=crmapi
     body:
       encoding: US-ASCII
       string: ''
@@ -23,18 +23,26 @@ http_interactions:
       Server:
       - ZGS
       Date:
-      - Fri, 24 Apr 2015 16:38:34 GMT
+      - Fri, 24 Apr 2015 16:38:29 GMT
       Content-Type:
       - application/jsonp;charset=utf-8
       Content-Length:
-      - '206'
+      - '178'
       Connection:
       - keep-alive
       Set-Cookie:
-      - JSESSIONID=990BC5B71E1E1573B4417348F58D87C3; Path=/crm/
-      - crmcsr=4cd9a327-d5a3-4c1a-b9f1-bf7bcebed950; Path=/; Secure
+      - JSESSIONID=DB9BF931450BC60FF83B7E16F77B74A2; Path=/crm/
+      - crmcsr=57ed60b6-8b46-47f4-904a-60bf17aa4d02; Path=/; Secure
       X-Xss-Protection:
       - '1'
+      Pragma:
+      - no-cache
+      Cache-Control:
+      - no-store, no-cache, must-revalidate
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      X-Frame-Options:
+      - DENY
       X-Download-Options:
       - noopen
       X-Content-Type-Options:
@@ -44,7 +52,7 @@ http_interactions:
     body:
       encoding: UTF-8
       string: |
-        {"response":{"error":{"message":"Unable to process your request. Please verify if the name and value is appropriate for the \"id\" parameter.","code":"4600"},"uri":"/crm/private/json/Leads/deleteRecords"}}
+        {"response": {"uri":"/crm/private/json/Leads/searchRecords","error": {"code":4832,"message":"API call cannot be completed as the Criteria parameter contains empty field name"}}}
     http_version: 
-  recorded_at: Fri, 24 Apr 2015 16:38:34 GMT
+  recorded_at: Fri, 24 Apr 2015 16:38:29 GMT
 recorded_with: VCR 2.9.3

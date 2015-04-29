@@ -5,7 +5,7 @@ http_interactions:
     uri: https://crm.zoho.com/crm/private/xml/Leads/insertRecords
     body:
       encoding: US-ASCII
-      string: authtoken=44fd8ab4cc5500006bc3a2952b0bde39&scope=crmapi&newFormat=1&xmlData=%0A%3CLeads%3E%0A++%3Crow+no%3D%221%22%3E%0A++++%3CFL+val%3D%22Email%22%3Emeyer%40yahoo.com%3C%2FFL%3E%0A++++%3CFL+val%3D%22Company%22%3EOrganics+Live%3C%2FFL%3E%0A++++%3CFL+val%3D%22Last+Name%22%3EOwner%3C%2FFL%3E%0A++%3C%2Frow%3E%0A%3C%2FLeads%3E%0A&duplicateCheck=1
+      string: authtoken=ccabd7ff5cb3f1ad9b0bb27a17a20626&scope=crmapi&newFormat=1&xmlData=%0A%3CLeads%3E%0A++%3Crow+no%3D%221%22%3E%0A++++%3CFL+val%3D%22Email%22%3Ejubilation.lee%40twg.ca%3C%2FFL%3E%0A++++%3CFL+val%3D%22Company%22%3E%26lt%3Bundefined%26gt%3B%3C%2FFL%3E%0A++++%3CFL+val%3D%22Last+Name%22%3ELee%3C%2FFL%3E%0A++%3C%2Frow%3E%0A%3C%2FLeads%3E%0A&duplicateCheck=1
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -25,16 +25,16 @@ http_interactions:
       Server:
       - ZGS
       Date:
-      - Wed, 15 Apr 2015 20:35:56 GMT
+      - Fri, 24 Apr 2015 16:38:32 GMT
       Content-Type:
       - text/xml;charset=utf-8
       Content-Length:
-      - '427'
+      - '425'
       Connection:
       - keep-alive
       Set-Cookie:
-      - JSESSIONID=1A81580BE48C80F08589673F448A43BA; Path=/crm
-      - crmcsr=18e2d3f2-67a4-42cc-b35a-b0d46de7a4f3; Path=/; Secure
+      - JSESSIONID=E0C94F579C7840E6AAB7457495842A51; Path=/crm/
+      - crmcsr=c4a38757-9a3a-4ad1-a2ff-02dc708d8b20; Path=/; Secure
       X-Xss-Protection:
       - '1'
       Pragma:
@@ -49,11 +49,9 @@ http_interactions:
       - max-age=15768000
     body:
       encoding: UTF-8
-      string: "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\r\n<response uri=\"/crm/private/xml/Leads/insertRecords\"><result><message>Record(s)
-        already exists</message><recorddetail><FL val=\"Id\">1465372000000086039</FL><FL
-        val=\"Created Time\">2015-04-14 13:43:32</FL><FL val=\"Modified Time\">2015-04-14
-        13:43:32</FL><FL val=\"Created By\"><![CDATA[Dexter Heng]]></FL><FL val=\"Modified
-        By\"><![CDATA[Dexter Heng]]></FL></recorddetail></result></response>\r\n"
+      string: |
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <response uri="/crm/private/xml/Leads/insertRecords"><result><message>Record(s) already exists</message><recorddetail><FL val="Id">1465372000000100035</FL><FL val="Created Time">2015-04-24 09:36:23</FL><FL val="Modified Time">2015-04-24 09:36:23</FL><FL val="Created By"><![CDATA[Dexter Heng]]></FL><FL val="Modified By"><![CDATA[Dexter Heng]]></FL></recorddetail></result></response>
     http_version: 
-  recorded_at: Wed, 15 Apr 2015 20:35:58 GMT
+  recorded_at: Fri, 24 Apr 2015 16:38:31 GMT
 recorded_with: VCR 2.9.3

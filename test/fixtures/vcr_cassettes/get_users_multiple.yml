@@ -1,0 +1,58 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://crm.zoho.com/crm/private/json/Users/getUsers?authtoken=ccabd7ff5cb3f1ad9b0bb27a17a20626&scope=crmapi&type=AllUsers
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - crm.zoho.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - ZGS
+      Date:
+      - Fri, 24 Apr 2015 16:41:36 GMT
+      Content-Type:
+      - application/jsonp;charset=utf-8
+      Content-Length:
+      - '716'
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - JSESSIONID=25A5D3F979F16C622501141BEEEB0055; Path=/crm/
+      - crmcsr=74460408-bb15-4c5e-823a-1b775e7f0ab9; Path=/; Secure
+      X-Xss-Protection:
+      - '1'
+      Pragma:
+      - no-cache
+      Cache-Control:
+      - no-store, no-cache, must-revalidate
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      X-Frame-Options:
+      - DENY
+      X-Download-Options:
+      - noopen
+      X-Content-Type-Options:
+      - nosniff
+      Strict-Transport-Security:
+      - max-age=15768000
+    body:
+      encoding: UTF-8
+      string: |
+        {"users":{"user":[{"zip":"null","phone":"null","fax":"null","status":"active","website":"null","street":"null","state":"null","city":"null","country":"null","content":"Dexter Heng","id":"1465372000000083003","timezone":"PST8PDT","zuid":"50755502","email":"dexter@theworkinggroup.ca","role":"CEO","language":"en_US","confirm":"true","profile":"Administrator","mobile":"null"},{"zip":"null","phone":"null","fax":"null","status":"active","website":"null","street":"null","state":"null","city":"null","country":"null","content":"blah blah","id":"1465372000000084079","timezone":"PST8PDT","zuid":"null","email":"jack@twg.ca","role":"CEO","language":"en_US","confirm":"false","profile":"Administrator","mobile":"null"}]}}
+    http_version: 
+  recorded_at: Fri, 24 Apr 2015 16:41:36 GMT
+recorded_with: VCR 2.9.3

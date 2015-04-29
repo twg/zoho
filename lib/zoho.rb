@@ -3,6 +3,7 @@ require 'net/https'
 
 require "zoho/version"
 require "zoho/engine" if defined?(Rails)
+require "zoho/error"
 require "zoho/api"
 require "zoho/configuration"
 

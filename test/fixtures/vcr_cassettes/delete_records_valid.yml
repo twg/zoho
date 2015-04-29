@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://crm.zoho.com/crm/private/json/Leads/deleteRecords?authtoken=ccabd7ff5cb3f1ad9b0bb27a17a20626&id=bogus123&scope=crmapi
+    uri: https://crm.zoho.com/crm/private/json/Leads/deleteRecords?authtoken=ccabd7ff5cb3f1ad9b0bb27a17a20626&id=1465372000000100041&scope=crmapi
     body:
       encoding: US-ASCII
       string: ''
@@ -23,18 +23,26 @@ http_interactions:
       Server:
       - ZGS
       Date:
-      - Fri, 24 Apr 2015 16:38:34 GMT
+      - Fri, 24 Apr 2015 16:38:35 GMT
       Content-Type:
       - application/jsonp;charset=utf-8
       Content-Length:
-      - '206'
+      - '164'
       Connection:
       - keep-alive
       Set-Cookie:
-      - JSESSIONID=990BC5B71E1E1573B4417348F58D87C3; Path=/crm/
-      - crmcsr=4cd9a327-d5a3-4c1a-b9f1-bf7bcebed950; Path=/; Secure
+      - JSESSIONID=FF9629CE0BDDD5C68C3E5B9DEC2C96AF; Path=/crm/
+      - crmcsr=b23aa2cf-4299-410a-a6d5-f2fde71e9867; Path=/; Secure
       X-Xss-Protection:
       - '1'
+      Pragma:
+      - no-cache
+      Cache-Control:
+      - no-store, no-cache, must-revalidate
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      X-Frame-Options:
+      - DENY
       X-Download-Options:
       - noopen
       X-Content-Type-Options:
@@ -44,7 +52,7 @@ http_interactions:
     body:
       encoding: UTF-8
       string: |
-        {"response":{"error":{"message":"Unable to process your request. Please verify if the name and value is appropriate for the \"id\" parameter.","code":"4600"},"uri":"/crm/private/json/Leads/deleteRecords"}}
+        {"response":{"result":{"message":"Record Id(s) : 1465372000000100041,Record(s) deleted successfully","code":"5000"},"uri":"/crm/private/json/Leads/deleteRecords"}}
     http_version: 
-  recorded_at: Fri, 24 Apr 2015 16:38:34 GMT
+  recorded_at: Fri, 24 Apr 2015 16:38:35 GMT
 recorded_with: VCR 2.9.3

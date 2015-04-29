@@ -2,6 +2,8 @@ require 'ox'
 
 class Zoho::Api
 
+  ZOHO_ROOT_URL = 'https://crm.zoho.com/crm/private'
+
   SEARCH_TYPES = {
     :all_users => 'AllUsers',
     :active_users => 'ActiveUsers',
@@ -154,7 +156,7 @@ class Zoho::Api
       end
 
       def create_zoho_url(format, module_name, api_call)
-        "#{Zoho.configuration.root_url}/#{format}/#{module_name}/#{api_call}"
+        "#{ZOHO_ROOT_URL}/#{format}/#{module_name}/#{api_call}"
       end
 
       def check_for_xml_error(response)

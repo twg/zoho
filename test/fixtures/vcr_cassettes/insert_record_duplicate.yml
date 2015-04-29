@@ -25,7 +25,7 @@ http_interactions:
       Server:
       - ZGS
       Date:
-      - Wed, 29 Apr 2015 17:57:13 GMT
+      - Wed, 29 Apr 2015 18:47:03 GMT
       Content-Type:
       - text/xml;charset=utf-8
       Content-Length:
@@ -33,8 +33,8 @@ http_interactions:
       Connection:
       - keep-alive
       Set-Cookie:
-      - JSESSIONID=04CFCD4996D9E05102B13CCAC5B12A8B; Path=/crm/
-      - crmcsr=5dbc9b01-b3b6-49c8-8943-fd24437b52f1; Path=/; Secure
+      - JSESSIONID=7678F844B1C08D588FEFC152DCCB1417; Path=/crm/
+      - crmcsr=d3d83d61-5cc6-4839-9ab0-04e4e58aa160; Path=/; Secure
       X-Xss-Protection:
       - '1'
       Pragma:
@@ -51,7 +51,7 @@ http_interactions:
       encoding: UTF-8
       string: |
         <?xml version="1.0" encoding="UTF-8" ?>
-        <response uri="/crm/private/xml/Leads/insertRecords"><result><message>Record(s) already exists</message><recorddetail><FL val="Id">1465372000000109029</FL><FL val="Created Time">2015-04-29 10:55:04</FL><FL val="Modified Time">2015-04-29 10:55:04</FL><FL val="Created By"><![CDATA[Dexter Heng]]></FL><FL val="Modified By"><![CDATA[Dexter Heng]]></FL></recorddetail></result></response>
+        <response uri="/crm/private/xml/Leads/insertRecords"><result><message>Record(s) already exists</message><recorddetail><FL val="Id">1465372000000109063</FL><FL val="Created Time">2015-04-29 11:40:51</FL><FL val="Modified Time">2015-04-29 11:40:51</FL><FL val="Created By"><![CDATA[Dexter Heng]]></FL><FL val="Modified By"><![CDATA[Dexter Heng]]></FL></recorddetail></result></response>
     http_version: 
-  recorded_at: Wed, 29 Apr 2015 17:57:13 GMT
+  recorded_at: Wed, 29 Apr 2015 18:47:03 GMT
 recorded_with: VCR 2.9.3

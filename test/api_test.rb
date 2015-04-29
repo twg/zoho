@@ -45,9 +45,9 @@ describe "basic api tests" do
       @convert_lead_seed_id = r3['zoho_id']
 
       r4 = Zoho::Api.insert_records('Leads', {
-        'Email'       => 'kitty.pride@twg.ca',
+        'Email'       => 'kitty.pryde@twg.ca',
         'Company'     => '<undefined>',
-        'Last Name'   => 'Pride'
+        'Last Name'   => 'Pryde'
       })
       @insert_lead_seed_id = r4['zoho_id']      
 
@@ -81,14 +81,14 @@ describe "basic api tests" do
   end
 
   def self.delete_lead_seed_id
-    @update_lead_seed_id ||= begin
+    @delete_lead_seed_id ||= begin
       seed_data
       @delete_lead_seed_id
     end
   end
 
   def self.convert_lead_seed_id
-    @update_lead_seed_id ||= begin
+    @convert_lead_seed_id ||= begin
       seed_data
       @convert_lead_seed_id
     end

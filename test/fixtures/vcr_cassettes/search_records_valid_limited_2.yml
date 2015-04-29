@@ -23,7 +23,7 @@ http_interactions:
       Server:
       - ZGS
       Date:
-      - Wed, 29 Apr 2015 17:57:13 GMT
+      - Wed, 29 Apr 2015 18:47:08 GMT
       Content-Type:
       - application/jsonp;charset=utf-8
       Content-Length:
@@ -31,8 +31,8 @@ http_interactions:
       Connection:
       - keep-alive
       Set-Cookie:
-      - JSESSIONID=03F13F3BE5FF575EDE6B81345C9CFC6B; Path=/crm/
-      - crmcsr=094f15bf-89b9-48ff-80f1-e54fd2ec690c; Path=/; Secure
+      - JSESSIONID=3A56C771179D56C1FA92E91B6CF82613; Path=/crm/
+      - crmcsr=bb5e3f78-25d8-4267-9c23-98960053fac8; Path=/; Secure
       X-Xss-Protection:
       - '1'
       Pragma:
@@ -52,7 +52,7 @@ http_interactions:
     body:
       encoding: UTF-8
       string: |
-        {"response":{"result":{"Leads":{"row":{"no":"1","FL":{"content":"1465372000000109031","val":"LEADID"}}}},"uri":"/crm/private/json/Leads/searchRecords"}}
+        {"response":{"result":{"Leads":{"row":{"no":"1","FL":{"content":"1465372000000109065","val":"LEADID"}}}},"uri":"/crm/private/json/Leads/searchRecords"}}
     http_version: 
-  recorded_at: Wed, 29 Apr 2015 17:57:13 GMT
+  recorded_at: Wed, 29 Apr 2015 18:47:08 GMT
 recorded_with: VCR 2.9.3

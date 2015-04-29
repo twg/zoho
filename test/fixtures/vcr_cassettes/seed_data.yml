@@ -25,7 +25,7 @@ http_interactions:
       Server:
       - ZGS
       Date:
-      - Wed, 29 Apr 2015 17:55:04 GMT
+      - Wed, 29 Apr 2015 18:40:51 GMT
       Content-Type:
       - text/xml;charset=utf-8
       Content-Length:
@@ -33,8 +33,8 @@ http_interactions:
       Connection:
       - keep-alive
       Set-Cookie:
-      - JSESSIONID=68C3CB60EF35BB6820EC9AD60D07B0B1; Path=/crm/
-      - crmcsr=be66b026-06ba-4d7b-8831-3d3746e98034; Path=/; Secure
+      - JSESSIONID=F24C1C0A10216AC3020B5ABAF2F9193E; Path=/crm/
+      - crmcsr=b5bfc72a-b6f5-4dc0-825d-60ae4ad7957a; Path=/; Secure
       X-Xss-Protection:
       - '1'
       Pragma:
@@ -51,9 +51,9 @@ http_interactions:
       encoding: UTF-8
       string: |
         <?xml version="1.0" encoding="UTF-8" ?>
-        <response uri="/crm/private/xml/Leads/insertRecords"><result><message>Record(s) added successfully</message><recorddetail><FL val="Id">1465372000000109029</FL><FL val="Created Time">2015-04-29 10:55:04</FL><FL val="Modified Time">2015-04-29 10:55:04</FL><FL val="Created By"><![CDATA[Dexter Heng]]></FL><FL val="Modified By"><![CDATA[Dexter Heng]]></FL></recorddetail></result></response>
+        <response uri="/crm/private/xml/Leads/insertRecords"><result><message>Record(s) added successfully</message><recorddetail><FL val="Id">1465372000000109063</FL><FL val="Created Time">2015-04-29 11:40:51</FL><FL val="Modified Time">2015-04-29 11:40:51</FL><FL val="Created By"><![CDATA[Dexter Heng]]></FL><FL val="Modified By"><![CDATA[Dexter Heng]]></FL></recorddetail></result></response>
     http_version: 
-  recorded_at: Wed, 29 Apr 2015 17:55:04 GMT
+  recorded_at: Wed, 29 Apr 2015 18:40:51 GMT
 - request:
     method: post
     uri: https://crm.zoho.com/crm/private/xml/Leads/insertRecords
@@ -79,7 +79,7 @@ http_interactions:
       Server:
       - ZGS
       Date:
-      - Wed, 29 Apr 2015 17:55:05 GMT
+      - Wed, 29 Apr 2015 18:40:52 GMT
       Content-Type:
       - text/xml;charset=utf-8
       Content-Length:
@@ -87,8 +87,8 @@ http_interactions:
       Connection:
       - keep-alive
       Set-Cookie:
-      - JSESSIONID=B467E874E1F9F459C9427EBF1B348255; Path=/crm/
-      - crmcsr=26b8ff41-897d-467b-90d0-53fd5586c880; Path=/; Secure
+      - JSESSIONID=3D03F18CB986CBD64FBCF42F43AA0BFA; Path=/crm/
+      - crmcsr=3aa8d021-501c-48b9-939e-668c585123a4; Path=/; Secure
       X-Xss-Protection:
       - '1'
       Pragma:
@@ -105,9 +105,9 @@ http_interactions:
       encoding: UTF-8
       string: |
         <?xml version="1.0" encoding="UTF-8" ?>
-        <response uri="/crm/private/xml/Leads/insertRecords"><result><message>Record(s) added successfully</message><recorddetail><FL val="Id">1465372000000109031</FL><FL val="Created Time">2015-04-29 10:55:05</FL><FL val="Modified Time">2015-04-29 10:55:05</FL><FL val="Created By"><![CDATA[Dexter Heng]]></FL><FL val="Modified By"><![CDATA[Dexter Heng]]></FL></recorddetail></result></response>
+        <response uri="/crm/private/xml/Leads/insertRecords"><result><message>Record(s) added successfully</message><recorddetail><FL val="Id">1465372000000109065</FL><FL val="Created Time">2015-04-29 11:40:52</FL><FL val="Modified Time">2015-04-29 11:40:52</FL><FL val="Created By"><![CDATA[Dexter Heng]]></FL><FL val="Modified By"><![CDATA[Dexter Heng]]></FL></recorddetail></result></response>
     http_version: 
-  recorded_at: Wed, 29 Apr 2015 17:55:05 GMT
+  recorded_at: Wed, 29 Apr 2015 18:40:52 GMT
 - request:
     method: post
     uri: https://crm.zoho.com/crm/private/xml/Leads/insertRecords
@@ -133,7 +133,7 @@ http_interactions:
       Server:
       - ZGS
       Date:
-      - Wed, 29 Apr 2015 17:55:06 GMT
+      - Wed, 29 Apr 2015 18:40:53 GMT
       Content-Type:
       - text/xml;charset=utf-8
       Content-Length:
@@ -141,8 +141,8 @@ http_interactions:
       Connection:
       - keep-alive
       Set-Cookie:
-      - JSESSIONID=2D150449759E620452BB193A6C5D150B; Path=/crm/
-      - crmcsr=a71f4ac6-9f5b-419a-956a-22177ad01548; Path=/; Secure
+      - JSESSIONID=4DC5CA92DF2528717110EFFCB2087B64; Path=/crm/
+      - crmcsr=5dabb730-af7c-47fb-b75e-64f3ce4e5e3e; Path=/; Secure
       X-Xss-Protection:
       - '1'
       Pragma:
@@ -159,9 +159,9 @@ http_interactions:
       encoding: UTF-8
       string: |
         <?xml version="1.0" encoding="UTF-8" ?>
-        <response uri="/crm/private/xml/Leads/insertRecords"><result><message>Record(s) added successfully</message><recorddetail><FL val="Id">1465372000000109033</FL><FL val="Created Time">2015-04-29 10:55:06</FL><FL val="Modified Time">2015-04-29 10:55:06</FL><FL val="Created By"><![CDATA[Dexter Heng]]></FL><FL val="Modified By"><![CDATA[Dexter Heng]]></FL></recorddetail></result></response>
+        <response uri="/crm/private/xml/Leads/insertRecords"><result><message>Record(s) added successfully</message><recorddetail><FL val="Id">1465372000000109067</FL><FL val="Created Time">2015-04-29 11:40:53</FL><FL val="Modified Time">2015-04-29 11:40:53</FL><FL val="Created By"><![CDATA[Dexter Heng]]></FL><FL val="Modified By"><![CDATA[Dexter Heng]]></FL></recorddetail></result></response>
     http_version: 
-  recorded_at: Wed, 29 Apr 2015 17:55:06 GMT
+  recorded_at: Wed, 29 Apr 2015 18:40:53 GMT
 - request:
     method: post
     uri: https://crm.zoho.com/crm/private/xml/Leads/insertRecords
@@ -187,7 +187,7 @@ http_interactions:
       Server:
       - ZGS
       Date:
-      - Wed, 29 Apr 2015 17:55:07 GMT
+      - Wed, 29 Apr 2015 18:40:54 GMT
       Content-Type:
       - text/xml;charset=utf-8
       Content-Length:
@@ -195,8 +195,8 @@ http_interactions:
       Connection:
       - keep-alive
       Set-Cookie:
-      - JSESSIONID=ECE1A3978E34CF295FB193C728D9FB70; Path=/crm/
-      - crmcsr=0fa656a2-b8a8-4bdf-8544-88f2d011b1bf; Path=/; Secure
+      - JSESSIONID=776AC557D86631260A02B955298FCC8C; Path=/crm/
+      - crmcsr=549d3283-ad2b-46b5-b7b5-6a48af69b500; Path=/; Secure
       X-Xss-Protection:
       - '1'
       Pragma:
@@ -213,9 +213,9 @@ http_interactions:
       encoding: UTF-8
       string: |
         <?xml version="1.0" encoding="UTF-8" ?>
-        <response uri="/crm/private/xml/Leads/insertRecords"><result><message>Record(s) added successfully</message><recorddetail><FL val="Id">1465372000000109035</FL><FL val="Created Time">2015-04-29 10:55:07</FL><FL val="Modified Time">2015-04-29 10:55:07</FL><FL val="Created By"><![CDATA[Dexter Heng]]></FL><FL val="Modified By"><![CDATA[Dexter Heng]]></FL></recorddetail></result></response>
+        <response uri="/crm/private/xml/Leads/insertRecords"><result><message>Record(s) added successfully</message><recorddetail><FL val="Id">1465372000000109069</FL><FL val="Created Time">2015-04-29 11:40:54</FL><FL val="Modified Time">2015-04-29 11:40:54</FL><FL val="Created By"><![CDATA[Dexter Heng]]></FL><FL val="Modified By"><![CDATA[Dexter Heng]]></FL></recorddetail></result></response>
     http_version: 
-  recorded_at: Wed, 29 Apr 2015 17:55:07 GMT
+  recorded_at: Wed, 29 Apr 2015 18:40:54 GMT
 - request:
     method: post
     uri: https://crm.zoho.com/crm/private/xml/Leads/insertRecords
@@ -241,7 +241,7 @@ http_interactions:
       Server:
       - ZGS
       Date:
-      - Wed, 29 Apr 2015 17:55:08 GMT
+      - Wed, 29 Apr 2015 18:40:54 GMT
       Content-Type:
       - text/xml;charset=utf-8
       Content-Length:
@@ -249,8 +249,8 @@ http_interactions:
       Connection:
       - keep-alive
       Set-Cookie:
-      - JSESSIONID=7D5A3F92A60891DC9101450A3EDF2C5D; Path=/crm/
-      - crmcsr=958970e0-e78a-44d6-b913-5a142cf33701; Path=/; Secure
+      - JSESSIONID=D995342D46D7771FFA098381AE45D73D; Path=/crm/
+      - crmcsr=19d688a9-8458-4f24-88d7-a9e02540d7d7; Path=/; Secure
       X-Xss-Protection:
       - '1'
       Pragma:
@@ -267,15 +267,15 @@ http_interactions:
       encoding: UTF-8
       string: |
         <?xml version="1.0" encoding="UTF-8" ?>
-        <response uri="/crm/private/xml/Leads/insertRecords"><result><message>Record(s) added successfully</message><recorddetail><FL val="Id">1465372000000109037</FL><FL val="Created Time">2015-04-29 10:55:08</FL><FL val="Modified Time">2015-04-29 10:55:08</FL><FL val="Created By"><![CDATA[Dexter Heng]]></FL><FL val="Modified By"><![CDATA[Dexter Heng]]></FL></recorddetail></result></response>
+        <response uri="/crm/private/xml/Leads/insertRecords"><result><message>Record(s) added successfully</message><recorddetail><FL val="Id">1465372000000109071</FL><FL val="Created Time">2015-04-29 11:40:54</FL><FL val="Modified Time">2015-04-29 11:40:54</FL><FL val="Created By"><![CDATA[Dexter Heng]]></FL><FL val="Modified By"><![CDATA[Dexter Heng]]></FL></recorddetail></result></response>
     http_version: 
-  recorded_at: Wed, 29 Apr 2015 17:55:08 GMT
+  recorded_at: Wed, 29 Apr 2015 18:40:54 GMT
 - request:
     method: post
     uri: https://crm.zoho.com/crm/private/xml/Leads/insertRecords
     body:
       encoding: US-ASCII
-      string: authtoken=ccabd7ff5cb3f1ad9b0bb27a17a20626&scope=crmapi&newFormat=1&xmlData=%0A%3CLeads%3E%0A++%3Crow+no%3D%221%22%3E%0A++++%3CFL+val%3D%22Email%22%3Ekitty.pride%40twg.ca%3C%2FFL%3E%0A++++%3CFL+val%3D%22Company%22%3E%26lt%3Bundefined%26gt%3B%3C%2FFL%3E%0A++++%3CFL+val%3D%22Last+Name%22%3EPride%3C%2FFL%3E%0A++%3C%2Frow%3E%0A%3C%2FLeads%3E%0A&duplicateCheck=1
+      string: authtoken=ccabd7ff5cb3f1ad9b0bb27a17a20626&scope=crmapi&newFormat=1&xmlData=%0A%3CLeads%3E%0A++%3Crow+no%3D%221%22%3E%0A++++%3CFL+val%3D%22Email%22%3Ekitty.pryde%40twg.ca%3C%2FFL%3E%0A++++%3CFL+val%3D%22Company%22%3E%26lt%3Bundefined%26gt%3B%3C%2FFL%3E%0A++++%3CFL+val%3D%22Last+Name%22%3EPryde%3C%2FFL%3E%0A++%3C%2Frow%3E%0A%3C%2FLeads%3E%0A&duplicateCheck=1
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -295,7 +295,7 @@ http_interactions:
       Server:
       - ZGS
       Date:
-      - Wed, 29 Apr 2015 17:55:09 GMT
+      - Wed, 29 Apr 2015 18:40:55 GMT
       Content-Type:
       - text/xml;charset=utf-8
       Content-Length:
@@ -303,8 +303,8 @@ http_interactions:
       Connection:
       - keep-alive
       Set-Cookie:
-      - JSESSIONID=F14E74290397759872B1D9A2C424E1ED; Path=/crm/
-      - crmcsr=b5c88dba-e7ed-4fa7-933d-92b7c173a828; Path=/; Secure
+      - JSESSIONID=F61354BD23FF02E260F2BEC5B67C9D9B; Path=/crm/
+      - crmcsr=3f50f18d-2926-4da3-b695-e824aeb16a24; Path=/; Secure
       X-Xss-Protection:
       - '1'
       Pragma:
@@ -321,7 +321,61 @@ http_interactions:
       encoding: UTF-8
       string: |
         <?xml version="1.0" encoding="UTF-8" ?>
-        <response uri="/crm/private/xml/Leads/insertRecords"><result><message>Record(s) added successfully</message><recorddetail><FL val="Id">1465372000000109039</FL><FL val="Created Time">2015-04-29 10:55:09</FL><FL val="Modified Time">2015-04-29 10:55:09</FL><FL val="Created By"><![CDATA[Dexter Heng]]></FL><FL val="Modified By"><![CDATA[Dexter Heng]]></FL></recorddetail></result></response>
+        <response uri="/crm/private/xml/Leads/insertRecords"><result><message>Record(s) added successfully</message><recorddetail><FL val="Id">1465372000000109073</FL><FL val="Created Time">2015-04-29 11:40:55</FL><FL val="Modified Time">2015-04-29 11:40:55</FL><FL val="Created By"><![CDATA[Dexter Heng]]></FL><FL val="Modified By"><![CDATA[Dexter Heng]]></FL></recorddetail></result></response>
     http_version: 
-  recorded_at: Wed, 29 Apr 2015 17:55:09 GMT
+  recorded_at: Wed, 29 Apr 2015 18:40:55 GMT
+- request:
+    method: post
+    uri: https://crm.zoho.com/crm/private/xml/Contacts/insertRecords
+    body:
+      encoding: US-ASCII
+      string: authtoken=ccabd7ff5cb3f1ad9b0bb27a17a20626&scope=crmapi&newFormat=1&xmlData=%0A%3CContacts%3E%0A++%3Crow+no%3D%221%22%3E%0A++++%3CFL+val%3D%22Email%22%3Eororo.munroe%40twg.ca%3C%2FFL%3E%0A++++%3CFL+val%3D%22Company%22%3E%26lt%3Bundefined%26gt%3B%3C%2FFL%3E%0A++++%3CFL+val%3D%22Last+Name%22%3EMunroe%3C%2FFL%3E%0A++++%3CFL+val%3D%22First+Name%22%3EOroro%3C%2FFL%3E%0A++%3C%2Frow%3E%0A%3C%2FContacts%3E%0A&duplicateCheck=1
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - crm.zoho.com
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - ZGS
+      Date:
+      - Wed, 29 Apr 2015 18:40:56 GMT
+      Content-Type:
+      - text/xml;charset=utf-8
+      Content-Length:
+      - '432'
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - JSESSIONID=C0550E723DB7EF46AF12D777E1D5AA5E; Path=/crm/
+      - crmcsr=979fe4fb-9607-4af3-bf69-281cf996d552; Path=/; Secure
+      X-Xss-Protection:
+      - '1'
+      Pragma:
+      - no-cache
+      Cache-Control:
+      - no-store, no-cache, must-revalidate
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      X-Frame-Options:
+      - DENY
+      Strict-Transport-Security:
+      - max-age=15768000
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <response uri="/crm/private/xml/Contacts/insertRecords"><result><message>Record(s) added successfully</message><recorddetail><FL val="Id">1465372000000109075</FL><FL val="Created Time">2015-04-29 11:40:56</FL><FL val="Modified Time">2015-04-29 11:40:56</FL><FL val="Created By"><![CDATA[Dexter Heng]]></FL><FL val="Modified By"><![CDATA[Dexter Heng]]></FL></recorddetail></result></response>
+    http_version: 
+  recorded_at: Wed, 29 Apr 2015 18:40:56 GMT
 recorded_with: VCR 2.9.3

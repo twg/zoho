@@ -138,7 +138,7 @@ class Zoho::Api
 
       # Custom Modules in Zoho have names that are simply assigned out
       # by the system (usually in the form CustomModulen). Route all
-      # module name resolutions through this function to get some clarify
+      # module name resolutions through this function to get some clarity
       # back
       def normalize_module_name(module_name)
         if Zoho.configuration.custom_modules_map.has_key? module_name

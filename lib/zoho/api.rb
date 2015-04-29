@@ -53,7 +53,7 @@ class Zoho::Api
       # of the results is different. The code below will normalize the structure
       # to arrays either way 
       if response.key? "result"
-        rows = response["result"][module_name]["row"]
+        rows = response["result"][normalize_module_name(module_name)]["row"]
         if rows.kind_of? Hash
           rows = [rows]
         end
@@ -155,8 +155,20 @@ class Zoho::Api
         }
       end
 
+      # Custom Modules in Zoho have names that are simply assigned out
+      # by the system (usually in the form CustomModulen). Route all
+      # module name resolutions through this function to get some clarify
+      # back
+      def normalize_module_name(module_name)
+        if Zoho.configuration.custom_modules_map.has_key? module_name
+          Zoho.configuration.custom_modules_map[module_name]
+        else
+          module_name
+        end
+      end
+
       def create_zoho_url(format, module_name, api_call)
-        "#{ZOHO_ROOT_URL}/#{format}/#{module_name}/#{api_call}"
+        "#{ZOHO_ROOT_URL}/#{format}/#{normalize_module_name(module_name)}/#{api_call}"
       end
 
       def check_for_xml_error(response)
@@ -230,7 +242,7 @@ class Zoho::Api
 
       def build_xml(module_name, attrs)
         doc = Ox::Document.new()
-        module_element = Ox::Element.new(module_name)
+        module_element = Ox::Element.new(normalize_module_name(module_name))
         row = Ox::Element.new('row')
         row[:no] = 1
         

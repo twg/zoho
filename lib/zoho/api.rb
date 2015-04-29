@@ -25,6 +25,10 @@ class Zoho::Api
 
       response = json_get('Users', 'getUsers', params)
 
+      # the Zoho API returns a hash if the result set has one item, but an
+      # array if it has more than one. So based on the number of records returned
+      # the structure of the results is different. The code below will normalize
+      # the structure to arrays either way.
       users = response["users"]["user"]
       if users.kind_of? Hash
         users = [users]
@@ -42,7 +46,7 @@ class Zoho::Api
 
       response = json_get_with_validation(module_name, 'searchRecords', params);
 
-      # the Zoho API returns a object if the result set has one item, but an
+      # the Zoho API returns a hash if the result set has one item, but an
       # array if it has more than one. So based on the number of records returned
       # or the columns that have been requested to be returned, the structure
       # of the results is different. The code below will normalize the structure

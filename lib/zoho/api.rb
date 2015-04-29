@@ -1,5 +1,4 @@
 require 'ox'
-require 'logger'
 
 class Zoho::Api
 

@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://crm.zoho.com/crm/private/json/Leads/searchRecords?authtoken=ccabd7ff5cb3f1ad9b0bb27a17a20626&criteria=((Email:charles.xavier@twg.ca))&scope=crmapi&selectColumns=Leads(LEADID)
+    uri: https://crm.zoho.com/crm/private/json/Leads/getRecordById?authtoken=ccabd7ff5cb3f1ad9b0bb27a17a20626&id=1234&scope=crmapi
     body:
       encoding: US-ASCII
       string: ''
@@ -23,16 +23,16 @@ http_interactions:
       Server:
       - ZGS
       Date:
-      - Wed, 29 Apr 2015 17:57:13 GMT
+      - Wed, 29 Apr 2015 18:06:59 GMT
       Content-Type:
       - application/jsonp;charset=utf-8
       Content-Length:
-      - '153'
+      - '123'
       Connection:
       - keep-alive
       Set-Cookie:
-      - JSESSIONID=03F13F3BE5FF575EDE6B81345C9CFC6B; Path=/crm/
-      - crmcsr=094f15bf-89b9-48ff-80f1-e54fd2ec690c; Path=/; Secure
+      - JSESSIONID=4CF165F184F0B2D30FD3B0428D7B2D45; Path=/crm/
+      - crmcsr=07eb3d03-1f2e-4eb9-a4e1-2a1c1381f1aa; Path=/; Secure
       X-Xss-Protection:
       - '1'
       Pragma:
@@ -52,7 +52,7 @@ http_interactions:
     body:
       encoding: UTF-8
       string: |
-        {"response":{"result":{"Leads":{"row":{"no":"1","FL":{"content":"1465372000000109031","val":"LEADID"}}}},"uri":"/crm/private/json/Leads/searchRecords"}}
+        {"response":{"nodata":{"message":"There is no data to show","code":"4422"},"uri":"/crm/private/json/Leads/getRecordById"}}
     http_version: 
-  recorded_at: Wed, 29 Apr 2015 17:57:13 GMT
+  recorded_at: Wed, 29 Apr 2015 18:06:58 GMT
 recorded_with: VCR 2.9.3

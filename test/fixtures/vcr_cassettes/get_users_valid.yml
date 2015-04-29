@@ -23,7 +23,7 @@ http_interactions:
       Server:
       - ZGS
       Date:
-      - Fri, 24 Apr 2015 16:41:35 GMT
+      - Wed, 29 Apr 2015 17:59:17 GMT
       Content-Type:
       - application/jsonp;charset=utf-8
       Content-Length:
@@ -31,8 +31,8 @@ http_interactions:
       Connection:
       - keep-alive
       Set-Cookie:
-      - JSESSIONID=7DBB622FA48ACD59E989B314D1A6C18D; Path=/crm/
-      - crmcsr=ec65eb65-8277-4f2e-aa6e-16f8c345b42d; Path=/; Secure
+      - JSESSIONID=A19A6C823C768A706770C4915EE06749; Path=/crm/
+      - crmcsr=c1345029-a9b8-4ecf-af08-2a22f6b50fb3; Path=/; Secure
       X-Xss-Protection:
       - '1'
       Pragma:
@@ -54,5 +54,5 @@ http_interactions:
       string: |
         {"users":{"user":{"zip":"null","phone":"null","fax":"null","status":"active","website":"null","street":"null","state":"null","city":"null","country":"null","content":"blah blah","id":"1465372000000084079","timezone":"PST8PDT","zuid":"null","email":"jack@twg.ca","role":"CEO","language":"en_US","confirm":"false","profile":"Administrator","mobile":"null"}}}
     http_version: 
-  recorded_at: Fri, 24 Apr 2015 16:41:35 GMT
+  recorded_at: Wed, 29 Apr 2015 17:59:17 GMT
 recorded_with: VCR 2.9.3

@@ -25,6 +25,7 @@ This gem exposes a thin Ruby interface over a subset of the Zoho CRM API.
 The following methods are currently implemented:
 
 * getUsers
+* getRecordsByid
 * searchRecords
 * insertRecords
 * updateRecords

@@ -44,11 +44,25 @@ describe "basic api tests" do
       })
       @convert_lead_seed_id = r3['zoho_id']
 
+      r4 = Zoho::Api.insert_records('Leads', {
+        'Email'       => 'kitty.pride@twg.ca',
+        'Company'     => '<undefined>',
+        'Last Name'   => 'Pride'
+      })
+      @insert_lead_seed_id = r4['zoho_id']      
+
       # when running against the live Zoho system (as opposed to VCR),
       # you have to uncomment this line out so that the tests pass
       # this is because the Zoho API is async and does not reflect its
       # state immediately
       # sleep 120
+    end
+  end
+
+  def self.insert_lead_seed_id
+    @insert_lead_seed_id ||= begin
+      seed_data
+      @insert_lead_seed_id
     end
   end
 
@@ -70,6 +84,47 @@ describe "basic api tests" do
     @update_lead_seed_id ||= begin
       seed_data
       @convert_lead_seed_id
+    end
+  end
+
+  describe "get_record_by_id" do
+    it "retrieves a single record with valid data" do
+      VCR.use_cassette('get_record_by_id_valid') do
+        response = Zoho::Api.get_record_by_id('Leads', self.class.update_lead_seed_id)
+
+        assert_equal 1, response.count
+      end
+    end
+
+    it "returns nil when invalid id is passed in" do
+      VCR.use_cassette('get_record_by_id_invalid') do
+        response = Zoho::Api.get_record_by_id('Leads', '1234')
+
+        assert_equal nil, response
+      end
+    end
+  end
+
+  describe "get_records_by_ids" do
+    it "retrieves multiple records with valid data" do
+      VCR.use_cassette('get_records_by_ids_valid') do
+        id_list = [
+          self.class.update_lead_seed_id,
+          self.class.insert_lead_seed_id
+        ]
+
+        response = Zoho::Api.get_records_by_ids('Leads', id_list)
+
+        assert_equal 2, response.count
+      end
+    end
+
+    it "returns nil when invalid id is passed in" do
+      VCR.use_cassette('get_records_by_ids_invalid') do
+        response = Zoho::Api.get_records_by_ids('Leads', ['1234', '5678'])
+
+        assert_equal nil, response
+      end
     end
   end
 
@@ -219,7 +274,8 @@ describe "basic api tests" do
         convert_lead_response = Zoho::Api.convert_lead(self.class.convert_lead_seed_id)
         
         assert_equal Hash, convert_lead_response.class
-        assert convert_lead_response.has_key?('zoho_id')
+        assert convert_lead_response.has_key?('zoho_contact_id')
+        assert convert_lead_response.has_key?('zoho_account_id')
       end
     end
 

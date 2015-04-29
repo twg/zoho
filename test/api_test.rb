@@ -299,11 +299,57 @@ describe "basic api tests" do
 
   describe "module mapping" do
     it "correctly maps Customers to Contacts" do
+      Zoho.configure do |config|
+        config.custom_modules_map = {
+          'Customers' => 'Contacts'
+        }
+      end
+
       VCR.use_cassette('map_customers_to_contacts') do
         response = Zoho::Api.search_records('Customers', { 'Last Name' => 'Munroe' })
 
         assert_equal 1, response.count
       end
+    end
+  end
+
+  describe "field mapping" do
+    before do
+      Zoho.configure do |config|
+        config.custom_fields_map = {
+          'Leads' => {
+            'FooBar' => 'Last Name'
+          }
+        }
+      end
+    end
+
+    after do
+      Zoho.configure do |config|
+        config.custom_fields_map = {}
+      end 
+    end
+
+    it "correctly maps FooBar to Last Name on insertion" do
+      VCR.use_cassette('map_fields_upload') do
+        response = Zoho::Api.insert_records('Leads', {
+          'Email'       => 'emma.frost@twg.ca',
+          'Company'     => '<undefined>',
+          'FooBar'      => 'Frost'
+        })
+
+        assert_equal Hash, response.class
+        assert response.has_key?('zoho_id')        
+      end    
+    end
+
+    it "correctly maps Last Name to FooBar on retrieval" do
+      VCR.use_cassette('map_fields_download') do
+        response = Zoho::Api.search_records('Leads', { 'Email' => 'charles.xavier@twg.ca' })
+
+        assert_equal 1, response.count
+        assert_equal 'Xavier', response[0]['FooBar']
+      end     
     end
   end
 end

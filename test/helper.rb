@@ -23,6 +23,9 @@ class Minitest::Test
   def setup
     Zoho.configure do |config|
       config.api_key = 'ccabd7ff5cb3f1ad9b0bb27a17a20626'
+      config.custom_modules_map = {
+        'Customers' => 'Contacts'
+      }
     end
   end
 end

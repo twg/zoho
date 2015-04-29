@@ -51,6 +51,13 @@ describe "basic api tests" do
       })
       @insert_lead_seed_id = r4['zoho_id']      
 
+      Zoho::Api.insert_records('Contacts', {
+        'Email'       => 'ororo.munroe@twg.ca',
+        'Company'     => '<undefined>',
+        'Last Name'   => 'Munroe',
+        'First Name'  => 'Ororo'
+      });
+
       # when running against the live Zoho system (as opposed to VCR),
       # you have to uncomment this line out so that the tests pass
       # this is because the Zoho API is async and does not reflect its
@@ -287,6 +294,16 @@ describe "basic api tests" do
       end
 
       assert_equal 4600, error.code    
+    end
+  end
+
+  describe "module mapping" do
+    it "correctly maps Customers to Contacts" do
+      VCR.use_cassette('map_customers_to_contacts') do
+        response = Zoho::Api.search_records('Customers', { 'Last Name' => 'Munroe' })
+
+        assert_equal 1, response.count
+      end
     end
   end
 end

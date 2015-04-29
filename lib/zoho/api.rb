@@ -47,7 +47,7 @@ class Zoho::Api
 
     def search_records(module_name, criteria, options = {})
       serialized_criteria = "(" + (criteria.map do |k, v|
-        "(#{k}:#{v})"
+        "(#{map_custom_field_name(module_name, k)}:#{v})"
       end).join(',') + ")"
 
       params = { 'criteria' => serialized_criteria }.merge!(options)
@@ -140,12 +140,18 @@ class Zoho::Api
       # by the system (usually in the form CustomModulen). Route all
       # module name resolutions through this function to get some clarity
       # back
-      def normalize_module_name(module_name)
-        if Zoho.configuration.custom_modules_map.has_key? module_name
-          Zoho.configuration.custom_modules_map[module_name]
-        else
-          module_name
-        end
+      def map_custom_module_name(custom_module_name)
+        Zoho.configuration.custom_modules_map[custom_module_name] || custom_module_name
+      end
+
+      def map_custom_field_name(custom_module_name, custom_field_name)
+        map = Zoho.configuration.custom_fields_map[custom_module_name] ||= {}
+        map[custom_field_name] || custom_field_name
+      end
+
+      def unmap_custom_field_name(custom_module_name, field_name)
+        map = Zoho.configuration.custom_fields_map[custom_module_name] ||= {}
+        map.key(field_name) || field_name
       end
 
       # the Zoho API returns a hash if the result set has one item, but an
@@ -165,7 +171,7 @@ class Zoho::Api
       # where keys are the field names, and values are the field values
       def process_query_response(module_name, response)
         if response.key? "result"
-          rows = normalize_hash_array response["result"][normalize_module_name(module_name)]["row"]
+          rows = normalize_hash_array response["result"][map_custom_module_name(module_name)]["row"]
 
           rows.map do |row|
             normalized_structure = {}
@@ -173,7 +179,7 @@ class Zoho::Api
             fields = normalize_hash_array row["FL"]
 
             fields.each do |attr|
-              normalized_structure[attr["val"]] = attr["content"]
+              normalized_structure[unmap_custom_field_name(module_name, attr["val"])] = attr["content"]
             end 
 
             normalized_structure
@@ -184,7 +190,7 @@ class Zoho::Api
       end      
 
       def create_zoho_url(format, module_name, api_call)
-        "#{ZOHO_ROOT_URL}/#{format}/#{normalize_module_name(module_name)}/#{api_call}"
+        "#{ZOHO_ROOT_URL}/#{format}/#{map_custom_module_name(module_name)}/#{api_call}"
       end
 
       def check_for_xml_error(response)
@@ -258,20 +264,21 @@ class Zoho::Api
 
       def build_xml(module_name, attrs)
         doc = Ox::Document.new()
-        module_element = Ox::Element.new(normalize_module_name(module_name))
+        module_element = Ox::Element.new(map_custom_module_name(module_name))
         row = Ox::Element.new('row')
         row[:no] = 1
         
         attrs.each_pair do |key, value|
           element = Ox::Element.new('FL')
-          element[:val] = key
+          element[:val] = map_custom_field_name(module_name, key)
           element << value.to_s
           row << element
         end
 
         module_element << row
         doc << module_element
-        return Ox::dump(doc)
+        
+        Ox::dump(doc)
       end      
   end
 end

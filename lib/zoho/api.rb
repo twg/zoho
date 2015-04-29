@@ -3,7 +3,7 @@ require 'logger'
 
 class Zoho::Api
 
-  USER_TYPES = {
+  SEARCH_TYPES = {
     :all_users => 'AllUsers',
     :active_users => 'ActiveUsers',
     :deactive_users => 'DeactiveUsers',
@@ -18,8 +18,8 @@ class Zoho::Api
     # subset = The subset of users to search over
     #   the full list and their description is available here: https://www.zoho.com/crm/help/api/getusers.html  
     # e.g. get_users('email', 'jack@twg.ca', :active_users)
-    def get_users(field = nil, value = nil, subset = :all_users)
-      params = { 'type' => USER_TYPES[subset] }
+    def get_users(field = nil, value = nil, filter_by = :all_users)
+      params = { 'type' => SEARCH_TYPES[filter_by] }
       params['searchColumn'] = field unless field.nil?
       params['searchValue'] = value unless value.nil?
 

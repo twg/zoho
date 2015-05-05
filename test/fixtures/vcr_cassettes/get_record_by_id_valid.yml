@@ -1,0 +1,58 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://crm.zoho.com/crm/private/json/Leads/getRecordById?authtoken=ccabd7ff5cb3f1ad9b0bb27a17a20626&id=1465372000000109067&scope=crmapi
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - crm.zoho.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - ZGS
+      Date:
+      - Wed, 29 Apr 2015 18:47:00 GMT
+      Content-Type:
+      - application/jsonp;charset=utf-8
+      Content-Length:
+      - '875'
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - JSESSIONID=EB84CDC18D38BC7FEF25F36A98D671CE; Path=/crm/
+      - crmcsr=368a549b-0790-4bd6-8c8b-e62946c97902; Path=/; Secure
+      X-Xss-Protection:
+      - '1'
+      Pragma:
+      - no-cache
+      Cache-Control:
+      - no-store, no-cache, must-revalidate
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      X-Frame-Options:
+      - DENY
+      X-Download-Options:
+      - noopen
+      X-Content-Type-Options:
+      - nosniff
+      Strict-Transport-Security:
+      - max-age=15768000
+    body:
+      encoding: UTF-8
+      string: |
+        {"response":{"result":{"Leads":{"row":{"no":"1","FL":[{"content":"1465372000000109067","val":"LEADID"},{"content":"1465372000000083003","val":"SMOWNERID"},{"content":"Dexter Heng","val":"Lead Owner"},{"content":"<undefined>","val":"Company"},{"content":"Grey","val":"Last Name"},{"content":"jean.grey.summers@twg.ca","val":"Email"},{"content":"0","val":"No of Employees"},{"content":"0","val":"Annual Revenue"},{"content":"1465372000000083003","val":"SMCREATORID"},{"content":"Dexter Heng","val":"Created By"},{"content":"1465372000000083003","val":"MODIFIEDBY"},{"content":"Dexter Heng","val":"Modified By"},{"content":"2015-04-29 11:40:53","val":"Created Time"},{"content":"2015-04-29 11:44:59","val":"Modified Time"},{"content":"false","val":"Email Opt Out"},{"content":"2015-04-29 11:44:59","val":"Last Activity Time"}]}}},"uri":"/crm/private/json/Leads/getRecordById"}}
+    http_version: 
+  recorded_at: Wed, 29 Apr 2015 18:47:01 GMT
+recorded_with: VCR 2.9.3

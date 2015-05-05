@@ -16,9 +16,9 @@ class Zoho::Api
 
     # field = The Zoho Field to search over.
     # value = The value to search for.
-    # subset = The subset of users to search over
+    # filter_by = The subset of users to search over
     #   the full list and their description is available here: https://www.zoho.com/crm/help/api/getusers.html  
-    # e.g. get_users('email', 'jack@twg.ca', :active_users)
+    # e.g. get_users('email', 'phil.coulson@twg.ca', :active_users)
     def get_users(field = nil, value = nil, filter_by = :all_users)
       params = { 'type' => SEARCH_TYPES[filter_by] }
       params['searchColumn'] = field unless field.nil?
@@ -26,55 +26,50 @@ class Zoho::Api
 
       response = json_get('Users', 'getUsers', params)
 
-      # the Zoho API returns a hash if the result set has one item, but an
-      # array if it has more than one. So based on the number of records returned
-      # the structure of the results is different. The code below will normalize
-      # the structure to arrays either way.
-      users = response["users"]["user"]
-      if users.kind_of? Hash
-        users = [users]
-      end
+      normalize_hash_array response["users"]["user"]
+    end
 
-      users
+    def get_record_by_id(module_name, id, options = {})
+      params = { 'id' => id }.merge!(options)
+
+      response = json_get_with_validation(module_name, 'getRecordById', params)
+
+      process_query_response module_name, response
+    end
+
+    def get_records_by_ids(module_name, id_list, options = {})
+      params = { 'idlist' => id_list.join(';') }.merge!(options)
+
+      response = json_get_with_validation(module_name, 'getRecordById', params)
+
+      process_query_response module_name, response
+    end
+
+    def get_records(module_name, from_index = 1, to_index = 20, options = {})
+      return nil if from_index < 1
+      return nil if from_index > to_index
+      return nil if (to_index - from_index) > 200  
+
+      params = {
+        'fromIndex' => from_index,
+        'toIndex' => to_index
+      }.merge!(options)
+
+      response = json_get_with_validation(module_name, 'getRecords', params)
+
+      process_query_response module_name, response
     end
 
     def search_records(module_name, criteria, options = {})
       serialized_criteria = "(" + (criteria.map do |k, v|
-        "(#{k}:#{v})"
+        "(#{map_custom_field_name(module_name, k)}:#{v})"
       end).join(',') + ")"
 
       params = { 'criteria' => serialized_criteria }.merge!(options)
 
       response = json_get_with_validation(module_name, 'searchRecords', params);
 
-      # the Zoho API returns a hash if the result set has one item, but an
-      # array if it has more than one. So based on the number of records returned
-      # or the columns that have been requested to be returned, the structure
-      # of the results is different. The code below will normalize the structure
-      # to arrays either way 
-      if response.key? "result"
-        rows = response["result"][module_name]["row"]
-        if rows.kind_of? Hash
-          rows = [rows]
-        end
-
-        rows.map do |row|
-          deserialized_structure = {}
-
-          fields = row["FL"]
-          if fields.kind_of? Hash
-            fields = [fields]
-          end
-
-          fields.each do |attr|
-            deserialized_structure[attr["val"]] = attr["content"]
-          end 
-
-          deserialized_structure
-        end
-      elsif response.key?("nodata") && response["nodata"]["code"].to_i == Zoho::Error::ERROR_CODE_NO_MATCHING_RECORD
-        nil
-      end
+      process_query_response module_name, response
     end
 
     def insert_records(module_name, attrs, options = {})
@@ -137,11 +132,12 @@ class Zoho::Api
       response = json_get('Leads', 'convertLead', params)
 
       if response.key? "success"
-        # our current needs are only interested in the contact side of the 
-        # lead conversion, but zoho converts to both contact and accounts:
-        # see https://www.zoho.com/crm/help/leads/convert-leads.html
-        # for some good documentation on the subject matter
-        { 'zoho_id' => response["success"]["Contact"]["content"] }
+        # See https://www.zoho.com/crm/help/leads/convert-leads.html
+        # for some good documentation on what happens when you convert a lead
+        { 
+          'zoho_contact_id' => response["success"]["Contact"]["content"],
+          'zoho_account_id' => response["success"]["Account"]["content"] 
+        }
       else
         check_for_json_error response
       end
@@ -155,8 +151,61 @@ class Zoho::Api
         }
       end
 
+      # Custom Modules in Zoho have names that are simply assigned out
+      # by the system (usually in the form CustomModulen). Route all
+      # module name resolutions through this function to get some clarity
+      # back
+      def map_custom_module_name(custom_module_name)
+        Zoho.configuration.custom_modules_map[custom_module_name] || custom_module_name
+      end
+
+      def map_custom_field_name(custom_module_name, custom_field_name)
+        map = Zoho.configuration.custom_fields_map[custom_module_name] ||= {}
+        map[custom_field_name] || custom_field_name
+      end
+
+      def unmap_custom_field_name(custom_module_name, field_name)
+        map = Zoho.configuration.custom_fields_map[custom_module_name] ||= {}
+        map.key(field_name) || field_name
+      end
+
+      # the Zoho API returns a hash if the result set has one item, but an
+      # array if it has more than one. So based on the number of records returned
+      # or the columns that have been requested to be returned, the structure
+      # of the results is different. The code below will normalize the structure
+      # to arrays either way 
+      def normalize_hash_array(record)
+        if record.kind_of? Hash
+          [record]
+        else
+          record
+        end
+      end
+
+      # converts the Zoho response structure into an array of hashes
+      # where keys are the field names, and values are the field values
+      def process_query_response(module_name, response)
+        if response.key? "result"
+          rows = normalize_hash_array response["result"][map_custom_module_name(module_name)]["row"]
+
+          rows.map do |row|
+            normalized_structure = {}
+
+            fields = normalize_hash_array row["FL"]
+
+            fields.each do |attr|
+              normalized_structure[unmap_custom_field_name(module_name, attr["val"])] = attr["content"]
+            end 
+
+            normalized_structure
+          end
+        elsif response.key?("nodata") && response["nodata"]["code"].to_i == Zoho::Error::ERROR_CODE_NO_MATCHING_RECORD
+          nil
+        end
+      end      
+
       def create_zoho_url(format, module_name, api_call)
-        "#{ZOHO_ROOT_URL}/#{format}/#{module_name}/#{api_call}"
+        "#{ZOHO_ROOT_URL}/#{format}/#{map_custom_module_name(module_name)}/#{api_call}"
       end
 
       def check_for_xml_error(response)
@@ -230,20 +279,21 @@ class Zoho::Api
 
       def build_xml(module_name, attrs)
         doc = Ox::Document.new()
-        module_element = Ox::Element.new(module_name)
+        module_element = Ox::Element.new(map_custom_module_name(module_name))
         row = Ox::Element.new('row')
         row[:no] = 1
         
         attrs.each_pair do |key, value|
           element = Ox::Element.new('FL')
-          element[:val] = key
+          element[:val] = map_custom_field_name(module_name, key)
           element << value.to_s
           row << element
         end
 
         module_element << row
         doc << module_element
-        return Ox::dump(doc)
+        
+        Ox::dump(doc)
       end      
   end
 end

@@ -23,7 +23,7 @@ http_interactions:
       Server:
       - ZGS
       Date:
-      - Wed, 29 Apr 2015 18:47:09 GMT
+      - Wed, 29 Apr 2015 19:56:32 GMT
       Content-Type:
       - application/jsonp;charset=utf-8
       Content-Length:
@@ -31,8 +31,8 @@ http_interactions:
       Connection:
       - keep-alive
       Set-Cookie:
-      - JSESSIONID=EF5644E6E9AE2322F14528ADCFE35AAA; Path=/crm/
-      - crmcsr=59ca12f0-704d-4b20-8ca5-e6c48ece8f8c; Path=/; Secure
+      - JSESSIONID=A3B477EAE4BCA2A8205BC6F561FFA6FD; Path=/crm/
+      - crmcsr=6446ff93-3013-41f4-af97-9d7dc35e5184; Path=/; Secure
       X-Xss-Protection:
       - '1'
       Pragma:
@@ -54,5 +54,5 @@ http_interactions:
       string: |
         {"response":{"result":{"Leads":{"row":{"no":"1","FL":[{"content":"1465372000000109065","val":"LEADID"},{"content":"1465372000000083003","val":"SMOWNERID"},{"content":"Dexter Heng","val":"Lead Owner"},{"content":"<undefined>","val":"Company"},{"content":"Xavier","val":"Last Name"},{"content":"charles.xavier@twg.ca","val":"Email"},{"content":"0","val":"No of Employees"},{"content":"0","val":"Annual Revenue"},{"content":"1465372000000083003","val":"SMCREATORID"},{"content":"Dexter Heng","val":"Created By"},{"content":"1465372000000083003","val":"MODIFIEDBY"},{"content":"Dexter Heng","val":"Modified By"},{"content":"2015-04-29 11:40:52","val":"Created Time"},{"content":"2015-04-29 11:40:52","val":"Modified Time"},{"content":"false","val":"Email Opt Out"},{"content":"2015-04-29 11:40:52","val":"Last Activity Time"}]}}},"uri":"/crm/private/json/Leads/searchRecords"}}
     http_version: 
-  recorded_at: Wed, 29 Apr 2015 18:47:09 GMT
+  recorded_at: Wed, 29 Apr 2015 19:56:32 GMT
 recorded_with: VCR 2.9.3

@@ -23,7 +23,7 @@ http_interactions:
       Server:
       - ZGS
       Date:
-      - Fri, 24 Apr 2015 16:38:30 GMT
+      - Wed, 29 Apr 2015 18:49:14 GMT
       Content-Type:
       - application/jsonp;charset=utf-8
       Content-Length:
@@ -31,8 +31,8 @@ http_interactions:
       Connection:
       - keep-alive
       Set-Cookie:
-      - JSESSIONID=E1BC8324480D7925507C8F0B46724E72; Path=/crm/
-      - crmcsr=c21014f7-451a-4522-9387-24d384a7f1be; Path=/; Secure
+      - JSESSIONID=EE06DC893D8EA4F20D54E1B08E2B3348; Path=/crm/
+      - crmcsr=dc186622-7e1a-4cca-9c7e-073e63c73f76; Path=/; Secure
       X-Xss-Protection:
       - '1'
       X-Download-Options:
@@ -46,5 +46,5 @@ http_interactions:
       string: |
         {"response":{"error":{"message":"Unable to process your request. Please verify if the name and value is appropriate for the \"leadId\" parameter.","code":"4600"},"uri":"/crm/private/json/Leads/convertLead"}}
     http_version: 
-  recorded_at: Fri, 24 Apr 2015 16:38:30 GMT
+  recorded_at: Wed, 29 Apr 2015 18:49:14 GMT
 recorded_with: VCR 2.9.3

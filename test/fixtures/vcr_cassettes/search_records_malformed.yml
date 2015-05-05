@@ -23,7 +23,7 @@ http_interactions:
       Server:
       - ZGS
       Date:
-      - Fri, 24 Apr 2015 16:38:29 GMT
+      - Wed, 29 Apr 2015 18:47:12 GMT
       Content-Type:
       - application/jsonp;charset=utf-8
       Content-Length:
@@ -31,8 +31,8 @@ http_interactions:
       Connection:
       - keep-alive
       Set-Cookie:
-      - JSESSIONID=DB9BF931450BC60FF83B7E16F77B74A2; Path=/crm/
-      - crmcsr=57ed60b6-8b46-47f4-904a-60bf17aa4d02; Path=/; Secure
+      - JSESSIONID=6F09AA88114265F17C410B334CD446A5; Path=/crm/
+      - crmcsr=55095db2-433a-411a-b094-c2974e451781; Path=/; Secure
       X-Xss-Protection:
       - '1'
       Pragma:
@@ -54,5 +54,5 @@ http_interactions:
       string: |
         {"response": {"uri":"/crm/private/json/Leads/searchRecords","error": {"code":4832,"message":"API call cannot be completed as the Criteria parameter contains empty field name"}}}
     http_version: 
-  recorded_at: Fri, 24 Apr 2015 16:38:29 GMT
+  recorded_at: Wed, 29 Apr 2015 18:47:12 GMT
 recorded_with: VCR 2.9.3

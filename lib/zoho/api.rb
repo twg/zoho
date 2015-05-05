@@ -45,6 +45,21 @@ class Zoho::Api
       process_query_response module_name, response
     end
 
+    def get_records(module_name, from_index = 1, to_index = 20, options = {})
+      return nil if from_index < 1
+      return nil if from_index > to_index
+      return nil if (to_index - from_index) > 200  
+
+      params = {
+        'fromIndex' => from_index,
+        'toIndex' => to_index
+      }.merge!(options)
+
+      response = json_get_with_validation(module_name, 'getRecords', params)
+
+      process_query_response module_name, response
+    end
+
     def search_records(module_name, criteria, options = {})
       serialized_criteria = "(" + (criteria.map do |k, v|
         "(#{map_custom_field_name(module_name, k)}:#{v})"

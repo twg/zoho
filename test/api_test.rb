@@ -135,6 +135,34 @@ describe "basic api tests" do
     end
   end
 
+  describe "get_records" do
+    it "returns nil when from_index > to_index" do
+      response = Zoho::Api.get_records('Leads', 100, 50)
+
+      assert_equal nil, response
+    end
+
+    it "returns nil when from_index < 1" do
+      response = Zoho::Api.get_records('Leads', -1, 50)
+
+      assert_equal nil, response
+    end
+
+    it "returns nil when requesting more than 200 records" do
+      response = Zoho::Api.get_records('Leads', 1, 300)
+
+      assert_equal nil, response
+    end
+
+    it "returns multple results" do
+      VCR.use_cassette('get_records') do
+        response = Zoho::Api.get_records('Leads', 1, 50)
+
+        refute_equal 1, response
+      end
+    end
+  end
+
   describe "insert_records" do
     it "inserts records with valid data" do
       VCR.use_cassette('insert_record_valid', :match_requests_on => [:uri, :body]) do

@@ -25,16 +25,16 @@ http_interactions:
       Server:
       - ZGS
       Date:
-      - Wed, 29 Apr 2015 19:54:38 GMT
+      - Wed, 06 May 2015 15:17:45 GMT
       Content-Type:
       - text/xml;charset=utf-8
       Content-Length:
-      - '429'
+      - '447'
       Connection:
       - keep-alive
       Set-Cookie:
-      - JSESSIONID=FA25A4F0D977BC9B95AE9C3E7656679D; Path=/crm/
-      - crmcsr=f34780b8-13d7-4a69-9f56-17cba72f4b24; Path=/; Secure
+      - JSESSIONID=28682BCE4F475E14E2FE886328B0F042; Path=/crm/
+      - crmcsr=c87292ab-8dde-44c5-9ce6-a1579f5c05b5; Path=/; Secure
       X-Xss-Protection:
       - '1'
       Pragma:
@@ -51,7 +51,7 @@ http_interactions:
       encoding: UTF-8
       string: |
         <?xml version="1.0" encoding="UTF-8" ?>
-        <response uri="/crm/private/xml/Leads/insertRecords"><result><message>Record(s) added successfully</message><recorddetail><FL val="Id">1465372000000109083</FL><FL val="Created Time">2015-04-29 12:54:39</FL><FL val="Modified Time">2015-04-29 12:54:39</FL><FL val="Created By"><![CDATA[Dexter Heng]]></FL><FL val="Modified By"><![CDATA[Dexter Heng]]></FL></recorddetail></result></response>
+        <response uri="/crm/private/xml/Leads/insertRecords"><result><message>Record(s) added successfully</message><recorddetail><FL val="Id">1418626000000147041</FL><FL val="Created Time">2015-05-06 11:17:45</FL><FL val="Modified Time">2015-05-06 11:17:45</FL><FL val="Created By"><![CDATA[jonathan+zohosandbox]]></FL><FL val="Modified By"><![CDATA[jonathan+zohosandbox]]></FL></recorddetail></result></response>
     http_version: 
-  recorded_at: Wed, 29 Apr 2015 19:54:39 GMT
+  recorded_at: Wed, 06 May 2015 15:17:46 GMT
 recorded_with: VCR 2.9.3

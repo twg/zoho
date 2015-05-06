@@ -60,7 +60,29 @@ class Zoho::Api
       process_query_response module_name, response
     end
 
-    def search_records(module_name, criteria, options = {})
+    # getSearchRecords (https://www.zoho.com/crm/help/api/getsearchrecords.html)
+    # is a somewhat hidden API method that performs a synchronous search. i.e.
+    # data is going to be there if it was recently inserted.
+    # Compare and contrast this with the searchRecords method of the API.
+    def search_records_sync(module_name, search_field, search_operator, search_value, select_columns = 'All', options = {})
+      serialized_criteria = "(#{map_custom_field_name(module_name, search_field)}|#{search_operator}|#{search_value})"
+
+      params = {
+        'selectColumns' => select_columns,
+        'searchCondition' => serialized_criteria
+      }.merge!(options)
+
+      response = json_get_with_validation(module_name, 'getSearchRecords', params)
+
+      process_query_response module_name, response
+    end
+
+    # searchRecords (https://www.zoho.com/crm/help/api/searchrecords.html)
+    # is an API method that performs an async search. i.e. data may not show
+    # up if it was inserted/updated in the last one or two minutes. 
+    # These requests DO NOT count against the API request limit.
+    # Compare and contrast this with the getSearchRecords method of the API.
+    def search_records_async(module_name, criteria, options = {})
       serialized_criteria = "(" + (criteria.map do |k, v|
         "(#{map_custom_field_name(module_name, k)}:#{v})"
       end).join(',') + ")"

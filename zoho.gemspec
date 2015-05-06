@@ -8,9 +8,9 @@ Gem::Specification.new do |spec|
   spec.version       = Zoho::VERSION
   spec.authors       = ["Jack Neto"]
   spec.email         = ["jack@twg.ca"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
-  spec.homepage      = ""
+  spec.summary       = %q{A thin wrapper around the Zoho CRM API.}
+  spec.description   = %q{A thin wrapper around the Zoho CRM API.}
+  spec.homepage      = "https://github.com/twg/zoho"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")

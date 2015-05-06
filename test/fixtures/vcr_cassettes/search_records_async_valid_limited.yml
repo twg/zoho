@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://crm.zoho.com/crm/private/json/Leads/searchRecords?authtoken=ccabd7ff5cb3f1ad9b0bb27a17a20626&criteria=((Em%7Cail:charles.xavier@twg.ca))&scope=crmapi
+    uri: https://crm.zoho.com/crm/private/json/Leads/searchRecords?authtoken=ccabd7ff5cb3f1ad9b0bb27a17a20626&criteria=((Email:charles.xavier@twg.ca))&scope=crmapi&selectColumns=Leads(Last%20Name)
     body:
       encoding: US-ASCII
       string: ''
@@ -23,16 +23,16 @@ http_interactions:
       Server:
       - ZGS
       Date:
-      - Wed, 29 Apr 2015 18:47:12 GMT
+      - Wed, 06 May 2015 15:17:43 GMT
       Content-Type:
       - application/jsonp;charset=utf-8
       Content-Length:
-      - '178'
+      - '194'
       Connection:
       - keep-alive
       Set-Cookie:
-      - JSESSIONID=6F09AA88114265F17C410B334CD446A5; Path=/crm/
-      - crmcsr=55095db2-433a-411a-b094-c2974e451781; Path=/; Secure
+      - JSESSIONID=9ED45AE57E5189153A347220BCF264EB; Path=/crm/
+      - crmcsr=933b18be-da80-49ba-9f79-2504c75e2ceb; Path=/; Secure
       X-Xss-Protection:
       - '1'
       Pragma:
@@ -52,7 +52,7 @@ http_interactions:
     body:
       encoding: UTF-8
       string: |
-        {"response": {"uri":"/crm/private/json/Leads/searchRecords","error": {"code":4832,"message":"API call cannot be completed as the Criteria parameter contains empty field name"}}}
+        {"response":{"result":{"Leads":{"row":{"no":"1","FL":[{"content":"1418626000000147025","val":"LEADID"},{"content":"Xavier","val":"Last Name"}]}}},"uri":"/crm/private/json/Leads/searchRecords"}}
     http_version: 
-  recorded_at: Wed, 29 Apr 2015 18:47:12 GMT
+  recorded_at: Wed, 06 May 2015 15:17:45 GMT
 recorded_with: VCR 2.9.3

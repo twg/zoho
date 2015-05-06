@@ -23,7 +23,7 @@ http_interactions:
       Server:
       - ZGS
       Date:
-      - Wed, 29 Apr 2015 18:51:18 GMT
+      - Wed, 06 May 2015 15:11:39 GMT
       Content-Type:
       - application/jsonp;charset=utf-8
       Content-Length:
@@ -31,8 +31,8 @@ http_interactions:
       Connection:
       - keep-alive
       Set-Cookie:
-      - JSESSIONID=B8AFD2667986D4C6EE58A0BD1FEBE503; Path=/crm/
-      - crmcsr=adb68b88-2146-435a-bc5e-1c97e39c98f0; Path=/; Secure
+      - JSESSIONID=2CB592E6F4D6D7677DAFBD95C376F1F8; Path=/crm/
+      - crmcsr=7451015f-0c7b-4834-bf0d-3aedad8f6df7; Path=/; Secure
       X-Xss-Protection:
       - '1'
       X-Download-Options:
@@ -46,5 +46,5 @@ http_interactions:
       string: |
         {"response":{"error":{"message":"Unable to process your request. Please verify if the name and value is appropriate for the \"id\" parameter.","code":"4600"},"uri":"/crm/private/json/Leads/deleteRecords"}}
     http_version: 
-  recorded_at: Wed, 29 Apr 2015 18:51:18 GMT
+  recorded_at: Wed, 06 May 2015 15:11:41 GMT
 recorded_with: VCR 2.9.3

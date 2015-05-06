@@ -23,7 +23,7 @@ http_interactions:
       Server:
       - ZGS
       Date:
-      - Wed, 29 Apr 2015 18:40:50 GMT
+      - Wed, 06 May 2015 15:09:37 GMT
       Content-Type:
       - application/jsonp;charset=utf-8
       Content-Length:
@@ -31,8 +31,8 @@ http_interactions:
       Connection:
       - keep-alive
       Set-Cookie:
-      - JSESSIONID=B9A70BA3E7DCFB6EE664C25B570B46C8; Path=/crm/
-      - crmcsr=b8aa1232-cae1-4d7a-9ec6-888993da9806; Path=/; Secure
+      - JSESSIONID=92C67A4F21E30BBC81894594087C9E33; Path=/crm/
+      - crmcsr=67f4cdd0-9b4c-4061-b6b0-ba3ddafdafc0; Path=/; Secure
       X-Xss-Protection:
       - '1'
       Pragma:
@@ -54,5 +54,5 @@ http_interactions:
       string: |
         {"response":{"nodata":{"message":"There is no data to show","code":"4422"},"uri":"/crm/private/json/Leads/getRecordById"}}
     http_version: 
-  recorded_at: Wed, 29 Apr 2015 18:40:50 GMT
+  recorded_at: Wed, 06 May 2015 15:09:38 GMT
 recorded_with: VCR 2.9.3

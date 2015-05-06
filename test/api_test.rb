@@ -240,17 +240,17 @@ describe "basic api tests" do
     end  
   end
 
-  describe "search_records" do
+  describe "search_records_async" do
     it "finds the right record with valid search terms" do
-      VCR.use_cassette('search_records_valid') do
-        response = Zoho::Api.search_records('Leads', { 'Email' => 'charles.xavier@twg.ca' })
+      VCR.use_cassette('search_records_async_valid') do
+        response = Zoho::Api.search_records_async('Leads', { 'Email' => 'charles.xavier@twg.ca' })
         assert_equal 1, response.count
       end
     end
 
     it "returns only the single field specified" do
-      VCR.use_cassette('search_records_valid_limited') do
-        response = Zoho::Api.search_records('Leads', { 'Email' => 'charles.xavier@twg.ca' }, { 'selectColumns' => 'Leads(Last Name)' })
+      VCR.use_cassette('search_records_async_valid_limited') do
+        response = Zoho::Api.search_records_async('Leads', { 'Email' => 'charles.xavier@twg.ca' }, { 'selectColumns' => 'Leads(Last Name)' })
       
         assert_equal 2, response[0].count 
         assert_equal 'Xavier', response[0]['Last Name'] 
@@ -258,8 +258,8 @@ describe "basic api tests" do
     end
 
     it "returns only the fields specified" do
-      VCR.use_cassette('search_records_valid_limited_2') do
-        response = Zoho::Api.search_records('Leads', { 'Email' => 'charles.xavier@twg.ca' }, { 'selectColumns' => 'Leads(LEADID)' })
+      VCR.use_cassette('search_records_async_valid_limited_2') do
+        response = Zoho::Api.search_records_async('Leads', { 'Email' => 'charles.xavier@twg.ca' }, { 'selectColumns' => 'Leads(LEADID)' })
       
         assert_equal 1, response[0].count
         assert response[0].has_key? 'LEADID' 
@@ -267,21 +267,37 @@ describe "basic api tests" do
     end
 
     it "finds nothing with bad query" do
-      VCR.use_cassette('search_records_no_records') do
-        response = Zoho::Api.search_records('Leads', { 'Email' => 'bruce.wayne@twg.ca' })
+      VCR.use_cassette('search_records_async_no_records') do
+        response = Zoho::Api.search_records_async('Leads', { 'Email' => 'bruce.wayne@twg.ca' })
         assert_equal nil, response
       end
     end
 
     it "throws error with malformed query" do
       error = assert_raises Zoho::Error do
-        VCR.use_cassette('search_records_malformed') do
-          Zoho::Api.search_records('Leads', { 'Em|ail' => 'charles.xavier@twg.ca' })
+        VCR.use_cassette('search_records_async_malformed') do
+          Zoho::Api.search_records_async('Leads', { 'Em|ail' => 'charles.xavier@twg.ca' })
         end
       end
 
       assert_equal 4832, error.code
-    end  
+    end
+  end
+
+  describe "search_records_sync" do
+    it "finds the record immediately" do
+      VCR.use_cassette('search_records_sync_immediate') do
+        Zoho::Api.insert_records('Leads', {
+          'Email'       => 'robert.drake@twg.ca',
+          'Company'     => '<undefined>',
+          'Last Name'   => 'Drake'
+        });
+
+        result = Zoho::Api.search_records_sync('Leads', 'Last Name', '=', 'Drake')
+
+        assert_equal 'Drake', result[0]['Last Name']
+      end
+    end
   end
 
   describe "get_users" do
@@ -294,11 +310,13 @@ describe "basic api tests" do
       end
     end
 
-    it "retrieves all users" do
+    it "retrieves multiple users when no criteria specified" do
+      # this test assumes that the Zoho instance the auth token
+      # points to has multiple users
       VCR.use_cassette('get_users_multiple') do
         users = Zoho::Api.get_users()
 
-        assert_equal 2, users.count
+        refute_equal 1, users.count
       end
     end
   end
@@ -334,7 +352,7 @@ describe "basic api tests" do
       end
 
       VCR.use_cassette('map_customers_to_contacts') do
-        response = Zoho::Api.search_records('Customers', { 'Last Name' => 'Munroe' })
+        response = Zoho::Api.search_records_async('Customers', { 'Last Name' => 'Munroe' })
 
         assert_equal 1, response.count
       end
@@ -373,7 +391,7 @@ describe "basic api tests" do
 
     it "correctly maps Last Name to FooBar on retrieval" do
       VCR.use_cassette('map_fields_download') do
-        response = Zoho::Api.search_records('Leads', { 'Email' => 'charles.xavier@twg.ca' })
+        response = Zoho::Api.search_records_async('Leads', { 'Email' => 'charles.xavier@twg.ca' })
 
         assert_equal 1, response.count
         assert_equal 'Xavier', response[0]['FooBar']

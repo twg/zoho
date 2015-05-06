@@ -1,0 +1,112 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://crm.zoho.com/crm/private/xml/Leads/insertRecords
+    body:
+      encoding: US-ASCII
+      string: authtoken=ccabd7ff5cb3f1ad9b0bb27a17a20626&scope=crmapi&newFormat=1&xmlData=%0A%3CLeads%3E%0A++%3Crow+no%3D%221%22%3E%0A++++%3CFL+val%3D%22Email%22%3Erobert.drake%40twg.ca%3C%2FFL%3E%0A++++%3CFL+val%3D%22Company%22%3E%26lt%3Bundefined%26gt%3B%3C%2FFL%3E%0A++++%3CFL+val%3D%22Last+Name%22%3EDrake%3C%2FFL%3E%0A++%3C%2Frow%3E%0A%3C%2FLeads%3E%0A&duplicateCheck=1
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - crm.zoho.com
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - ZGS
+      Date:
+      - Wed, 06 May 2015 15:17:46 GMT
+      Content-Type:
+      - text/xml;charset=utf-8
+      Content-Length:
+      - '447'
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - JSESSIONID=76CD2DF1D6C15E60C0DB0C44ECC0D3F7; Path=/crm/
+      - crmcsr=e3f4dec1-84c8-4762-b749-a513144a8219; Path=/; Secure
+      X-Xss-Protection:
+      - '1'
+      Pragma:
+      - no-cache
+      Cache-Control:
+      - no-store, no-cache, must-revalidate
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      X-Frame-Options:
+      - DENY
+      Strict-Transport-Security:
+      - max-age=15768000
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <response uri="/crm/private/xml/Leads/insertRecords"><result><message>Record(s) added successfully</message><recorddetail><FL val="Id">1418626000000147043</FL><FL val="Created Time">2015-05-06 11:17:46</FL><FL val="Modified Time">2015-05-06 11:17:46</FL><FL val="Created By"><![CDATA[jonathan+zohosandbox]]></FL><FL val="Modified By"><![CDATA[jonathan+zohosandbox]]></FL></recorddetail></result></response>
+    http_version: 
+  recorded_at: Wed, 06 May 2015 15:17:47 GMT
+- request:
+    method: get
+    uri: https://crm.zoho.com/crm/private/json/Leads/getSearchRecords?authtoken=ccabd7ff5cb3f1ad9b0bb27a17a20626&scope=crmapi&searchCondition=(Last%20Name%7C=%7CDrake)&selectColumns=All
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - crm.zoho.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - ZGS
+      Date:
+      - Wed, 06 May 2015 15:17:47 GMT
+      Content-Type:
+      - application/jsonp;charset=utf-8
+      Content-Length:
+      - '1350'
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - JSESSIONID=0542AA842D74CDFD103A78D91E1D6624; Path=/crm/
+      - crmcsr=5b088f65-2c26-4543-8075-49ed96cd927f; Path=/; Secure
+      X-Xss-Protection:
+      - '1'
+      Pragma:
+      - no-cache
+      Cache-Control:
+      - no-store, no-cache, must-revalidate
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      X-Frame-Options:
+      - DENY
+      X-Download-Options:
+      - noopen
+      X-Content-Type-Options:
+      - nosniff
+      Strict-Transport-Security:
+      - max-age=15768000
+    body:
+      encoding: UTF-8
+      string: |
+        {"response":{"result":{"Leads":{"row":{"no":"1","FL":[{"content":"1418626000000147043","val":"LEADID"},{"content":"1418626000000083001","val":"SMOWNERID"},{"content":"jonathan+zohosandbox","val":"Lead Owner"},{"content":"<undefined>","val":"Company"},{"content":"Drake","val":"Last Name"},{"content":"robert.drake@twg.ca","val":"Email"},{"content":"UnContacted","val":"Lead Status"},{"content":"1418626000000083001","val":"SMCREATORID"},{"content":"jonathan+zohosandbox","val":"Created By"},{"content":"1418626000000083001","val":"MODIFIEDBY"},{"content":"jonathan+zohosandbox","val":"Modified By"},{"content":"2015-05-06 11:17:46","val":"Created Time"},{"content":"2015-05-06 11:17:46","val":"Modified Time"},{"content":"false","val":"Email Opt Out"},{"content":"CAD","val":"Currency"},{"content":"1.000000000","val":"Exchange Rate"},{"content":"2015-05-06 11:17:46","val":"Last Activity Time"},{"content":"Customer - Residential","val":"Account Type"},{"content":" Drake","val":"Primary Contact Name"},{"content":"0","val":"Age of lead in days"},{"content":"false","val":"Do not Call"},{"content":"false","val":"Contacted"},{"content":"6","val":"Day Loaded"},{"content":"5","val":"Month Loaded"},{"content":"-Select an ACTION-","val":"ACTION"},{"content":"NEW_LEADS","val":"Processed Status"}]}}},"uri":"/crm/private/json/Leads/getSearchRecords"}}
+    http_version: 
+  recorded_at: Wed, 06 May 2015 15:17:48 GMT
+recorded_with: VCR 2.9.3

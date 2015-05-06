@@ -65,7 +65,7 @@ class Zoho::Api
     # data is going to be there if it was recently inserted.
     # Compare and contrast this with the searchRecords method of the API.
     def search_records_sync(module_name, search_field, search_operator, search_value, select_columns = 'All', options = {})
-      serialized_criteria = "(#{search_field}|#{search_operator}|#{search_value})"
+      serialized_criteria = "(#{map_custom_field_name(module_name, search_field)}|#{search_operator}|#{search_value})"
 
       params = {
         'selectColumns' => select_columns,

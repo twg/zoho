@@ -1,6 +1,7 @@
 require 'rubygems'
 require 'simplecov'
 require 'coveralls'
+require 'logger'
 
 SimpleCov.formatter = Coveralls::SimpleCov::Formatter
 SimpleCov.start do
@@ -23,6 +24,7 @@ class Minitest::Test
   def setup
     Zoho.configure do |config|
       config.api_key = 'ccabd7ff5cb3f1ad9b0bb27a17a20626'
+      config.logger = Logger.new(STDOUT)
     end
   end
 end

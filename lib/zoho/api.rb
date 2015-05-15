@@ -14,12 +14,19 @@ class Zoho::Api
 
   class << self
 
+    def log(msg)
+      return if Zoho.configuration.logger.nil?
+      Zoho.configuration.logger.info msg
+    end
+
     # field = The Zoho Field to search over.
     # value = The value to search for.
     # filter_by = The subset of users to search over
     #   the full list and their description is available here: https://www.zoho.com/crm/help/api/getusers.html  
     # e.g. get_users('email', 'phil.coulson@twg.ca', :active_users)
     def get_users(field = nil, value = nil, filter_by = :all_users)
+      log "get_users field=#{field}, value=#{value}, filter_by=#{filter_by}"
+
       params = { 'type' => SEARCH_TYPES[filter_by] }
       params['searchColumn'] = field unless field.nil?
       params['searchValue'] = value unless value.nil?
@@ -30,6 +37,8 @@ class Zoho::Api
     end
 
     def get_record_by_id(module_name, id, options = {})
+      log "get_record_by_id module_name=#{module_name}, id=#{id}, options=#{options}"
+
       params = { 'id' => id }.merge!(options)
 
       response = json_get_with_validation(module_name, 'getRecordById', params)
@@ -38,6 +47,8 @@ class Zoho::Api
     end
 
     def get_records_by_ids(module_name, id_list, options = {})
+      log "get_records_by_ids module_name=#{module_name}, id_list=#{id_list}, options=#{options}"
+
       params = { 'idlist' => id_list.join(';') }.merge!(options)
 
       response = json_get_with_validation(module_name, 'getRecordById', params)
@@ -46,6 +57,8 @@ class Zoho::Api
     end
 
     def get_records(module_name, from_index = 1, to_index = 20, options = {})
+      log "get_records module_name=#{module_name}, from_index=#{from_index}, to_index=#{to_index}, options=#{options}"
+
       return nil if from_index < 1
       return nil if from_index > to_index
       return nil if (to_index - from_index) > 200  
@@ -65,6 +78,8 @@ class Zoho::Api
     # data is going to be there if it was recently inserted.
     # Compare and contrast this with the searchRecords method of the API.
     def search_records_sync(module_name, search_field, search_operator, search_value, select_columns = 'All', options = {})
+      log "search_records_sync module_name=#{module_name}, search_filter=#{search_filter}, search_operator=#{search_operator}, search_value=#{search_value}, select_columns=#{select_columns}, options=#{options}"
+
       serialized_criteria = "(#{map_custom_field_name(module_name, search_field)}|#{search_operator}|#{search_value})"
 
       params = {
@@ -83,6 +98,8 @@ class Zoho::Api
     # These requests DO NOT count against the API request limit.
     # Compare and contrast this with the getSearchRecords method of the API.
     def search_records_async(module_name, criteria, options = {})
+      log "search_records_async module_name=#{module_name}, criteria=#{criteria}, options=#{options}"
+
       serialized_criteria = "(" + (criteria.map do |k, v|
         "(#{map_custom_field_name(module_name, k)}:#{v})"
       end).join(',') + ")"
@@ -95,6 +112,8 @@ class Zoho::Api
     end
 
     def insert_records(module_name, attrs, options = {})
+      log "update_records module_name=#{module_name}, attrs=#{attrs}, options=#{options}"
+
       xml = build_xml(module_name, attrs)
       params = { 'duplicateCheck' => 1 }.merge!(options)
 
@@ -114,6 +133,8 @@ class Zoho::Api
     end
 
     def update_records(module_name, id, attrs, options = {})
+      log "update_records module_name=#{module_name}, id=#{id}, attrs=#{attrs}, options=#{options}"
+
       xml = build_xml(module_name, attrs)
       params = { 'id' => id.to_s }.merge!(options)
 
@@ -123,6 +144,8 @@ class Zoho::Api
     end
 
     def delete_records(module_name, id, options = {})
+      log "delete_records module_name=#{module_name}, id=#{id}, options=#{options}"
+
       params = { 'id' => id.to_s }.merge!(options)
 
       response = json_get_with_validation(module_name, 'deleteRecords', params)
@@ -131,6 +154,8 @@ class Zoho::Api
     end
 
     def convert_lead(lead_id, options = {})
+      log "convert_lead lead_id=#{lead_id}, options=#{options}"
+
       doc = Ox::Document.new()
       
       module_element = Ox::Element.new('Potentials')

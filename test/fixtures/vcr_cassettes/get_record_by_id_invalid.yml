@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://crm.zoho.com/crm/private/json/Leads/getRecordById?authtoken=ccabd7ff5cb3f1ad9b0bb27a17a20626&id=1234&scope=crmapi
+    uri: https://crm.zoho.com/crm/private/json/Leads/getRecordById?authtoken=4bc37ba80b66d9e520758f84a170513d&id=1234&scope=crmapi
     body:
       encoding: US-ASCII
       string: ''
@@ -23,7 +23,7 @@ http_interactions:
       Server:
       - ZGS
       Date:
-      - Wed, 06 May 2015 15:15:41 GMT
+      - Tue, 19 May 2015 18:20:33 GMT
       Content-Type:
       - application/jsonp;charset=utf-8
       Content-Length:
@@ -31,8 +31,8 @@ http_interactions:
       Connection:
       - keep-alive
       Set-Cookie:
-      - JSESSIONID=324DE58B1F31F15B6362FEA6F15B4B82; Path=/crm/
-      - crmcsr=73bf3bba-94b1-4197-bbd9-4a7a121a5439; Path=/; Secure
+      - JSESSIONID=60C43E8BD8AF7C2775C798D4AF20C4D6; Path=/crm/
+      - crmcsr=3c26fd5a-b30b-4851-8ea3-89f8a6b0d1aa; Path=/; Secure
       X-Xss-Protection:
       - '1'
       Pragma:
@@ -54,5 +54,5 @@ http_interactions:
       string: |
         {"response":{"nodata":{"message":"There is no data to show","code":"4422"},"uri":"/crm/private/json/Leads/getRecordById"}}
     http_version: 
-  recorded_at: Wed, 06 May 2015 15:15:42 GMT
+  recorded_at: Tue, 19 May 2015 18:18:40 GMT
 recorded_with: VCR 2.9.3

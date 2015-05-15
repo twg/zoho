@@ -8,4 +8,5 @@ group :test do
   gem 'vcr'
   gem 'webmock'
   gem 'coveralls', :require => false
+  gem 'faker'
 end

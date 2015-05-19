@@ -29,9 +29,9 @@ The following methods are currently implemented:
 * getRecordById (implemented as get_record_by_id and get_records_by_ids)
 * searchRecords (implemented as search_records_async)
 * getSearchRecords (implemented as search_records_sync)
-* insertRecords (implemented as insert_records)
-* updateRecords (implemented as update_records)
-* deleteRecords (implemented as delete_records)
+* insertRecords (implemented as insert_record and insert_records)
+* updateRecords (implemented as update_record and update_records)
+* deleteRecords (implemented as delete_record)
 * convertLead (implemented as convert_lead)
 
 Look at the [Zoho API Documentation](https://www.zoho.com/crm/help/api/) for

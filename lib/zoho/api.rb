@@ -161,6 +161,8 @@ class Zoho::Api
               message = message[0].text unless message.empty?
               message ||= 'An unexpected error happend.'
 
+              log "insert_records encountered Zoho Exception #{code}: #{message}"
+
               results[row_number] = Zoho::Error.new({ :code => code, :message => message })
             else
               fields = row.locate('success/details/FL')
@@ -224,6 +226,8 @@ class Zoho::Api
             message = row.locate('error/details')
             message = message[0].text unless message.empty?
             message ||= 'An unexpected error happend.'
+
+            log "update_records encountered Zoho Exception #{code}: #{message}"
 
             results[row_number] = Zoho::Error.new({ :code => code, :message => message })
           end
@@ -358,14 +362,22 @@ class Zoho::Api
         message = message[0].text unless message.empty?
         message ||= 'An unexpected error happend.'
 
+        log "Zoho Exception (#{code}): #{message}."
+
         raise Zoho::Error.new({ :code => code, :message => message })
       end
 
       def check_for_json_error(response)
         return unless response["response"].key? "error"
+
+        code = response["response"]["error"]["code"].to_i
+        message = response["response"]["error"]["message"]
+
+        log "Zoho Exception (#{code}): #{message}"
+        
         raise Zoho::Error.new({
-          :code => response["response"]["error"]["code"].to_i,
-          :message => response["response"]["error"]["message"]
+          :code => code,
+          :message => message
         })
       end
 

@@ -240,6 +240,22 @@ describe "basic api tests" do
       assert_equal 4500, error.code
     end
 
+    it "raises an error with invalid update data" do
+      VCR.use_cassette('update_record_invalid_2', :match_requests_on => [:uri, :body]) do
+        leads = []
+
+        leads << { 'ID' => '1418626000000186588', 'Organics Account id_ID' => 'test@email.com' }
+        leads << { 'ID' => self.class.update_lead_seed_id, 'Email' => 'jean.grey.summers@twg.ca' }
+
+        results = Zoho::Api.update_records('Leads', leads)
+
+        assert 2, results.count
+        assert results.all? do |item|
+          item.is_a? Zoho::Error
+        end 
+      end
+    end    
+
     it "bulk updates records" do
       VCR.use_cassette('update_records_valid') do
         leads = (1..200).map do |x|

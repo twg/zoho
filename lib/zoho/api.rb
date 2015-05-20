@@ -189,11 +189,7 @@ class Zoho::Api
 
       results = update_records(module_name, [attrs], options)
 
-      if results[1].is_a? Zoho::Error
-        raise results[1]
-      else
-        results[1]
-      end      
+      results[1]
     end
 
     def update_records(module_name, records, options = {})
@@ -374,7 +370,7 @@ class Zoho::Api
         message = response["response"]["error"]["message"]
 
         log "Zoho Exception (#{code}): #{message}"
-        
+
         raise Zoho::Error.new({
           :code => code,
           :message => message

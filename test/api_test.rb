@@ -443,4 +443,20 @@ describe "basic api tests" do
       end     
     end
   end
+
+  describe "Logging" do
+    it "logs appropriately when the logger is set" do
+      Zoho.configure do |config|
+        s = StringIO.new
+
+        config.logger = Logger.new(s)
+
+        VCR.use_cassette('get_users_valid') do
+          Zoho::Api.get_users('name', 'mister+user')
+        end
+
+        assert s.string.include? 'get_users field=name, value=mister+user, filter_by=all_users'
+      end
+    end
+  end
 end

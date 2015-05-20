@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://crm.zoho.com/crm/private/json/Leads/searchRecords?authtoken=ccabd7ff5cb3f1ad9b0bb27a17a20626&criteria=((Email:charles.xavier@twg.ca))&scope=crmapi
+    uri: https://crm.zoho.com/crm/private/json/Leads/searchRecords?authtoken=4bc37ba80b66d9e520758f84a170513d&criteria=((Email:charles.xavier@twg.ca))&scope=crmapi
     body:
       encoding: US-ASCII
       string: ''
@@ -23,16 +23,16 @@ http_interactions:
       Server:
       - ZGS
       Date:
-      - Wed, 06 May 2015 15:17:44 GMT
+      - Tue, 19 May 2015 18:26:21 GMT
       Content-Type:
       - application/jsonp;charset=utf-8
       Content-Length:
-      - '1351'
+      - '1184'
       Connection:
       - keep-alive
       Set-Cookie:
-      - JSESSIONID=A96F19DD954F17DAF0D6A2A94337DD9E; Path=/crm/
-      - crmcsr=1468163a-7292-431a-abca-ecb410ba46dd; Path=/; Secure
+      - JSESSIONID=DE3B0B012509C67D39EACE3196E7CB68; Path=/crm/
+      - crmcsr=01cabb2b-78f4-4f0d-bbc0-68399673ad00; Path=/; Secure
       X-Xss-Protection:
       - '1'
       Pragma:
@@ -52,7 +52,7 @@ http_interactions:
     body:
       encoding: UTF-8
       string: |
-        {"response":{"result":{"Leads":{"row":{"no":"1","FL":[{"content":"1418626000000147025","val":"LEADID"},{"content":"1418626000000083001","val":"SMOWNERID"},{"content":"jonathan+zohosandbox","val":"Lead Owner"},{"content":"<undefined>","val":"Company"},{"content":"Xavier","val":"Last Name"},{"content":"charles.xavier@twg.ca","val":"Email"},{"content":"UnContacted","val":"Lead Status"},{"content":"1418626000000083001","val":"SMCREATORID"},{"content":"jonathan+zohosandbox","val":"Created By"},{"content":"1418626000000083001","val":"MODIFIEDBY"},{"content":"jonathan+zohosandbox","val":"Modified By"},{"content":"2015-05-06 11:07:32","val":"Created Time"},{"content":"2015-05-06 11:07:32","val":"Modified Time"},{"content":"false","val":"Email Opt Out"},{"content":"CAD","val":"Currency"},{"content":"1.000000000","val":"Exchange Rate"},{"content":"2015-05-06 11:07:32","val":"Last Activity Time"},{"content":"Customer - Residential","val":"Account Type"},{"content":" Xavier","val":"Primary Contact Name"},{"content":"0","val":"Age of lead in days"},{"content":"false","val":"Do not Call"},{"content":"false","val":"Contacted"},{"content":"6","val":"Day Loaded"},{"content":"5","val":"Month Loaded"},{"content":"-Select an ACTION-","val":"ACTION"},{"content":"NEW_LEADS","val":"Processed Status"}]}}},"uri":"/crm/private/json/Leads/searchRecords"}}
+        {"response":{"result":{"Leads":{"row":{"no":"1","FL":[{"content":"1418626000000184466","val":"LEADID"},{"content":"1418626000000083001","val":"SMOWNERID"},{"content":"jonathan+zohosandbox","val":"Lead Owner"},{"content":"<undefined>","val":"Company"},{"content":"Xavier","val":"Last Name"},{"content":"charles.xavier@twg.ca","val":"Email"},{"content":"UnContacted","val":"Lead Status"},{"content":"1418626000000083001","val":"SMCREATORID"},{"content":"jonathan+zohosandbox","val":"Created By"},{"content":"1418626000000083001","val":"MODIFIEDBY"},{"content":"jonathan+zohosandbox","val":"Modified By"},{"content":"2015-05-19 14:20:22","val":"Created Time"},{"content":"2015-05-19 14:20:22","val":"Modified Time"},{"content":"false","val":"Email Opt Out"},{"content":"CAD","val":"Currency"},{"content":"1.000000000","val":"Exchange Rate"},{"content":"2015-05-19 14:20:22","val":"Last Activity Time"},{"content":"Customer - Residential","val":"Account Type"},{"content":"false","val":"Do not Call"},{"content":"false","val":"Contacted"},{"content":"-Select an ACTION-","val":"ACTION"},{"content":"NEW_LEADS","val":"Processed Status"}]}}},"uri":"/crm/private/json/Leads/searchRecords"}}
     http_version: 
-  recorded_at: Wed, 06 May 2015 15:17:45 GMT
+  recorded_at: Tue, 19 May 2015 18:24:28 GMT
 recorded_with: VCR 2.9.3

@@ -1,4 +1,5 @@
 require File.expand_path('../helper', __FILE__)
+require 'faker'
 
 describe "basic api tests" do
   # this is annoying because MiniTest doesn't support a mechanism to 
@@ -7,51 +8,50 @@ describe "basic api tests" do
   # here (https://github.com/seattlerb/minitest/issues/61)
   def self.seed_data
     Zoho.configure do |config|
-      config.api_key = 'ccabd7ff5cb3f1ad9b0bb27a17a20626'
+      config.api_key = '4bc37ba80b66d9e520758f84a170513d'
     end
 
     VCR.use_cassette('seed_data', :match_requests_on => [:uri, :body]) do
-      Zoho::Api.insert_records('Leads', {
+      leads = []
+
+      leads << {
         'Email'       => 'jubilation.lee@twg.ca',
         'Company'     => '<undefined>',
         'Last Name'   => 'Lee'
-      });
-
-      Zoho::Api.insert_records('Leads', {
+      }
+      leads << {
         'Email'       => 'charles.xavier@twg.ca',
         'Company'     => '<undefined>',
         'Last Name'   => 'Xavier'
-      })
-
-      r1 = Zoho::Api.insert_records('Leads', {
+      }
+      leads << {
         'Email'       => 'jean.grey@twg.ca',
         'Company'     => '<undefined>',
         'Last Name'   => 'Grey'
-      })
-      @update_lead_seed_id = r1['zoho_id']
-
-      r2 = Zoho::Api.insert_records('Leads', {
+      }
+      leads << {
         'Email'       => 'kevin.sydney@twg.ca',
         'Company'     => '<undefined>',
         'Last Name'   => 'Sydney'
-      })
-      @delete_lead_seed_id = r2['zoho_id']    
-
-      r3 = Zoho::Api.insert_records('Leads', {
+      }
+      leads << {
         'Email'       => 'henry.phillip.mccoy@twg.ca',
         'Company'     => '<undefined>',
         'Last Name'   => 'McCoy'
-      })
-      @convert_lead_seed_id = r3['zoho_id']
-
-      r4 = Zoho::Api.insert_records('Leads', {
+      }
+      leads << {
         'Email'       => 'kitty.pryde@twg.ca',
         'Company'     => '<undefined>',
         'Last Name'   => 'Pryde'
-      })
-      @insert_lead_seed_id = r4['zoho_id']      
+      }
+      results = Zoho::Api.insert_records('Leads', leads);
 
-      Zoho::Api.insert_records('Contacts', {
+      @update_lead_seed_id = results[3]
+      @delete_lead_seed_id = results[4]    
+      @convert_lead_seed_id = results[5]
+      @insert_lead_seed_id = results[6]      
+
+      Zoho::Api.insert_record('Contacts', {
         'Email'       => 'ororo.munroe@twg.ca',
         'Company'     => '<undefined>',
         'Last Name'   => 'Munroe',
@@ -99,7 +99,7 @@ describe "basic api tests" do
       VCR.use_cassette('get_record_by_id_valid') do
         response = Zoho::Api.get_record_by_id('Leads', self.class.update_lead_seed_id)
 
-        assert_equal 1, response.count
+        assert_equal Hash, response.class
       end
     end
 
@@ -166,25 +166,27 @@ describe "basic api tests" do
   describe "insert_records" do
     it "inserts records with valid data" do
       VCR.use_cassette('insert_record_valid', :match_requests_on => [:uri, :body]) do
-        response = Zoho::Api.insert_records('Leads', {
+        response = Zoho::Api.insert_record('Leads', {
           'Email'       => 'scott.summers@twg.ca',
           'Company'     => '<undefined>',
           'Last Name'   => 'Summers'
         })
 
-        assert_equal Hash, response.class
-        assert response.has_key?('zoho_id')
+        assert_equal String, response.class
       end
     end
 
     it "raises non unique error on duplicate insert" do
+      # invoke the seed_data generation method
+      self.class.insert_lead_seed_id
+
       error = assert_raises Zoho::ErrorNonUnique do
         VCR.use_cassette('insert_record_duplicate', :match_requests_on => [:uri, :body]) do
-          Zoho::Api.insert_records('Leads', {
-            'Email'       => 'jubilation.lee@twg.ca',
+          response = Zoho::Api.insert_record('Leads', {
+            'Email'       => 'kitty.pryde@twg.ca',
             'Company'     => '<undefined>',
-            'Last Name'   => 'Lee'
-          });
+            'Last Name'   => 'Pryde'
+          })
         end
       end
     end
@@ -192,18 +194,37 @@ describe "basic api tests" do
     it "raises an error with invalid insert data" do
       error = assert_raises Zoho::Error do
         VCR.use_cassette('insert_record_invalid', :match_requests_on => [:uri, :body]) do
-          Zoho::Api.insert_records('Leads', {})
+          Zoho::Api.insert_record('Leads', {})
         end
       end
 
-      assert_equal 4401, error.code
+      assert_equal 4891, error.code
+    end
+
+    it "inserts multiple valid records" do
+      VCR.use_cassette('insert_records_valid') do
+        leads = (1..200).map do |x|
+          {
+            'Email' => Faker::Internet.email,
+            'Company' => Faker::Company.name,
+            'Last Name' => Faker::Name.last_name
+          }
+        end 
+
+        response = Zoho::Api.insert_records('Leads', leads)
+
+        assert_equal 200, response.count
+        assert response.all? do |item|
+          item.class == String
+        end
+      end
     end
   end
 
   describe "update_records" do
-    it "updates records with valid data" do
-      VCR.use_cassette('update_records_valid', :match_requests_on => [:uri, :body]) do
-        result = Zoho::Api.update_records('Leads', self.class.update_lead_seed_id, { 'Email' => 'jean.grey.summers@twg.ca' })
+    it "updates a record with valid data" do
+      VCR.use_cassette('update_record_valid', :match_requests_on => [:uri, :body]) do
+        result = Zoho::Api.update_record('Leads', self.class.update_lead_seed_id, { 'Email' => 'jean.grey.summers@twg.ca' })
         
         assert_equal true, result
       end
@@ -211,19 +232,60 @@ describe "basic api tests" do
 
     it "raises an error with invalid update data" do
       error = assert_raises Zoho::Error do
-        VCR.use_cassette('update_records_invalid', :match_requests_on => [:uri, :body]) do
-          Zoho::Api.update_records('Leads', 'bogus', { 'Email' => 'test@email.com'}) 
+        VCR.use_cassette('update_record_invalid', :match_requests_on => [:uri, :body]) do
+          Zoho::Api.update_record('Leads', 'bogus', { 'Email' => 'test@email.com'}) 
         end
       end
 
-      assert_equal 4600, error.code
+      assert_equal 4500, error.code
+    end
+
+    it "raises an error with invalid update data" do
+      VCR.use_cassette('update_record_invalid_2', :match_requests_on => [:uri, :body]) do
+        leads = []
+
+        leads << { 'ID' => '1418626000000186588', 'Organics Account id_ID' => 'test@email.com' }
+        leads << { 'ID' => self.class.update_lead_seed_id, 'Email' => 'jean.grey.summers@twg.ca' }
+
+        results = Zoho::Api.update_records('Leads', leads)
+
+        assert 2, results.count
+        assert results.all? do |item|
+          item.is_a? Zoho::Error
+        end 
+      end
+    end    
+
+    it "bulk updates records" do
+      VCR.use_cassette('update_records_valid') do
+        leads = (1..200).map do |x|
+          {
+            'Email' => Faker::Internet.email,
+            'Company' => Faker::Company.name,
+            'Last Name' => Faker::Name.last_name
+          }
+        end 
+
+        response = Zoho::Api.insert_records('Leads', leads)
+
+        response.each_pair do |k,v|
+          leads[k.to_i - 1]['Id'] = v
+        end
+
+        response = Zoho::Api.update_records('Leads', leads)
+
+        assert_equal 200, response.count
+        assert response.all? do |r|
+          r == true
+        end
+      end
     end
   end
 
-  describe "delete_records" do
+  describe "delete_record" do
     it "deletes record with valid data" do
-      VCR.use_cassette('delete_records_valid') do
-        response = Zoho::Api.delete_records('Leads', self.class.delete_lead_seed_id)
+      VCR.use_cassette('delete_record_valid') do
+        response = Zoho::Api.delete_record('Leads', self.class.delete_lead_seed_id)
         
         assert_equal true, response
       end
@@ -231,8 +293,8 @@ describe "basic api tests" do
 
     it "raises an error with invalid delete data" do
       error = assert_raises Zoho::Error do
-        VCR.use_cassette('delete_records_invalid') do
-          Zoho::Api.delete_records('Leads', 'bogus123')
+        VCR.use_cassette('delete_record_invalid') do
+          Zoho::Api.delete_record('Leads', 'bogus123')
         end
       end
 
@@ -287,7 +349,7 @@ describe "basic api tests" do
   describe "search_records_sync" do
     it "finds the record immediately" do
       VCR.use_cassette('search_records_sync_immediate') do
-        Zoho::Api.insert_records('Leads', {
+        Zoho::Api.insert_record('Leads', {
           'Email'       => 'robert.drake@twg.ca',
           'Company'     => '<undefined>',
           'Last Name'   => 'Drake'
@@ -303,10 +365,10 @@ describe "basic api tests" do
   describe "get_users" do
     it "retrieves a user by name" do
       VCR.use_cassette('get_users_valid') do
-        users = Zoho::Api.get_users('name', 'blah blah')
+        users = Zoho::Api.get_users('name', 'mister+user')
 
         assert_equal 1, users.count
-        assert_equal 'blah blah', users[0]["content"]
+        assert_equal 'mister+user', users[0]["content"]
       end
     end
 
@@ -378,14 +440,13 @@ describe "basic api tests" do
 
     it "correctly maps FooBar to Last Name on insertion" do
       VCR.use_cassette('map_fields_upload') do
-        response = Zoho::Api.insert_records('Leads', {
+        response = Zoho::Api.insert_record('Leads', {
           'Email'       => 'emma.frost@twg.ca',
           'Company'     => '<undefined>',
           'FooBar'      => 'Frost'
         })
 
-        assert_equal Hash, response.class
-        assert response.has_key?('zoho_id')        
+        assert_equal String, response.class
       end    
     end
 
@@ -396,6 +457,22 @@ describe "basic api tests" do
         assert_equal 1, response.count
         assert_equal 'Xavier', response[0]['FooBar']
       end     
+    end
+  end
+
+  describe "Logging" do
+    it "logs appropriately when the logger is set" do
+      Zoho.configure do |config|
+        s = StringIO.new
+
+        config.logger = Logger.new(s)
+
+        VCR.use_cassette('get_users_valid') do
+          Zoho::Api.get_users('name', 'mister+user')
+        end
+
+        assert s.string.include? 'get_users field=name, value=mister+user, filter_by=all_users'
+      end
     end
   end
 end

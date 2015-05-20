@@ -1,0 +1,57 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://crm.zoho.com/crm/private/xml/Leads/updateRecords
+    body:
+      encoding: US-ASCII
+      string: authtoken=4bc37ba80b66d9e520758f84a170513d&scope=crmapi&newFormat=1&xmlData=%0A%3CLeads%3E%0A++%3Crow+no%3D%221%22%3E%0A++++%3CFL+val%3D%22ID%22%3E1418626000000186588%3C%2FFL%3E%0A++++%3CFL+val%3D%22Organics+Account+id_ID%22%3Etest%40email.com%3C%2FFL%3E%0A++%3C%2Frow%3E%0A++%3Crow+no%3D%222%22%3E%0A++++%3CFL+val%3D%22ID%22%3E1418626000000184467%3C%2FFL%3E%0A++++%3CFL+val%3D%22Email%22%3Ejean.grey.summers%40twg.ca%3C%2FFL%3E%0A++%3C%2Frow%3E%0A%3C%2FLeads%3E%0A&version=4
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - crm.zoho.com
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - ZGS
+      Date:
+      - Wed, 20 May 2015 15:38:38 GMT
+      Content-Type:
+      - text/xml;charset=utf-8
+      Content-Length:
+      - '434'
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - JSESSIONID=21F326C23B70EA59A874521338628CF3; Path=/crm/
+      - crmcsr=3744e739-4845-4cc3-a974-8f323b0ade8d; Path=/; Secure
+      X-Xss-Protection:
+      - '1'
+      Pragma:
+      - no-cache
+      Cache-Control:
+      - no-store, no-cache, must-revalidate
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      X-Frame-Options:
+      - DENY
+      Strict-Transport-Security:
+      - max-age=15768000
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <response uri="/crm/private/xml/Leads/updateRecords"><result><row no="1"><error><code>4425</code><details>Unable to process your request. Please check whether you have given the valid record Id</details></error></row><row no="2"><error><code>4425</code><details>Unable to process your request. Please check whether you have given the valid record Id</details></error></row></result></response>
+    http_version: 
+  recorded_at: Wed, 20 May 2015 15:38:38 GMT
+recorded_with: VCR 2.9.3

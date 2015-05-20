@@ -3,6 +3,8 @@ require 'ox'
 class Zoho::Api
 
   ZOHO_ROOT_URL = 'https://crm.zoho.com/crm/private'
+  ZOHO_MAX_RECORDS_MANIPULATION = 100
+  ZOHO_MAX_RECORDS_RETRIEVE = 200
 
   SEARCH_TYPES = {
     :all_users => 'AllUsers',
@@ -43,7 +45,9 @@ class Zoho::Api
 
       response = json_get_with_validation(module_name, 'getRecordById', params)
 
-      process_query_response module_name, response
+      p = process_query_response module_name, response
+
+      p[0] unless p.nil?
     end
 
     def get_records_by_ids(module_name, id_list, options = {})
@@ -61,7 +65,7 @@ class Zoho::Api
 
       return nil if from_index < 1
       return nil if from_index > to_index
-      return nil if (to_index - from_index) > 200  
+      return nil if (to_index - from_index) > ZOHO_MAX_RECORDS_RETRIEVE  
 
       params = {
         'fromIndex' => from_index,
@@ -77,8 +81,9 @@ class Zoho::Api
     # is a somewhat hidden API method that performs a synchronous search. i.e.
     # data is going to be there if it was recently inserted.
     # Compare and contrast this with the searchRecords method of the API.
+    # NOTE: This API method is deprecated and has a low API usage counter
     def search_records_sync(module_name, search_field, search_operator, search_value, select_columns = 'All', options = {})
-      log "search_records_sync module_name=#{module_name}, search_filter=#{search_filter}, search_operator=#{search_operator}, search_value=#{search_value}, select_columns=#{select_columns}, options=#{options}"
+      log "search_records_sync module_name=#{module_name}, search_field=#{search_field}, search_operator=#{search_operator}, search_value=#{search_value}, select_columns=#{select_columns}, options=#{options}"
 
       serialized_criteria = "(#{map_custom_field_name(module_name, search_field)}|#{search_operator}|#{search_value})"
 
@@ -94,8 +99,8 @@ class Zoho::Api
 
     # searchRecords (https://www.zoho.com/crm/help/api/searchrecords.html)
     # is an API method that performs an async search. i.e. data may not show
-    # up if it was inserted/updated in the last one or two minutes. 
-    # These requests DO NOT count against the API request limit.
+    # up if it was inserted/updated in the last one or two minutes 
+    # (empirically, the actual amount seems to fluctuate quite a bit).
     # Compare and contrast this with the getSearchRecords method of the API.
     def search_records_async(module_name, criteria, options = {})
       log "search_records_async module_name=#{module_name}, criteria=#{criteria}, options=#{options}"
@@ -106,45 +111,132 @@ class Zoho::Api
 
       params = { 'criteria' => serialized_criteria }.merge!(options)
 
-      response = json_get_with_validation(module_name, 'searchRecords', params);
+      response = json_get_with_validation(module_name, 'searchRecords', params)
 
       process_query_response module_name, response
     end
 
-    def insert_records(module_name, attrs, options = {})
-      log "update_records module_name=#{module_name}, attrs=#{attrs}, options=#{options}"
+    def insert_record(module_name, attrs, options = {})
+      results = insert_records(module_name, [attrs], options)
 
-      xml = build_xml(module_name, attrs)
-      params = { 'duplicateCheck' => 1 }.merge!(options)
-
-      result = xml_post(module_name, 'insertRecords', xml, params)
-
-      message = result.locate('response/result/message')
-      if !message.empty? && message[0].text == 'Record(s) already exists'
-        raise Zoho::ErrorNonUnique, "#{message[0].text}" 
+      if results[1].is_a? Zoho::Error
+        raise results[1]
+      else
+        results[1]
       end
-
-      fields = result.locate('response/result/recorddetail/FL')
-      zoho_id = fields.select do |f|
-        f.attributes[:val] == 'Id'
-      end
-
-      { 'zoho_id' => zoho_id[0].text }
     end
 
-    def update_records(module_name, id, attrs, options = {})
-      log "update_records module_name=#{module_name}, id=#{id}, attrs=#{attrs}, options=#{options}"
+    def insert_records(module_name, records, options = {})
+      log "insert_records module_name=#{module_name}, records=#{records}, options=#{options}"
 
-      xml = build_xml(module_name, attrs)
-      params = { 'id' => id.to_s }.merge!(options)
+      params = { 'duplicateCheck' => 1, 'version' => 4 }.merge!(options)
 
-      xml_post(module_name, 'updateRecords', xml, params)
-    
-      true
+      stride = 0
+
+      results = {}
+
+      records.each_slice(ZOHO_MAX_RECORDS_MANIPULATION) do |slice|
+        xml = build_xml(module_name, slice)
+
+        response = xml_post(module_name, 'insertRecords', xml, params)
+
+        rows = response.locate('response/result/row')
+
+        rows.each do |row|
+          row_number = row.attributes[:no].to_i + stride
+
+          code = row.locate('success/code')
+          if !code.empty? && code[0].text == '2002'
+            #2002 comes from the Zoho code for duplicate 
+            # (https://www.zoho.com/crm/help/api/insertrecords.html#Version4)
+            results[row_number] = Zoho::ErrorNonUnique.new
+          else
+            code = row.locate('error/code')
+            message = row.locate('error/details')
+
+            if !code.empty?
+              code = code[0].text.to_i unless code.empty?
+              code ||= -1
+
+              message = message[0].text unless message.empty?
+              message ||= 'An unexpected error happend.'
+
+              log "insert_records encountered Zoho Exception #{code}: #{message}"
+
+              results[row_number] = Zoho::Error.new({ :code => code, :message => message })
+            else
+              fields = row.locate('success/details/FL')
+
+              if !fields.empty?
+                zoho_id = fields.select do |f|
+                  f.attributes[:val] == 'Id'
+                end
+
+                results[row_number] = zoho_id[0].text
+              end
+            end
+          end
+        end
+
+        stride += ZOHO_MAX_RECORDS_MANIPULATION
+      end
+
+      results
     end
 
-    def delete_records(module_name, id, options = {})
-      log "delete_records module_name=#{module_name}, id=#{id}, options=#{options}"
+    def update_record(module_name, id, attrs, options = {})
+      attrs['Id'] = id
+
+      results = update_records(module_name, [attrs], options)
+
+      results[1]
+    end
+
+    def update_records(module_name, records, options = {})
+      log "update_records module_name=#{module_name}, records=#{records}, options=#{options}"
+
+      params = { 'version' => 4 }.merge!(options)
+
+      stride = 0
+
+      results = {}
+
+      records.each_slice(ZOHO_MAX_RECORDS_MANIPULATION) do |slice|
+        xml = build_xml(module_name, slice)
+
+        response = xml_post(module_name, 'updateRecords', xml, params)
+      
+        rows = response.locate('response/result/row')
+
+        rows.each do |row|
+          row_number = row.attributes[:no].to_i + stride
+
+          code = row.locate('success/code')
+          if !code.empty? && code[0].text == '2001'
+            results[row_number] = true
+          else
+            code = row.locate('error/code')
+            code = code[0].text.to_i unless code.empty?
+            code ||= -1
+
+            message = row.locate('error/details')
+            message = message[0].text unless message.empty?
+            message ||= 'An unexpected error happend.'
+
+            log "update_records encountered Zoho Exception #{code}: #{message}"
+
+            results[row_number] = Zoho::Error.new({ :code => code, :message => message })
+          end
+        end
+
+        stride += ZOHO_MAX_RECORDS_MANIPULATION
+      end
+
+      results
+    end
+
+    def delete_record(module_name, id, options = {})
+      log "delete_record module_name=#{module_name}, id=#{id}, options=#{options}"
 
       params = { 'id' => id.to_s }.merge!(options)
 
@@ -256,24 +348,32 @@ class Zoho::Api
       end
 
       def check_for_xml_error(response)
-        return unless !response.locate("response/error").empty?
+        return unless !response.locate('response/error').empty?
 
-        code = response.locate("response/error/code")
+        code = response.locate('response/error/code')
         code = code[0].text.to_i unless code.empty?
         code ||= -1
 
-        message = response.locate("response/error/message")
+        message = response.locate('response/error/message')
         message = message[0].text unless message.empty?
         message ||= 'An unexpected error happend.'
+
+        log "Zoho Exception (#{code}): #{message}."
 
         raise Zoho::Error.new({ :code => code, :message => message })
       end
 
       def check_for_json_error(response)
         return unless response["response"].key? "error"
+
+        code = response["response"]["error"]["code"].to_i
+        message = response["response"]["error"]["message"]
+
+        log "Zoho Exception (#{code}): #{message}"
+
         raise Zoho::Error.new({
-          :code => response["response"]["error"]["code"].to_i,
-          :message => response["response"]["error"]["message"]
+          :code => code,
+          :message => message
         })
       end
 
@@ -304,10 +404,6 @@ class Zoho::Api
       # and returns an XML fragment.
       # So far, the XML Fragment that is returned is a standard format
       # so we can process all of the responses through this method
-      # Additionally, note that any changes to the system are 
-      # asynchronous and can take up to 2 minutes to be available
-      # to queries (empirically, the actual amount seems to fluctuate quite
-      # a bit)
       def xml_post(module_name, api_call, xml_document, options = {})
         url = URI(create_zoho_url('xml', module_name, api_call))
         
@@ -324,22 +420,30 @@ class Zoho::Api
         return response
       end
 
-      def build_xml(module_name, attrs)
+      def build_xml(module_name, records)
         doc = Ox::Document.new()
+
         module_element = Ox::Element.new(map_custom_module_name(module_name))
-        row = Ox::Element.new('row')
-        row[:no] = 1
-        
-        attrs.each_pair do |key, value|
-          element = Ox::Element.new('FL')
-          element[:val] = map_custom_field_name(module_name, key)
-          element << value.to_s
-          row << element
+        doc << module_element
+
+        row_number = 0
+
+        records.each do |attrs|
+          row_number = row_number + 1
+
+          row = Ox::Element.new('row')
+          row[:no] = row_number
+          module_element << row
+          
+          attrs.each_pair do |key, value|
+            element = Ox::Element.new('FL')
+            row << element
+
+            element[:val] = map_custom_field_name(module_name, key)
+            element << value.to_s
+          end
         end
 
-        module_element << row
-        doc << module_element
-        
         Ox::dump(doc)
       end      
   end

@@ -2,10 +2,10 @@
 http_interactions:
 - request:
     method: post
-    uri: https://crm.zoho.com/crm/private/xml/Leads/insertRecords
+    uri: https://crm.zoho.com/crm/private/xml/Leads/updateRecords
     body:
       encoding: US-ASCII
-      string: authtoken=4bc37ba80b66d9e520758f84a170513d&scope=crmapi&newFormat=1&xmlData=%0A%3CLeads%3E%0A++%3Crow+no%3D%221%22%2F%3E%0A%3C%2FLeads%3E%0A&duplicateCheck=1&version=4
+      string: authtoken=4bc37ba80b66d9e520758f84a170513d&scope=crmapi&newFormat=1&xmlData=%0A%3CLeads%3E%0A++%3Crow+no%3D%221%22%3E%0A++++%3CFL+val%3D%22Email%22%3Etest%40email.com%3C%2FFL%3E%0A++++%3CFL+val%3D%22Id%22%3Ebogus%3C%2FFL%3E%0A++%3C%2Frow%3E%0A%3C%2FLeads%3E%0A&version=4
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -25,16 +25,16 @@ http_interactions:
       Server:
       - ZGS
       Date:
-      - Tue, 19 May 2015 18:20:27 GMT
+      - Tue, 19 May 2015 19:05:20 GMT
       Content-Type:
       - text/xml;charset=utf-8
       Content-Length:
-      - '226'
+      - '200'
       Connection:
       - keep-alive
       Set-Cookie:
-      - JSESSIONID=7BA9AB2893BBEE54E1480779B73D21D5; Path=/crm/
-      - crmcsr=c5c9a3e1-6a16-4af5-8bc0-fcbb2fa4e004; Path=/; Secure
+      - JSESSIONID=8CEBE1AAF0AAA69AADAA53B3C29351A0; Path=/crm/
+      - crmcsr=36422c66-e4e2-4727-8fb7-ab4c9f247bbb; Path=/; Secure
       X-Xss-Protection:
       - '1'
       Pragma:
@@ -51,7 +51,7 @@ http_interactions:
       encoding: UTF-8
       string: |
         <?xml version="1.0" encoding="UTF-8" ?>
-        <response uri="/crm/private/xml/Leads/insertRecords"><result><row no="1"><error><code>4891</code><details>Mandatory Field Missing : Last Name</details></error></row></result></response>
+        <response uri="/crm/private/xml/Leads/updateRecords"><error><code>4500</code><message>Problem occured while processing the request</message></error></response>
     http_version: 
-  recorded_at: Tue, 19 May 2015 18:18:33 GMT
+  recorded_at: Tue, 19 May 2015 19:03:28 GMT
 recorded_with: VCR 2.9.3

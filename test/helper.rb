@@ -23,8 +23,8 @@ require 'zoho'
 class Minitest::Test
   def setup
     Zoho.configure do |config|
-      config.api_key = 'ccabd7ff5cb3f1ad9b0bb27a17a20626'
-      config.logger = Logger.new(STDOUT)
+      config.api_key = '4bc37ba80b66d9e520758f84a170513d'
+      # config.logger = Logger.new(STDOUT)
     end
   end
 end

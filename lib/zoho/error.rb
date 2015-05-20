@@ -13,4 +13,5 @@ class Zoho::Error < StandardError
   end
 end
 
-class Zoho::ErrorNonUnique < StandardError; end
+class Zoho::ErrorNonUnique < Zoho::Error
+end

@@ -5,7 +5,7 @@ http_interactions:
     uri: https://crm.zoho.com/crm/private/xml/Leads/insertRecords
     body:
       encoding: US-ASCII
-      string: authtoken=ccabd7ff5cb3f1ad9b0bb27a17a20626&scope=crmapi&newFormat=1&xmlData=%0A%3CLeads%3E%0A++%3Crow+no%3D%221%22%3E%0A++++%3CFL+val%3D%22Email%22%3Ejubilation.lee%40twg.ca%3C%2FFL%3E%0A++++%3CFL+val%3D%22Company%22%3E%26lt%3Bundefined%26gt%3B%3C%2FFL%3E%0A++++%3CFL+val%3D%22Last+Name%22%3ELee%3C%2FFL%3E%0A++%3C%2Frow%3E%0A%3C%2FLeads%3E%0A&duplicateCheck=1
+      string: authtoken=4bc37ba80b66d9e520758f84a170513d&scope=crmapi&newFormat=1&xmlData=%0A%3CLeads%3E%0A++%3Crow+no%3D%221%22%3E%0A++++%3CFL+val%3D%22Email%22%3Ejubilation.lee%40twg.ca%3C%2FFL%3E%0A++++%3CFL+val%3D%22Company%22%3E%26lt%3Bundefined%26gt%3B%3C%2FFL%3E%0A++++%3CFL+val%3D%22Last+Name%22%3ELee%3C%2FFL%3E%0A++%3C%2Frow%3E%0A++%3Crow+no%3D%222%22%3E%0A++++%3CFL+val%3D%22Email%22%3Echarles.xavier%40twg.ca%3C%2FFL%3E%0A++++%3CFL+val%3D%22Company%22%3E%26lt%3Bundefined%26gt%3B%3C%2FFL%3E%0A++++%3CFL+val%3D%22Last+Name%22%3EXavier%3C%2FFL%3E%0A++%3C%2Frow%3E%0A++%3Crow+no%3D%223%22%3E%0A++++%3CFL+val%3D%22Email%22%3Ejean.grey%40twg.ca%3C%2FFL%3E%0A++++%3CFL+val%3D%22Company%22%3E%26lt%3Bundefined%26gt%3B%3C%2FFL%3E%0A++++%3CFL+val%3D%22Last+Name%22%3EGrey%3C%2FFL%3E%0A++%3C%2Frow%3E%0A++%3Crow+no%3D%224%22%3E%0A++++%3CFL+val%3D%22Email%22%3Ekevin.sydney%40twg.ca%3C%2FFL%3E%0A++++%3CFL+val%3D%22Company%22%3E%26lt%3Bundefined%26gt%3B%3C%2FFL%3E%0A++++%3CFL+val%3D%22Last+Name%22%3ESydney%3C%2FFL%3E%0A++%3C%2Frow%3E%0A++%3Crow+no%3D%225%22%3E%0A++++%3CFL+val%3D%22Email%22%3Ehenry.phillip.mccoy%40twg.ca%3C%2FFL%3E%0A++++%3CFL+val%3D%22Company%22%3E%26lt%3Bundefined%26gt%3B%3C%2FFL%3E%0A++++%3CFL+val%3D%22Last+Name%22%3EMcCoy%3C%2FFL%3E%0A++%3C%2Frow%3E%0A++%3Crow+no%3D%226%22%3E%0A++++%3CFL+val%3D%22Email%22%3Ekitty.pryde%40twg.ca%3C%2FFL%3E%0A++++%3CFL+val%3D%22Company%22%3E%26lt%3Bundefined%26gt%3B%3C%2FFL%3E%0A++++%3CFL+val%3D%22Last+Name%22%3EPryde%3C%2FFL%3E%0A++%3C%2Frow%3E%0A%3C%2FLeads%3E%0A&duplicateCheck=1&version=4
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -25,16 +25,16 @@ http_interactions:
       Server:
       - ZGS
       Date:
-      - Wed, 06 May 2015 15:07:32 GMT
+      - Tue, 19 May 2015 18:20:22 GMT
       Content-Type:
       - text/xml;charset=utf-8
-      Content-Length:
-      - '447'
+      Transfer-Encoding:
+      - chunked
       Connection:
       - keep-alive
       Set-Cookie:
-      - JSESSIONID=523EF4492729B8B0B5964BB3B1115EDA; Path=/crm/
-      - crmcsr=9e55f27a-801c-4502-9b4d-7fc026caf644; Path=/; Secure
+      - JSESSIONID=F05EAECC793B7981F99D6E5328666F66; Path=/crm/
+      - crmcsr=d0e7a458-5278-41c3-b51c-3e5ac6e1c92d; Path=/; Secure
       X-Xss-Protection:
       - '1'
       Pragma:
@@ -45,291 +45,23 @@ http_interactions:
       - Thu, 01 Jan 1970 00:00:00 GMT
       X-Frame-Options:
       - DENY
+      Vary:
+      - Accept-Encoding
       Strict-Transport-Security:
       - max-age=15768000
     body:
       encoding: UTF-8
       string: |
         <?xml version="1.0" encoding="UTF-8" ?>
-        <response uri="/crm/private/xml/Leads/insertRecords"><result><message>Record(s) added successfully</message><recorddetail><FL val="Id">1418626000000147023</FL><FL val="Created Time">2015-05-06 11:07:32</FL><FL val="Modified Time">2015-05-06 11:07:32</FL><FL val="Created By"><![CDATA[jonathan+zohosandbox]]></FL><FL val="Modified By"><![CDATA[jonathan+zohosandbox]]></FL></recorddetail></result></response>
+        <response uri="/crm/private/xml/Leads/insertRecords"><result><row no="1"><success><code>2000</code><details><FL val="Id">1418626000000184465</FL><FL val="Created Time">2015-05-19 14:20:22</FL><FL val="Modified Time">2015-05-19 14:20:22</FL><FL val="Created By"><![CDATA[jonathan+zohosandbox]]></FL><FL val="Modified By"><![CDATA[jonathan+zohosandbox]]></FL></details></success></row><row no="2"><success><code>2000</code><details><FL val="Id">1418626000000184466</FL><FL val="Created Time">2015-05-19 14:20:22</FL><FL val="Modified Time">2015-05-19 14:20:22</FL><FL val="Created By"><![CDATA[jonathan+zohosandbox]]></FL><FL val="Modified By"><![CDATA[jonathan+zohosandbox]]></FL></details></success></row><row no="3"><success><code>2000</code><details><FL val="Id">1418626000000184467</FL><FL val="Created Time">2015-05-19 14:20:22</FL><FL val="Modified Time">2015-05-19 14:20:22</FL><FL val="Created By"><![CDATA[jonathan+zohosandbox]]></FL><FL val="Modified By"><![CDATA[jonathan+zohosandbox]]></FL></details></success></row><row no="4"><success><code>2000</code><details><FL val="Id">1418626000000184468</FL><FL val="Created Time">2015-05-19 14:20:22</FL><FL val="Modified Time">2015-05-19 14:20:22</FL><FL val="Created By"><![CDATA[jonathan+zohosandbox]]></FL><FL val="Modified By"><![CDATA[jonathan+zohosandbox]]></FL></details></success></row><row no="5"><success><code>2000</code><details><FL val="Id">1418626000000184469</FL><FL val="Created Time">2015-05-19 14:20:22</FL><FL val="Modified Time">2015-05-19 14:20:22</FL><FL val="Created By"><![CDATA[jonathan+zohosandbox]]></FL><FL val="Modified By"><![CDATA[jonathan+zohosandbox]]></FL></details></success></row><row no="6"><success><code>2000</code><details><FL val="Id">1418626000000184470</FL><FL val="Created Time">2015-05-19 14:20:22</FL><FL val="Modified Time">2015-05-19 14:20:22</FL><FL val="Created By"><![CDATA[jonathan+zohosandbox]]></FL><FL val="Modified By"><![CDATA[jonathan+zohosandbox]]></FL></details></success></row></result></response>
     http_version: 
-  recorded_at: Wed, 06 May 2015 15:07:33 GMT
-- request:
-    method: post
-    uri: https://crm.zoho.com/crm/private/xml/Leads/insertRecords
-    body:
-      encoding: US-ASCII
-      string: authtoken=ccabd7ff5cb3f1ad9b0bb27a17a20626&scope=crmapi&newFormat=1&xmlData=%0A%3CLeads%3E%0A++%3Crow+no%3D%221%22%3E%0A++++%3CFL+val%3D%22Email%22%3Echarles.xavier%40twg.ca%3C%2FFL%3E%0A++++%3CFL+val%3D%22Company%22%3E%26lt%3Bundefined%26gt%3B%3C%2FFL%3E%0A++++%3CFL+val%3D%22Last+Name%22%3EXavier%3C%2FFL%3E%0A++%3C%2Frow%3E%0A%3C%2FLeads%3E%0A&duplicateCheck=1
-    headers:
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-      User-Agent:
-      - Ruby
-      Host:
-      - crm.zoho.com
-      Content-Type:
-      - application/x-www-form-urlencoded
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Server:
-      - ZGS
-      Date:
-      - Wed, 06 May 2015 15:07:32 GMT
-      Content-Type:
-      - text/xml;charset=utf-8
-      Content-Length:
-      - '447'
-      Connection:
-      - keep-alive
-      Set-Cookie:
-      - JSESSIONID=E59899B5057169F5DBC16D1FCE6258A0; Path=/crm/
-      - crmcsr=589d4832-32c4-434a-9241-6b0767d46315; Path=/; Secure
-      X-Xss-Protection:
-      - '1'
-      Pragma:
-      - no-cache
-      Cache-Control:
-      - no-store, no-cache, must-revalidate
-      Expires:
-      - Thu, 01 Jan 1970 00:00:00 GMT
-      X-Frame-Options:
-      - DENY
-      Strict-Transport-Security:
-      - max-age=15768000
-    body:
-      encoding: UTF-8
-      string: |
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <response uri="/crm/private/xml/Leads/insertRecords"><result><message>Record(s) added successfully</message><recorddetail><FL val="Id">1418626000000147025</FL><FL val="Created Time">2015-05-06 11:07:32</FL><FL val="Modified Time">2015-05-06 11:07:32</FL><FL val="Created By"><![CDATA[jonathan+zohosandbox]]></FL><FL val="Modified By"><![CDATA[jonathan+zohosandbox]]></FL></recorddetail></result></response>
-    http_version: 
-  recorded_at: Wed, 06 May 2015 15:07:34 GMT
-- request:
-    method: post
-    uri: https://crm.zoho.com/crm/private/xml/Leads/insertRecords
-    body:
-      encoding: US-ASCII
-      string: authtoken=ccabd7ff5cb3f1ad9b0bb27a17a20626&scope=crmapi&newFormat=1&xmlData=%0A%3CLeads%3E%0A++%3Crow+no%3D%221%22%3E%0A++++%3CFL+val%3D%22Email%22%3Ejean.grey%40twg.ca%3C%2FFL%3E%0A++++%3CFL+val%3D%22Company%22%3E%26lt%3Bundefined%26gt%3B%3C%2FFL%3E%0A++++%3CFL+val%3D%22Last+Name%22%3EGrey%3C%2FFL%3E%0A++%3C%2Frow%3E%0A%3C%2FLeads%3E%0A&duplicateCheck=1
-    headers:
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-      User-Agent:
-      - Ruby
-      Host:
-      - crm.zoho.com
-      Content-Type:
-      - application/x-www-form-urlencoded
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Server:
-      - ZGS
-      Date:
-      - Wed, 06 May 2015 15:07:33 GMT
-      Content-Type:
-      - text/xml;charset=utf-8
-      Content-Length:
-      - '447'
-      Connection:
-      - keep-alive
-      Set-Cookie:
-      - JSESSIONID=0610A5C07AD62EDF0C9D99D4AD0BD362; Path=/crm/
-      - crmcsr=1f6dd186-a2d1-4f1e-8725-3875d6da84b7; Path=/; Secure
-      X-Xss-Protection:
-      - '1'
-      Pragma:
-      - no-cache
-      Cache-Control:
-      - no-store, no-cache, must-revalidate
-      Expires:
-      - Thu, 01 Jan 1970 00:00:00 GMT
-      X-Frame-Options:
-      - DENY
-      Strict-Transport-Security:
-      - max-age=15768000
-    body:
-      encoding: UTF-8
-      string: |
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <response uri="/crm/private/xml/Leads/insertRecords"><result><message>Record(s) added successfully</message><recorddetail><FL val="Id">1418626000000147027</FL><FL val="Created Time">2015-05-06 11:07:33</FL><FL val="Modified Time">2015-05-06 11:07:33</FL><FL val="Created By"><![CDATA[jonathan+zohosandbox]]></FL><FL val="Modified By"><![CDATA[jonathan+zohosandbox]]></FL></recorddetail></result></response>
-    http_version: 
-  recorded_at: Wed, 06 May 2015 15:07:34 GMT
-- request:
-    method: post
-    uri: https://crm.zoho.com/crm/private/xml/Leads/insertRecords
-    body:
-      encoding: US-ASCII
-      string: authtoken=ccabd7ff5cb3f1ad9b0bb27a17a20626&scope=crmapi&newFormat=1&xmlData=%0A%3CLeads%3E%0A++%3Crow+no%3D%221%22%3E%0A++++%3CFL+val%3D%22Email%22%3Ekevin.sydney%40twg.ca%3C%2FFL%3E%0A++++%3CFL+val%3D%22Company%22%3E%26lt%3Bundefined%26gt%3B%3C%2FFL%3E%0A++++%3CFL+val%3D%22Last+Name%22%3ESydney%3C%2FFL%3E%0A++%3C%2Frow%3E%0A%3C%2FLeads%3E%0A&duplicateCheck=1
-    headers:
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-      User-Agent:
-      - Ruby
-      Host:
-      - crm.zoho.com
-      Content-Type:
-      - application/x-www-form-urlencoded
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Server:
-      - ZGS
-      Date:
-      - Wed, 06 May 2015 15:07:34 GMT
-      Content-Type:
-      - text/xml;charset=utf-8
-      Content-Length:
-      - '447'
-      Connection:
-      - keep-alive
-      Set-Cookie:
-      - JSESSIONID=5F95FA9ED404177D7198378B57E9133A; Path=/crm/
-      - crmcsr=3dbb3599-fea0-4da4-8dec-4219b25cfd65; Path=/; Secure
-      X-Xss-Protection:
-      - '1'
-      Pragma:
-      - no-cache
-      Cache-Control:
-      - no-store, no-cache, must-revalidate
-      Expires:
-      - Thu, 01 Jan 1970 00:00:00 GMT
-      X-Frame-Options:
-      - DENY
-      Strict-Transport-Security:
-      - max-age=15768000
-    body:
-      encoding: UTF-8
-      string: |
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <response uri="/crm/private/xml/Leads/insertRecords"><result><message>Record(s) added successfully</message><recorddetail><FL val="Id">1418626000000147029</FL><FL val="Created Time">2015-05-06 11:07:34</FL><FL val="Modified Time">2015-05-06 11:07:34</FL><FL val="Created By"><![CDATA[jonathan+zohosandbox]]></FL><FL val="Modified By"><![CDATA[jonathan+zohosandbox]]></FL></recorddetail></result></response>
-    http_version: 
-  recorded_at: Wed, 06 May 2015 15:07:35 GMT
-- request:
-    method: post
-    uri: https://crm.zoho.com/crm/private/xml/Leads/insertRecords
-    body:
-      encoding: US-ASCII
-      string: authtoken=ccabd7ff5cb3f1ad9b0bb27a17a20626&scope=crmapi&newFormat=1&xmlData=%0A%3CLeads%3E%0A++%3Crow+no%3D%221%22%3E%0A++++%3CFL+val%3D%22Email%22%3Ehenry.phillip.mccoy%40twg.ca%3C%2FFL%3E%0A++++%3CFL+val%3D%22Company%22%3E%26lt%3Bundefined%26gt%3B%3C%2FFL%3E%0A++++%3CFL+val%3D%22Last+Name%22%3EMcCoy%3C%2FFL%3E%0A++%3C%2Frow%3E%0A%3C%2FLeads%3E%0A&duplicateCheck=1
-    headers:
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-      User-Agent:
-      - Ruby
-      Host:
-      - crm.zoho.com
-      Content-Type:
-      - application/x-www-form-urlencoded
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Server:
-      - ZGS
-      Date:
-      - Wed, 06 May 2015 15:07:34 GMT
-      Content-Type:
-      - text/xml;charset=utf-8
-      Content-Length:
-      - '447'
-      Connection:
-      - keep-alive
-      Set-Cookie:
-      - JSESSIONID=D6A85C99B435CA7EA78B596682A807DF; Path=/crm/
-      - crmcsr=463f86d2-86e8-49f7-bdfa-71b570f03c33; Path=/; Secure
-      X-Xss-Protection:
-      - '1'
-      Pragma:
-      - no-cache
-      Cache-Control:
-      - no-store, no-cache, must-revalidate
-      Expires:
-      - Thu, 01 Jan 1970 00:00:00 GMT
-      X-Frame-Options:
-      - DENY
-      Strict-Transport-Security:
-      - max-age=15768000
-    body:
-      encoding: UTF-8
-      string: |
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <response uri="/crm/private/xml/Leads/insertRecords"><result><message>Record(s) added successfully</message><recorddetail><FL val="Id">1418626000000147031</FL><FL val="Created Time">2015-05-06 11:07:34</FL><FL val="Modified Time">2015-05-06 11:07:34</FL><FL val="Created By"><![CDATA[jonathan+zohosandbox]]></FL><FL val="Modified By"><![CDATA[jonathan+zohosandbox]]></FL></recorddetail></result></response>
-    http_version: 
-  recorded_at: Wed, 06 May 2015 15:07:36 GMT
-- request:
-    method: post
-    uri: https://crm.zoho.com/crm/private/xml/Leads/insertRecords
-    body:
-      encoding: US-ASCII
-      string: authtoken=ccabd7ff5cb3f1ad9b0bb27a17a20626&scope=crmapi&newFormat=1&xmlData=%0A%3CLeads%3E%0A++%3Crow+no%3D%221%22%3E%0A++++%3CFL+val%3D%22Email%22%3Ekitty.pryde%40twg.ca%3C%2FFL%3E%0A++++%3CFL+val%3D%22Company%22%3E%26lt%3Bundefined%26gt%3B%3C%2FFL%3E%0A++++%3CFL+val%3D%22Last+Name%22%3EPryde%3C%2FFL%3E%0A++%3C%2Frow%3E%0A%3C%2FLeads%3E%0A&duplicateCheck=1
-    headers:
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-      User-Agent:
-      - Ruby
-      Host:
-      - crm.zoho.com
-      Content-Type:
-      - application/x-www-form-urlencoded
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Server:
-      - ZGS
-      Date:
-      - Wed, 06 May 2015 15:07:35 GMT
-      Content-Type:
-      - text/xml;charset=utf-8
-      Content-Length:
-      - '447'
-      Connection:
-      - keep-alive
-      Set-Cookie:
-      - JSESSIONID=7FDFD2EBC50DE8D8AF406A3312F4ED7B; Path=/crm/
-      - crmcsr=bc8dd485-520a-4570-9a57-6e212a83abdb; Path=/; Secure
-      X-Xss-Protection:
-      - '1'
-      Pragma:
-      - no-cache
-      Cache-Control:
-      - no-store, no-cache, must-revalidate
-      Expires:
-      - Thu, 01 Jan 1970 00:00:00 GMT
-      X-Frame-Options:
-      - DENY
-      Strict-Transport-Security:
-      - max-age=15768000
-    body:
-      encoding: UTF-8
-      string: |
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <response uri="/crm/private/xml/Leads/insertRecords"><result><message>Record(s) added successfully</message><recorddetail><FL val="Id">1418626000000147033</FL><FL val="Created Time">2015-05-06 11:07:35</FL><FL val="Modified Time">2015-05-06 11:07:35</FL><FL val="Created By"><![CDATA[jonathan+zohosandbox]]></FL><FL val="Modified By"><![CDATA[jonathan+zohosandbox]]></FL></recorddetail></result></response>
-    http_version: 
-  recorded_at: Wed, 06 May 2015 15:07:36 GMT
+  recorded_at: Tue, 19 May 2015 18:18:29 GMT
 - request:
     method: post
     uri: https://crm.zoho.com/crm/private/xml/Contacts/insertRecords
     body:
       encoding: US-ASCII
-      string: authtoken=ccabd7ff5cb3f1ad9b0bb27a17a20626&scope=crmapi&newFormat=1&xmlData=%0A%3CContacts%3E%0A++%3Crow+no%3D%221%22%3E%0A++++%3CFL+val%3D%22Email%22%3Eororo.munroe%40twg.ca%3C%2FFL%3E%0A++++%3CFL+val%3D%22Company%22%3E%26lt%3Bundefined%26gt%3B%3C%2FFL%3E%0A++++%3CFL+val%3D%22Last+Name%22%3EMunroe%3C%2FFL%3E%0A++++%3CFL+val%3D%22First+Name%22%3EOroro%3C%2FFL%3E%0A++%3C%2Frow%3E%0A%3C%2FContacts%3E%0A&duplicateCheck=1
+      string: authtoken=4bc37ba80b66d9e520758f84a170513d&scope=crmapi&newFormat=1&xmlData=%0A%3CContacts%3E%0A++%3Crow+no%3D%221%22%3E%0A++++%3CFL+val%3D%22Email%22%3Eororo.munroe%40twg.ca%3C%2FFL%3E%0A++++%3CFL+val%3D%22Company%22%3E%26lt%3Bundefined%26gt%3B%3C%2FFL%3E%0A++++%3CFL+val%3D%22Last+Name%22%3EMunroe%3C%2FFL%3E%0A++++%3CFL+val%3D%22First+Name%22%3EOroro%3C%2FFL%3E%0A++%3C%2Frow%3E%0A%3C%2FContacts%3E%0A&duplicateCheck=1&version=4
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -349,16 +81,16 @@ http_interactions:
       Server:
       - ZGS
       Date:
-      - Wed, 06 May 2015 15:07:36 GMT
+      - Tue, 19 May 2015 18:20:24 GMT
       Content-Type:
       - text/xml;charset=utf-8
       Content-Length:
-      - '450'
+      - '447'
       Connection:
       - keep-alive
       Set-Cookie:
-      - JSESSIONID=5C1C90E56F5598F12EBEC32C89505C1F; Path=/crm/
-      - crmcsr=ff1f1cfd-e2fd-498e-afd9-0545a97f29de; Path=/; Secure
+      - JSESSIONID=16EC47DE39176B44ACCCED3B087DE267; Path=/crm/
+      - crmcsr=ec355f23-7174-44aa-ada8-4f29f26482e7; Path=/; Secure
       X-Xss-Protection:
       - '1'
       Pragma:
@@ -375,7 +107,7 @@ http_interactions:
       encoding: UTF-8
       string: |
         <?xml version="1.0" encoding="UTF-8" ?>
-        <response uri="/crm/private/xml/Contacts/insertRecords"><result><message>Record(s) added successfully</message><recorddetail><FL val="Id">1418626000000147035</FL><FL val="Created Time">2015-05-06 11:07:36</FL><FL val="Modified Time">2015-05-06 11:07:36</FL><FL val="Created By"><![CDATA[jonathan+zohosandbox]]></FL><FL val="Modified By"><![CDATA[jonathan+zohosandbox]]></FL></recorddetail></result></response>
+        <response uri="/crm/private/xml/Contacts/insertRecords"><result><row no="1"><success><code>2000</code><details><FL val="Id">1418626000000184477</FL><FL val="Created Time">2015-05-19 14:20:24</FL><FL val="Modified Time">2015-05-19 14:20:24</FL><FL val="Created By"><![CDATA[jonathan+zohosandbox]]></FL><FL val="Modified By"><![CDATA[jonathan+zohosandbox]]></FL></details></success></row></result></response>
     http_version: 
-  recorded_at: Wed, 06 May 2015 15:07:37 GMT
+  recorded_at: Tue, 19 May 2015 18:18:31 GMT
 recorded_with: VCR 2.9.3

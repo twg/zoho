@@ -1,0 +1,57 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://crm.zoho.com/crm/private/xml/Leads/updateRecords
+    body:
+      encoding: US-ASCII
+      string: authtoken=4bc37ba80b66d9e520758f84a170513d&scope=crmapi&newFormat=1&xmlData=%0A%3CLeads%3E%0A++%3Crow+no%3D%221%22%3E%0A++++%3CFL+val%3D%22Email%22%3Ejean.grey.summers%40twg.ca%3C%2FFL%3E%0A++++%3CFL+val%3D%22Id%22%3E1418626000000184467%3C%2FFL%3E%0A++%3C%2Frow%3E%0A%3C%2FLeads%3E%0A&version=4
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - crm.zoho.com
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - ZGS
+      Date:
+      - Tue, 19 May 2015 19:05:21 GMT
+      Content-Type:
+      - text/xml;charset=utf-8
+      Content-Length:
+      - '444'
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - JSESSIONID=EB5601A934BF366C174E65EDDE93D321; Path=/crm/
+      - crmcsr=467c4687-e54b-4d8b-85bd-200b9acad8bc; Path=/; Secure
+      X-Xss-Protection:
+      - '1'
+      Pragma:
+      - no-cache
+      Cache-Control:
+      - no-store, no-cache, must-revalidate
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      X-Frame-Options:
+      - DENY
+      Strict-Transport-Security:
+      - max-age=15768000
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <response uri="/crm/private/xml/Leads/updateRecords"><result><row no="1"><success><code>2001</code><details><FL val="Id">1418626000000184467</FL><FL val="Created Time">2015-05-19 14:20:22</FL><FL val="Modified Time">2015-05-19 15:05:21</FL><FL val="Created By"><![CDATA[jonathan+zohosandbox]]></FL><FL val="Modified By"><![CDATA[jonathan+zohosandbox]]></FL></details></success></row></result></response>
+    http_version: 
+  recorded_at: Tue, 19 May 2015 19:03:29 GMT
+recorded_with: VCR 2.9.3

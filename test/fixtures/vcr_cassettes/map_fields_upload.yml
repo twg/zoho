@@ -5,7 +5,7 @@ http_interactions:
     uri: https://crm.zoho.com/crm/private/xml/Leads/insertRecords
     body:
       encoding: US-ASCII
-      string: authtoken=4bc37ba80b66d9e520758f84a170513d&scope=crmapi&newFormat=1&xmlData=%0A%3CLeads%3E%0A++%3Crow+no%3D%221%22%3E%0A++++%3CFL+val%3D%22Email%22%3Eemma.frost%40twg.ca%3C%2FFL%3E%0A++++%3CFL+val%3D%22Company%22%3E%26lt%3Bundefined%26gt%3B%3C%2FFL%3E%0A++++%3CFL+val%3D%22Last+Name%22%3EFrost%3C%2FFL%3E%0A++%3C%2Frow%3E%0A%3C%2FLeads%3E%0A&duplicateCheck=1&version=4
+      string: authtoken=4bc37ba80b66d9e520758f84a170513d&scope=crmapi&newFormat=1&wfTrigger=true&xmlData=%0A%3CLeads%3E%0A++%3Crow+no%3D%221%22%3E%0A++++%3CFL+val%3D%22Email%22%3Eemma.frost%40twg.ca%3C%2FFL%3E%0A++++%3CFL+val%3D%22Company%22%3E%26lt%3Bundefined%26gt%3B%3C%2FFL%3E%0A++++%3CFL+val%3D%22Last+Name%22%3EFrost%3C%2FFL%3E%0A++%3C%2Frow%3E%0A%3C%2FLeads%3E%0A&duplicateCheck=1&version=4
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -52,6 +52,6 @@ http_interactions:
       string: |
         <?xml version="1.0" encoding="UTF-8" ?>
         <response uri="/crm/private/xml/Leads/insertRecords"><result><row no="1"><success><code>2000</code><details><FL val="Id">1418626000000184881</FL><FL val="Created Time">2015-05-19 14:28:52</FL><FL val="Modified Time">2015-05-19 14:28:52</FL><FL val="Created By"><![CDATA[jonathan+zohosandbox]]></FL><FL val="Modified By"><![CDATA[jonathan+zohosandbox]]></FL></details></success></row></result></response>
-    http_version: 
+    http_version:
   recorded_at: Tue, 19 May 2015 18:26:59 GMT
 recorded_with: VCR 2.9.3

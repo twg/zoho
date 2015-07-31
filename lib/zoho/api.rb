@@ -24,7 +24,7 @@ class Zoho::Api
     # field = The Zoho Field to search over.
     # value = The value to search for.
     # filter_by = The subset of users to search over
-    #   the full list and their description is available here: https://www.zoho.com/crm/help/api/getusers.html  
+    #   the full list and their description is available here: https://www.zoho.com/crm/help/api/getusers.html
     # e.g. get_users('email', 'phil.coulson@twg.ca', :active_users)
     def get_users(field = nil, value = nil, filter_by = :all_users)
       log "get_users field=#{field}, value=#{value}, filter_by=#{filter_by}"
@@ -65,7 +65,7 @@ class Zoho::Api
 
       return nil if from_index < 1
       return nil if from_index > to_index
-      return nil if (to_index - from_index) > ZOHO_MAX_RECORDS_RETRIEVE  
+      return nil if (to_index - from_index) > ZOHO_MAX_RECORDS_RETRIEVE
 
       params = {
         'fromIndex' => from_index,
@@ -99,7 +99,7 @@ class Zoho::Api
 
     # searchRecords (https://www.zoho.com/crm/help/api/searchrecords.html)
     # is an API method that performs an async search. i.e. data may not show
-    # up if it was inserted/updated in the last one or two minutes 
+    # up if it was inserted/updated in the last one or two minutes
     # (empirically, the actual amount seems to fluctuate quite a bit).
     # Compare and contrast this with the getSearchRecords method of the API.
     def search_records_async(module_name, criteria, options = {})
@@ -147,7 +147,7 @@ class Zoho::Api
 
           code = row.locate('success/code')
           if !code.empty? && code[0].text == '2002'
-            #2002 comes from the Zoho code for duplicate 
+            #2002 comes from the Zoho code for duplicate
             # (https://www.zoho.com/crm/help/api/insertrecords.html#Version4)
             results[row_number] = Zoho::ErrorNonUnique.new
           else
@@ -205,7 +205,7 @@ class Zoho::Api
         xml = build_xml(module_name, slice)
 
         response = xml_post(module_name, 'updateRecords', xml, params)
-      
+
         rows = response.locate('response/result/row')
 
         rows.each do |row|
@@ -249,14 +249,14 @@ class Zoho::Api
       log "convert_lead lead_id=#{lead_id}, options=#{options}"
 
       doc = Ox::Document.new()
-      
+
       module_element = Ox::Element.new('Potentials')
       doc << module_element
 
       row = Ox::Element.new('row')
       row[:no] = 1
       module_element << row
-      
+
       element = Ox::Element.new('option')
       element[:val] = 'createPotential'
       element << 'false'
@@ -273,9 +273,9 @@ class Zoho::Api
       if response.key? "success"
         # See https://www.zoho.com/crm/help/leads/convert-leads.html
         # for some good documentation on what happens when you convert a lead
-        { 
+        {
           'zoho_contact_id' => response["success"]["Contact"]["content"],
-          'zoho_account_id' => response["success"]["Account"]["content"] 
+          'zoho_account_id' => response["success"]["Account"]["content"]
         }
       else
         check_for_json_error response
@@ -283,7 +283,7 @@ class Zoho::Api
     end
 
     private
-      def required_api_parameters 
+      def required_api_parameters
         {
           'authtoken' => Zoho.configuration.api_key,
           'scope' => 'crmapi'
@@ -312,7 +312,7 @@ class Zoho::Api
       # array if it has more than one. So based on the number of records returned
       # or the columns that have been requested to be returned, the structure
       # of the results is different. The code below will normalize the structure
-      # to arrays either way 
+      # to arrays either way
       def normalize_hash_array(record)
         if record.kind_of? Hash
           [record]
@@ -334,14 +334,14 @@ class Zoho::Api
 
             fields.each do |attr|
               normalized_structure[unmap_custom_field_name(module_name, attr["val"])] = attr["content"]
-            end 
+            end
 
             normalized_structure
           end
         elsif response.key?("nodata") && response["nodata"]["code"].to_i == Zoho::Error::ERROR_CODE_NO_MATCHING_RECORD
           nil
         end
-      end      
+      end
 
       def create_zoho_url(format, module_name, api_call)
         "#{ZOHO_ROOT_URL}/#{format}/#{map_custom_module_name(module_name)}/#{api_call}"
@@ -387,7 +387,7 @@ class Zoho::Api
 
       # in the Zoho API, all methods that query Zoho go through
       # a HTTP GET request that returns JSON data.
-      # the JSON fragment that is returned is in a different structure 
+      # the JSON fragment that is returned is in a different structure
       # for each API call
       def json_get(module_name, api_call, options = {})
         url = URI(create_zoho_url('json', module_name, api_call))
@@ -406,12 +406,13 @@ class Zoho::Api
       # so we can process all of the responses through this method
       def xml_post(module_name, api_call, xml_document, options = {})
         url = URI(create_zoho_url('xml', module_name, api_call))
-        
+
         params = required_api_parameters.merge({
           'newFormat' => '1',
+          'wfTrigger' => true,
           'xmlData'   => xml_document
         }).merge!(options)
-        
+
         http_response = Net::HTTP.post_form(url, params)
         response = Ox.parse(http_response.body)
 
@@ -434,7 +435,7 @@ class Zoho::Api
           row = Ox::Element.new('row')
           row[:no] = row_number
           module_element << row
-          
+
           attrs.each_pair do |key, value|
             element = Ox::Element.new('FL')
             row << element
@@ -445,6 +446,6 @@ class Zoho::Api
         end
 
         Ox::dump(doc)
-      end      
+      end
   end
 end
